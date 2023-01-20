@@ -4,7 +4,7 @@ export function Footer() {
             <address>
                 <ul>
                     <li>
-                        <a href="http://www.instagram.com/_marinalabella">
+                        <a href="https://www.instagram.com/_marinalabella">
                             <img src="" alt="instagram" />
                         </a>
                     </li>
