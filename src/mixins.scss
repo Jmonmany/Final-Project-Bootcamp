@@ -1,0 +1,23 @@
+@import 'variables';
+@mixin btnTheme() {
+    color: black;
+    background-color: $color-orange;
+    text-decoration: none;
+    border-radius: 1rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    margin: 0.5rem;
+}
+
+@mixin btnHover() {
+    color: $color-lazy-white;
+    border: 1px solid black;
+}
+@mixin unstyledList() {
+    list-style: none;
+}
+@mixin menuLinkHover() {
+    background-color: $color-dark-blue;
+    border-radius: 0.6rem;
+    color: $color-lazy-white;
+}
