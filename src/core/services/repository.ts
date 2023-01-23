@@ -5,7 +5,7 @@ const invalidIdError = new Error('Invalid ID');
 
 export class ArtworksRepo implements Repository<ArtworksClass> {
     constructor(
-        private url = 'https://apiserver-yfwk.onrender.com/characters/'
+        private url = 'https://marina-labella-web-default-rtdb.europe-west1.firebasedatabase.app/'
     ) {}
 
     async load(): Promise<ArtworksClass[]> {

@@ -1,0 +1,10 @@
+@import '../../../variables.scss';
+@import '../../../mixins.scss';
+
+.address-list {
+    @include unstyledList();
+    img {
+        height: 2rem;
+        margin: 0.25rem;
+    }
+}

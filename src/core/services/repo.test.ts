@@ -1,4 +1,4 @@
-import { ARTWORK, ARTWORK2 } from 'features/data/artmock';
+import { ARTWORK, ARTWORK2 } from '../../features/data/artmock';
 import { ArtworksClass } from '../../features/models/artwork.model';
 import { ArtworksRepo } from './repository';
 describe('Given a Robot Repo', () => {

@@ -3,7 +3,7 @@ import { ArtworksRepo } from '../core/services/repository';
 import { artworksReducer } from '../reducer/reducer';
 import * as ac from '../reducer/action.creator';
 import { consoleDebug } from '../tools/debug';
-import { ArtworksClass } from 'features/models/artwork.model';
+import { ArtworksClass } from '../features/models/artwork.model';
 
 export type useArtworksType = {
     getStatus: () => Status;
