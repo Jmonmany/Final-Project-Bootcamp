@@ -1,0 +1,17 @@
+@import '../../../variables.scss';
+@import '../../../mixins.scss';
+
+nav {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    a {
+        @include linkDeco();
+    }
+    .page-list {
+        @include unstyledList();
+        li {
+            margin: 1rem;
+        }
+    }
+}

@@ -7,7 +7,7 @@ import { ArtworksClass } from '../features/models/artwork.model';
 import { artworksAction } from './action.creator';
 import * as ac from './action.creator';
 import { artworksReducer } from './reducer';
-import { ARTWORK } from 'features/data/artmock';
+import { ARTWORK } from '../features/data/artmock';
 
 describe('Given the reducer', () => {
     let state: Array<ArtworksClass>;

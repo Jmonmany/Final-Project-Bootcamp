@@ -15,9 +15,16 @@
 }
 @mixin unstyledList() {
     list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
 }
 @mixin menuLinkHover() {
     background-color: $color-dark-blue;
     border-radius: 0.6rem;
     color: $color-lazy-white;
+}
+@mixin linkDeco() {
+    text-decoration: none;
+    color: black;
 }

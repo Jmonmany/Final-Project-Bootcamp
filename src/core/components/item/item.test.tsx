@@ -5,7 +5,7 @@ import {
     ArtworkContext,
     ArtworkContextStructure,
 } from '../../context/artworks.context';
-import { ARTWORK } from 'features/data/artmock';
+import { ARTWORK } from '../../../features/data/artmock';
 describe('Given "Item" component', () => {
     const handleLoad = jest.fn();
     let mockContext: ArtworkContextStructure;
