@@ -1,0 +1,14 @@
+@import '../../../variables';
+@import '../../../mixins.scss';
+.main {
+
+    .row {
+        display: flex;
+        
+    }
+    ul {
+        padding: 0.5rem;
+        list-style: none;
+        width: 30%;
+    }
+}

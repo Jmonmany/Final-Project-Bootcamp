@@ -1,6 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { ArtworksClass } from '../../../features/models/artwork.model';
 import { ArtworkContext } from '../../context/artworks.context';
+import './item.scss';
 
 export function Item({ item }: { item: ArtworksClass }) {
     const { handleFile, handleLoad } = useContext(ArtworkContext);
