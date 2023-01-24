@@ -1,6 +1,4 @@
 import { loginWithGoogle } from "../../../config";
-// import { Uploader } from "../uploader/uploader";
-
 import { Uploader } from "../uploader/uploader";
 
 export function Header({ children }: { children: JSX.Element }) {

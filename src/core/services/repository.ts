@@ -11,7 +11,8 @@ export class ArtworksRepo implements Repository<ArtworksClass> {
         const resp = await fetch(this.url);
         if (!resp.ok)
             throw new Error(`Error ${resp.status}: ${resp.statusText}`);
-        return await resp.json();
+        const result = await resp.json();
+        return Object.values(result);
     }
     async queryId(id: string): Promise<ArtworksClass> {
         if (!id || typeof id !== 'string')
