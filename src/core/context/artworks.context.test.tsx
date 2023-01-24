@@ -22,7 +22,7 @@ describe('Given the context AppContext', () => {
                 handleAdd(mockArtwork);
                 handleDelete(mockArtwork.id);
                 handleUpdate(mockArtwork);
-                return <>{artworks[0].name}</>;
+                return <>{artworks[0].title}</>;
             };
         });
         test('Context values should be used in the component', () => {
@@ -31,7 +31,7 @@ describe('Given the context AppContext', () => {
                     <TestComponent></TestComponent>
                 </ArtworkContext.Provider>
             );
-            const element = screen.getByText(initialContext.artworks[0].name);
+            const element = screen.getByText(initialContext.artworks[0].title);
             expect(element).toBeInTheDocument();
         });
     });

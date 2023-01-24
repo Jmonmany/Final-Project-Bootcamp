@@ -12,16 +12,18 @@ export function List() {
 
     return (
         <>
-            <h3>Artwork List</h3>
-            <ul className="artworks-list list-unstyled">
-                {/* {artworks.map((item: ArtworksClass) => {
+            <section>
+                <h3>Artwork List</h3>
+                <ul className="artworks-list list-unstyled">
+                    {/* {artworks.map((item: ArtworksClass) => {
                     return (
                         <>
                             <Item key={item.id} item={item}></Item>
                         </>
                     );
                 })} */}
-            </ul>
+                </ul>
+            </section>
         </>
     );
 }

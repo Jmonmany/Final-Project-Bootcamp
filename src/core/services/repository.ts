@@ -5,9 +5,8 @@ const invalidIdError = new Error('Invalid ID');
 
 export class ArtworksRepo implements Repository<ArtworksClass> {
     constructor(
-        private url = 'https://marina-labella-web-default-rtdb.europe-west1.firebasedatabase.app/'
+        private url = 'https://marina-labella-web-default-rtdb.europe-west1.firebasedatabase.app/artworks.json/'
     ) {}
-
     async load(): Promise<ArtworksClass[]> {
         const resp = await fetch(this.url);
         if (!resp.ok)

@@ -7,18 +7,19 @@ export function ArtworkContextProvider({
 }: {
     children: JSX.Element;
 }) {
-    const { getArtworks, handleLoad, handleAdd, handleDelete, handleUpdate } =
+    const { getArtworks, handleLoad, handleAdd, handleDelete, handleUpdate, handleFile } =
         useArtworks();
 
     const context = useMemo(
         () => ({
             artworks: getArtworks(),
+            handleFile,
             handleLoad,
             handleAdd,
             handleDelete,
             handleUpdate,
         }),
-        [getArtworks, handleAdd, handleDelete, handleLoad, handleUpdate]
+        [getArtworks, handleAdd, handleDelete, handleLoad, handleUpdate, handleFile]
     );
 
     return (
