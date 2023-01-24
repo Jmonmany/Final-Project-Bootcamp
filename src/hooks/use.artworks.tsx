@@ -1,11 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useCallback, useMemo, useReducer, useState } from 'react';
 import { ArtworksRepo } from '../core/services/repository';
 import { artworksReducer } from '../reducer/reducer';
 import * as ac from '../reducer/action.creator';
 import { consoleDebug } from '../tools/debug';
 import { ArtworksClass } from '../features/models/artwork.model';
+import { storage } from '../config';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 export type useArtworksType = {
+    handleFile: (ev: any) => void;
     getStatus: () => Status;
     getArtworks: () => Array<ArtworksClass>;
     handleLoad: () => Promise<void>;
@@ -26,6 +30,20 @@ export function useArtworks(): useArtworksType {
     const [status, setStatus] = useState(initialStatus);
     const getArtworks = () => artworks;
     const getStatus = () => status;
+
+    const handleFile = async (ev: any) => {
+        ev.preventDefault();
+        const input: any = ev.target.getFile.files[0];
+        if (input === undefined) {
+            alert('Any file selected');
+            return;
+        }
+        const artworkRef = ref(storage, input.name);
+        await uploadBytes(artworkRef, input);
+        const url = await getDownloadURL(artworkRef);
+        const artworkData = new ArtworksClass(input.name, url);
+        handleAdd(artworkData);
+    };
 
     const handleLoad = useCallback(async () => {
         try {
@@ -72,6 +90,7 @@ export function useArtworks(): useArtworksType {
     };
 
     return {
+        handleFile,
         getStatus,
         getArtworks,
         handleLoad,

@@ -56,7 +56,7 @@ describe(`Given useArtworkss (custom hook)
                                 {getArtworks().map(
                                     (character: ArtworksClass) => (
                                         <li key={character.id}>
-                                            {character.name}
+                                            {character.title}
                                         </li>
                                     )
                                 )}
@@ -78,10 +78,10 @@ describe(`Given useArtworkss (custom hook)
             userEvent.click(buttons[0]);
             expect(ArtworksRepo.prototype.load).toHaveBeenCalled();
             expect(
-                await screen.findByText(mockArtwork1.name)
+                await screen.findByText(mockArtwork1.title)
             ).toBeInTheDocument();
             expect(
-                await screen.findByText(mockArtwork2.name)
+                await screen.findByText(mockArtwork2.title)
             ).toBeInTheDocument();
         });
 
@@ -90,7 +90,7 @@ describe(`Given useArtworkss (custom hook)
             userEvent.click(buttons[1]);
             expect(ArtworksRepo.prototype.create).toHaveBeenCalled();
             expect(
-                await screen.findByText(mockAddArtwork.name)
+                await screen.findByText(mockAddArtwork.title)
             ).toBeInTheDocument();
         });
 
@@ -99,7 +99,7 @@ describe(`Given useArtworkss (custom hook)
             userEvent.click(buttons[2]);
             expect(ArtworksRepo.prototype.update).toHaveBeenCalled();
             expect(
-                await screen.findByText(mockUpdateArtwork.name)
+                await screen.findByText(mockUpdateArtwork.title)
             ).toBeInTheDocument();
         });
 
@@ -109,11 +109,11 @@ describe(`Given useArtworkss (custom hook)
             userEvent.click(buttons[3]);
             expect(ArtworksRepo.prototype.delete).toHaveBeenCalled();
             expect(
-                await screen.findByText(mockArtwork2.name)
+                await screen.findByText(mockArtwork2.title)
             ).toBeInTheDocument();
 
             await expect(
-                async () => await screen.findByText(mockArtwork1.name)
+                async () => await screen.findByText(mockArtwork1.title)
             ).rejects.toThrowError();
         });
     });

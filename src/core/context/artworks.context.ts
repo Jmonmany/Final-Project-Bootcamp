@@ -2,9 +2,9 @@
 import { createContext } from 'react';
 import { useArtworksType } from '../../hooks/use.artworks';
 import {
-    ArtworksClass,
-    ArtworkModel,
+    ArtworksClass
 } from '../../features/models/artwork.model';
+import { ArtworkType } from '../types/artwork';
 
 export type ArtworkContextStructure = Omit<
     useArtworksType,
@@ -15,8 +15,9 @@ export type ArtworkContextStructure = Omit<
 
 export const initialContext: ArtworkContextStructure = {
     artworks: [],
+    handleFile: () => {},
     handleLoad: async () => {},
-    handleAdd: async (artworks: ArtworkModel) => {},
+    handleAdd: async (artworks: ArtworkType) => {},
     handleDelete: async (id: string) => {},
     handleUpdate: async (artworksPayload: Partial<ArtworksClass>) => {},
 };

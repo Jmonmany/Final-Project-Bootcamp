@@ -1,7 +1,7 @@
 import { ARTWORK, ARTWORK2 } from '../../features/data/artmock';
 import { ArtworksClass } from '../../features/models/artwork.model';
 import { ArtworksRepo } from './repository';
-describe('Given a Robot Repo', () => {
+describe('Given a Artwork Repo', () => {
     const mockData = [
         ARTWORK,
         ARTWORK2
@@ -21,7 +21,7 @@ describe('Given a Robot Repo', () => {
     });
 
     describe('When we use load method', () => {
-        test('Then we received the Robots content in the repo', async () => {
+        test('Then we received the Artworks content in the repo', async () => {
             const data = await repo.load();
             expect(global.fetch).toHaveBeenCalled();
             expect(data).toEqual(mockData);
@@ -39,7 +39,7 @@ describe('Given a Robot Repo', () => {
 
     describe('When we use query method', () => {
         const id = mockData[0].id;
-        test('Then, if the id is VALID, we received the Robot searched in the repo', async () => {
+        test('Then, if the id is VALID, we received the Artwork searched in the repo', async () => {
             global.fetch = jest.fn().mockResolvedValue({
                 ok: true,
                 json: jest.fn().mockResolvedValue(mockData[0]),
@@ -70,11 +70,11 @@ describe('Given a Robot Repo', () => {
     });
 
     describe('When we use create method', () => {
-        test(`Then if the data is VALID, we received the new Robot 
+        test(`Then if the data is VALID, we received the new Artwork 
             created in the repo with its own new id`, async () => {
             const mockNewTaskPayload: Partial<ArtworksClass> = {
-                name: 'New Robot',
-                imageUrl: 'Test url',
+                title: 'New Artwork',
+                url: 'Test url',
             };
             global.fetch = jest.fn().mockResolvedValue({
                 ok: true,
@@ -82,10 +82,10 @@ describe('Given a Robot Repo', () => {
             });
 
             const data = await repo.create(mockNewTaskPayload);
-            expect(data).toHaveProperty('name', mockNewTaskPayload.name);
+            expect(data).toHaveProperty('title', mockNewTaskPayload.title);
             expect(data).toHaveProperty(
-                'imageUrl',
-                mockNewTaskPayload.imageUrl
+                'url',
+                mockNewTaskPayload.url
             );
         });
         test(`Then if the data is NOT VALID, we received a rejected promise`, async () => {
@@ -101,18 +101,18 @@ describe('Given a Robot Repo', () => {
     });
 
     describe('When we use update method', () => {
-        test(`Then if the ID is VALID, we received the Robot 
+        test(`Then if the ID is VALID, we received the Artwork 
             updated in the repo`, async () => {
             const updatePayload: Partial<ArtworksClass> = {
                 id: mockData[0].id,
-                name: 'Lisa',
+                title: 'Lisa',
             };
             global.fetch = jest.fn().mockResolvedValue({
                 ok: true,
                 json: jest.fn().mockResolvedValue(updatePayload),
             });
             const data = await repo.update(updatePayload);
-            expect(data).toHaveProperty('name', updatePayload.name);
+            expect(data).toHaveProperty('title', updatePayload.title);
         });
         test(`Then if there is NOT ID, we received a null`, async () => {
             await expect(async () => {
@@ -123,7 +123,7 @@ describe('Given a Robot Repo', () => {
         test(`Then if the ID is NOT VALID, we received a null`, async () => {
             const updatePayload: Partial<ArtworksClass> = {
                 id: 'bad',
-                name: 'Lisa',
+                title: 'Lisa',
             };
             global.fetch = jest.fn().mockResolvedValue({
                 ok: false,
@@ -137,7 +137,7 @@ describe('Given a Robot Repo', () => {
 
     describe('When we use delete method', () => {
         test(`Then if the ID is VALID, we received the ID 
-            of the Robot deleted in the repo`, async () => {
+            of the Artwork deleted in the repo`, async () => {
             const id = mockData[0].id;
             global.fetch = jest.fn().mockResolvedValue({
                 ok: true,
