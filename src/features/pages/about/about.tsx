@@ -5,7 +5,7 @@ export default function About() {
             <section className="about" role="article">
                 <div>
                     <img
-                        src="https://firebasestorage.googleapis.com/v0/b/marina-labella-web.appspot.com/o/The%20animal%20in%20me.jpg?alt=media&token=f6bb22c2-8866-4973-9414-d1a10458340f"
+                        src="https://firebasestorage.googleapis.com/v0/b/marina-labella-web.appspot.com/o/foto%20bio.jpg?alt=media&token=f7301ae0-eef3-416f-8051-670944ee562b"
                         alt="Marina Labella"
                     />
                 </div>

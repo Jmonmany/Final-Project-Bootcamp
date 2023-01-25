@@ -17,6 +17,12 @@ jobs:
         run: npm ci
       - name: Testing in production with coverage
         run: npm run test:prod #Change for a valid npm script
+        env:
+          REACT_APP_API_KEY: ${{ secrets.REACT_APP_API_KEY }}
+          REACT_APP_AUTH_DOMAIN: ${{ secrets.REACT_APP_AUTH_DOMAIN }}
+          REACT_APP_MESSAGIN_SENDER_ID: ${{ secrets.REACT_APP_MESSAGIN_SENDER_ID }}
+          REACT_APP_APP_ID: ${{ secrets.REACT_APP_APP_ID }}
+          REACT_APP_FIREBASE_MARINA_UID: ${{ secrets.REACT_APP_FIREBASE_MARINA_UID }}
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
