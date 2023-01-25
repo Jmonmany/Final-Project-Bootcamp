@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import { ArtworkContextProvider } from './artworks.provider';
 import * as useArtworks from '../../hooks/use.artworks';
-
+jest.mock('../../config.ts')
 describe('Given PlaceContextProvider', () => {
     describe('When we use it', () => {
         test('Then it should call the custom hook usePlaces', () => {

@@ -15,6 +15,7 @@ import { useArtworks } from './use.artworks';
 import { ArtworksClass } from '../features/models/artwork.model';
 import * as debug from '../tools/debug';
 jest.mock('../core/services/repository');
+jest.mock('../config.ts')
 
 ArtworksRepo.prototype.load = jest.fn();
 ArtworksRepo.prototype.create = jest.fn();
