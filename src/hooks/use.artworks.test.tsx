@@ -14,22 +14,16 @@ import { ArtworksRepo } from '../core/services/repository';
 import { useArtworks } from './use.artworks';
 import { ArtworksClass } from '../features/models/artwork.model';
 import * as debug from '../tools/debug';
-import { getAuth } from 'firebase/auth';
-import { initializeApp } from 'firebase/app';
-
-jest.mock('../core/services/repository');
-jest.mock('../config.ts')
 // const firebaseMockData = {
-//     apiKey: 'process.env.REACT_APP_API_KEY',
-//     authDomain: 'process.env.REACT_APP_AUTH_DOMAIN',
-//     projectId: 'marina-labella-web',
-//     storageBucket: 'marina-labella-web.appspot.com',
-//     messagingSenderId: 'process.env.REACT_APP_MESSAGIN_SENDER_ID',
-//     appId: 'process.env.REACT_APP_APP_ID',
+//     apiKey: 'MOCK_API_KEY',
+//     authDomain: 'MOCK_AUTH_DOMAIN',
+//     projectId: 'MOCK-WEB',
+//     storageBucket: 'mock.appspot.com',
+//     messagingSenderId: 'MOCK_MESSAGIN_SENDER_ID',
+//     appId: 'MOCK_APP_ID',
 // };
 
-initializeApp.prototype = jest.fn();
-getAuth.prototype = jest.fn()
+jest.mock('../core/services/repository');
 
 ArtworksRepo.prototype.load = jest.fn();
 ArtworksRepo.prototype.create = jest.fn();
@@ -43,10 +37,11 @@ describe(`Given useArtworkss (custom hook)
     beforeEach(() => {
         TestComponent = () => {
             const {
+                // handleFile,
+                handleAdd,
                 getStatus,
                 getArtworks,
                 handleLoad,
-                handleAdd,
                 handleUpdate,
                 handleDelete,
             } = useArtworks();
@@ -68,13 +63,9 @@ describe(`Given useArtworkss (custom hook)
                         <div>
                             <p>Loaded</p>
                             <ul>
-                                {getArtworks().map(
-                                    (character: ArtworksClass) => (
-                                        <li key={character.id}>
-                                            {character.title}
-                                        </li>
-                                    )
-                                )}
+                                {getArtworks().map((artwork: ArtworksClass) => (
+                                    <li key={artwork.id}>{artwork.title}</li>
+                                ))}
                             </ul>
                         </div>
                     )}

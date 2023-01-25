@@ -14,7 +14,7 @@ export function Item({ item }: { item: ArtworksClass }) {
         <>
             <li className="item">
                 <img src={item.url} alt={item.title} />
-                <input type="file" name="" id="getFile" onClick={handleFile} />
+                <input type="file" name="" id="getFile" onChange={handleFile} />
                 {/* {user.admin? <div>
                     <button className="delete"></button>
                     <button className="replace"></button>

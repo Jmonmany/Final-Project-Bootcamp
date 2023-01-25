@@ -33,7 +33,7 @@ export function useArtworks(): useArtworksType {
 
     const handleFile = async (ev: any) => {
         ev.preventDefault();
-        const input: any = ev.target.getFile.files[0];
+        const input: any = ev.target.files[0];
         if (input === undefined) {
             alert('Any file selected');
             return;
