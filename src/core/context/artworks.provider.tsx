@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { ArtworkContext } from './artworks.context';
-import { useArtworks } from '../../hooks/use.artworks';
+import { useArtworks } from '../../hooks/artworks/use.artworks';
 
 export function ArtworkContextProvider({
     children,

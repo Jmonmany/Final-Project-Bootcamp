@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { createContext } from 'react';
-import { useArtworksType } from '../../hooks/use.artworks';
+import { useArtworksType } from '../../hooks/artworks/use.artworks';
 import {
     ArtworksClass
 } from '../../features/models/artwork.model';

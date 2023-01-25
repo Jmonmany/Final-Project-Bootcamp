@@ -1,6 +1,6 @@
-import { ArtworksClass } from '../features/models/artwork.model';
-import { artworksAction } from './action.creator';
-import { artworkActionTypes } from './action.types';
+import { ArtworksClass } from '../../features/models/artwork.model';
+import { artworksAction } from './artworks.action.creator';
+import { artworkActionTypes } from './artworks.action.types';
 export function artworksReducer(
     state: Array<ArtworksClass>,
     action: artworksAction

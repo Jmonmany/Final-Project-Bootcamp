@@ -1,5 +1,5 @@
-import { ARTWORK, ARTWORK2, ARTWORK3 } from '../features/data/artmock';
-import { ArtworksRepo } from '../core/services/repository';
+import { ARTWORK, ARTWORK2, ARTWORK3 } from '../../features/data/artmock';
+import { ArtworksRepo } from '../../core/services/repository';
 export const mockArtwork1 = ARTWORK;
 mockArtwork1.id = '000001';
 export const mockArtwork2 = ARTWORK2;

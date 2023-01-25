@@ -10,10 +10,10 @@ import {
     mockNoValidRepoResponse,
 } from './testing.mock';
 
-import { ArtworksRepo } from '../core/services/repository';
+import { ArtworksRepo } from '../../core/services/repository';
 import { useArtworks } from './use.artworks';
-import { ArtworksClass } from '../features/models/artwork.model';
-import * as debug from '../tools/debug';
+import { ArtworksClass } from '../../features/models/artwork.model';
+import * as debug from '../../tools/debug';
 // const firebaseMockData = {
 //     apiKey: 'MOCK_API_KEY',
 //     authDomain: 'MOCK_AUTH_DOMAIN',

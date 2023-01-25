@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import { ArtworkContextProvider } from './artworks.provider';
-import * as useArtworks from '../../hooks/use.artworks';
+import * as useArtworks from '../../hooks//artworks/use.artworks';
 
 
 describe('Given PlaceContextProvider', () => {
