@@ -9,8 +9,19 @@ describe('Given About component', () => {
                     <About></About>
                 </Router>
             );
-            const div = screen.getByRole('article');
-            expect(div).toBeInTheDocument();
+            const title = screen.getByRole('heading', {
+                name: 'About Me',
+            });
+            expect(title).toBeInTheDocument();
+        });
+        test('Then the image should be in the screen', () => {
+            render(
+                <Router>
+                    <About></About>
+                </Router>
+            );
+            const altElement = screen.getByAltText('Marina Labella');
+            expect(altElement).toBeInTheDocument();
         });
     });
 });
