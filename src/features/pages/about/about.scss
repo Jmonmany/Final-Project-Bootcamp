@@ -1,0 +1,23 @@
+@import '../../../variables.scss';
+@import '../../../mixins.scss';
+
+
+.about {
+    display: flex;
+    div {
+        width: 40%;
+    }
+    article {
+        width: 40%;
+    }
+    img {
+        max-width: 450px
+    }
+    ul {
+        @include unstyledList();
+        flex-direction: column;
+    }
+    li {
+        margin-block: 0.5rem;
+    }
+}
