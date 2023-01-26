@@ -1,7 +1,12 @@
 import { UserType } from '../../core/types/users';
 
 export class UsersClass implements UserType {
-    message: object;
+    message: {
+        phone: string;
+        address: string;
+        subject: string;
+        description: string;
+    };
     constructor(
         public name: string,
         public email: string,
