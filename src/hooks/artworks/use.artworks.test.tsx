@@ -10,20 +10,12 @@ import {
     mockNoValidRepoResponse,
 } from './testing.mock';
 
-import { ArtworksRepo } from '../core/services/repository';
+import { ArtworksRepo } from '../../core/services/repository';
 import { useArtworks } from './use.artworks';
-import { ArtworksClass } from '../features/models/artwork.model';
-import * as debug from '../tools/debug';
-// const firebaseMockData = {
-//     apiKey: 'MOCK_API_KEY',
-//     authDomain: 'MOCK_AUTH_DOMAIN',
-//     projectId: 'MOCK-WEB',
-//     storageBucket: 'mock.appspot.com',
-//     messagingSenderId: 'MOCK_MESSAGIN_SENDER_ID',
-//     appId: 'MOCK_APP_ID',
-// };
+import { ArtworksClass } from '../../features/models/artwork.model';
+import * as debug from '../../tools/debug';
 
-jest.mock('../core/services/repository');
+jest.mock('../../core/services/repository.ts');
 
 ArtworksRepo.prototype.load = jest.fn();
 ArtworksRepo.prototype.create = jest.fn();

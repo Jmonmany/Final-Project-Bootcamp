@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useCallback, useMemo, useReducer, useState } from 'react';
-import { ArtworksRepo } from '../core/services/repository';
-import { artworksReducer } from '../reducer/reducer';
-import * as ac from '../reducer/action.creator';
-import { consoleDebug } from '../tools/debug';
-import { ArtworksClass } from '../features/models/artwork.model';
-import { storage } from '../config';
+import { ArtworksRepo } from '../../core/services/repository';
+import { artworksReducer } from '../../reducers/artworks/artworks.reducer';
+import * as ac from '../../reducers/artworks/artworks.action.creator';
+import { consoleDebug } from '../../tools/debug';
+import { ArtworksClass } from '../../features/models/artwork.model';
+import { storage } from '../../config';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 export type useArtworksType = {

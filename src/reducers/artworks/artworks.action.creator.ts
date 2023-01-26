@@ -1,5 +1,5 @@
-import { ArtworksClass } from '../features/models/artwork.model';
-import { artworkActionTypes } from './action.types';
+import { ArtworksClass } from '../../features/models/artwork.model';
+import { artworkActionTypes } from '../../reducers/artworks/artworks.action.types';
 
 export type artworksAction = {
     type: string;
