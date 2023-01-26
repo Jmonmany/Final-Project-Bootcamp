@@ -12,10 +12,7 @@ export function AppLazyRoutes({ items }: { items: MenuItems }) {
             <Routes>
                 <Route path={''} element={<Work></Work>}></Route>
                 <Route path={items[0].path} element={<Work></Work>}></Route>
-                <Route
-                    path={items[1].path}
-                    element={<About></About>}
-                ></Route>
+                <Route path={items[1].path} element={<About></About>}></Route>
                 <Route
                     path={items[2].path}
                     element={<Contact></Contact>}
