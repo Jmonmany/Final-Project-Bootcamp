@@ -6,10 +6,10 @@ describe('Given a Artwork Repo', () => {
         ARTWORK,
         ARTWORK2
     ];
+    ARTWORK.id = '1'
+    ARTWORK2.id = '2';
     const repo = new ArtworksRepo();
-
     beforeEach(() => {
-        // mocks de fetchpo
         global.fetch = jest.fn().mockResolvedValue({
             ok: true,
             json: jest.fn().mockResolvedValue(mockData),

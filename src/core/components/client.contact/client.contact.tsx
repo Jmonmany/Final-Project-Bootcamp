@@ -27,6 +27,7 @@ export function ClientContact() {
                                     <span>{item.message.subject}</span>
                                     <label>Description:</label>
                                     <span>{item.message.description}</span>
+                                    <button>Cancel</button>
                                 </li>
                             </>
                         );

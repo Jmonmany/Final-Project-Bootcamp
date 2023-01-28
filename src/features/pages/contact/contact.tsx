@@ -2,7 +2,7 @@ import { ArtistContact } from '../../../core/components/artist.contact/artist.co
 import { ClientContact } from '../../../core/components/client.contact/client.contact';
 
 export default function Contact() {
-    const admin = true;
+    const admin = false;
 
     return (
         <>
