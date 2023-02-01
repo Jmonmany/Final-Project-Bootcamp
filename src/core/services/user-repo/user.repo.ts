@@ -14,14 +14,6 @@ export class UsersRepo implements Repository<UsersClass> {
         const result = await resp.json();
         return Object.values(result);
     }
-    async queryId(id: string): Promise<UsersClass> {
-        if (!id || typeof id !== 'string')
-            return Promise.reject(invalidIdError);
-        const resp = await fetch(this.url + id);
-        if (!resp.ok)
-            throw new Error(`Error ${resp.status}: ${resp.statusText}`);
-        return await resp.json();
-    }
     async create(payload: Partial<UsersClass>): Promise<UsersClass> {
         const resp = await fetch(this.url + firebaseCORS, {
             method: 'POST',
@@ -46,14 +38,5 @@ export class UsersRepo implements Repository<UsersClass> {
         if (!resp.ok)
             throw new Error(`Error ${resp.status}: ${resp.statusText}`);
         return await resp.json();
-    }
-    async delete(id: UsersClass['uid']): Promise<UsersClass['uid']> {
-        if (!id) return Promise.reject(invalidIdError);
-        const resp = await fetch(this.url + id, {
-            method: 'DELETE',
-        });
-        if (!resp.ok)
-            throw new Error(`Error ${resp.status}: ${resp.statusText}`);
-        return id;
     }
 }

@@ -26,9 +26,9 @@ export const setCurrentUser = (payload: UsersClass): usersAction => ({
     payload,
 });
 
-// export const usersDeleteCreator = (
-//     payload: UsersClass['uid']
-// ): usersAction => ({
-//     type: userActionTypes.delete,
-//     payload,
-// });
+export const usersDeleteCreator = (
+    payload: UsersClass['uid']
+): usersAction => ({
+    type: userActionTypes.delete,
+    payload,
+});

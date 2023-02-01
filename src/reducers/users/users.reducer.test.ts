@@ -1,23 +1,26 @@
-
 import { UsersClass } from '../../features/models/user.model';
 import { usersAction } from './users.action.creator';
 import * as ac from './users.action.creator';
 import { usersReducer } from './users.reducer';
 import { USER } from '../../features/data/usermock';
-import { mockUser1, mockUser2 } from '../../hooks/users/testing.mock';
+import {
+    mockUser1,
+    mockUser2,
+    mockUsers,
+} from '../../hooks/users/testing.mock';
 
 describe('Given the reducer', () => {
     let state: Array<UsersClass>;
     let action: usersAction;
 
-    // describe('When the action type is "users@load"', () => {
-    //     test('Then it should return as state the loaded data', () => {
-    //         state = [];
-    //         action = ac.usersLoadCreator(mockUsers);
-    //         const result = usersReducer(state, action);
-    //         expect(result).toEqual(mockUsers);
-    //     });
-    // });
+    describe('When the action type is "users@load"', () => {
+        test('Then it should return as state the loaded data', () => {
+            state = [];
+            action = ac.usersLoadCreator(mockUsers);
+            const result = usersReducer(state, action);
+            expect(result).toEqual(mockUsers);
+        });
+    });
 
     describe('When the action type is "users@add"', () => {
         test('Then it should return the state with the data added', () => {
@@ -44,14 +47,14 @@ describe('Given the reducer', () => {
         });
     });
 
-    // describe('When the action type is "users@delete"', () => {
-    //     test('Then it should return the state without the data deleted', () => {
-    //         state = [mockUser1];
-    //         action = ac.usersDeleteCreator(mockUser1.uid);
-    //         const result = usersReducer(state, action);
-    //         expect(result).toEqual([]);
-    //     });
-    // });
+    describe('When the action type is "users@delete"', () => {
+        test('Then it should return the state without the data deleted', () => {
+            state = [mockUser1];
+            action = ac.usersDeleteCreator(mockUser1.uid);
+            const result = usersReducer(state, action);
+            expect(result).toEqual([]);
+        });
+    });
 
     describe('When the action type is not valid', () => {
         test('Then it should return the state', () => {

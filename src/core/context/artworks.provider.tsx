@@ -26,6 +26,7 @@ export function ArtworkContextProvider({
         handleLoadUsers,
         handleAddUser,
         handleUpdateUser,
+        handleDeleteCard,
     } = useUsers();
     const context = useMemo(
         () => ({
@@ -38,6 +39,7 @@ export function ArtworkContextProvider({
             handleLoadUsers,
             handleAddUser,
             handleUpdateUser,
+            handleDeleteCard,
             artworks: getArtworks(),
             handleFile,
             handleLoad,
@@ -55,6 +57,7 @@ export function ArtworkContextProvider({
             handleLoadUsers,
             handleAddUser,
             handleUpdateUser,
+            handleDeleteCard,
             getArtworks,
             handleAdd,
             handleDelete,

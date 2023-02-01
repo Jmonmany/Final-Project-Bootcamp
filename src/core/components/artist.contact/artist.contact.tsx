@@ -12,8 +12,8 @@ export function ArtistContact() {
             phone: '',
             subject: '',
             description: '',
-        }
-    }; 
+        },
+    };
 
     const [formData, setFormData] = useState(initialFormData);
 
@@ -27,7 +27,7 @@ export function ArtistContact() {
 
     const handleSubmit = (ev: SyntheticEvent) => {
         ev.preventDefault();
-        handleUpdateUser({...currentUser, ...formData});
+        handleUpdateUser({ ...currentUser, ...formData });
     };
 
     return (

@@ -31,39 +31,6 @@ describe('Given a User Repo', () => {
             expect(global.fetch).toHaveBeenCalled();
         });
     });
-
-    describe('When we use query method', () => {
-        const id = mockData[0].uid;
-        test('Then, if the id is VALID, we received the User searched in the repo', async () => {
-            global.fetch = jest.fn().mockResolvedValue({
-                ok: true,
-                json: jest.fn().mockResolvedValue(mockData[0]),
-            });
-            const data = await repo.queryId(id);
-            expect(global.fetch).toHaveBeenCalled();
-            expect(data).toEqual(mockData[0]);
-        });
-        test('Then, if there is NOT id, we received a rejected promise', async () => {
-            await expect(async () => {
-                await repo.queryId('');
-            }).rejects.toThrowError();
-            expect(global.fetch).not.toHaveBeenCalled();
-        });
-
-        test('Then, if the id is NOT VALID, we received a rejected promise', async () => {
-            global.fetch = jest.fn().mockResolvedValue({
-                ok: false,
-                status: 404,
-                statusText: 'Not Found',
-                json: jest.fn().mockRejectedValue(new Error()),
-            });
-            await expect(async () => {
-                await repo.queryId('23');
-            }).rejects.toThrowError();
-            expect(global.fetch).toHaveBeenCalled();
-        });
-    });
-
     describe('When we use create method', () => {
         test(`Then if the data is VALID, we received the new User 
             created in the repo with its own new id`, async () => {
@@ -91,7 +58,6 @@ describe('Given a User Repo', () => {
             expect(global.fetch).toHaveBeenCalled();
         });
     });
-
     describe('When we use update method', () => {
         test(`Then if the ID is VALID, we received the USER 
             updated in the repo`, async () => {
@@ -122,35 +88,6 @@ describe('Given a User Repo', () => {
             });
             await expect(async () => {
                 await repo.update(updatePayload);
-            }).rejects.toThrowError();
-            expect(global.fetch).toHaveBeenCalled();
-        });
-    });
-
-    describe('When we use delete method', () => {
-        test(`Then if the ID is VALID, we received the ID 
-            of the USER deleted in the repo`, async () => {
-            const id = mockData[0].uid;
-            global.fetch = jest.fn().mockResolvedValue({
-                ok: true,
-                json: jest.fn().mockResolvedValue(id),
-            });
-            const data = await repo.delete(id);
-            expect(global.fetch).toHaveBeenCalled();
-            expect(data).toBe(id);
-        });
-        test(`Then if there is NOT ID, we received a null`, async () => {
-            await expect(async () => {
-                await repo.delete('');
-            }).rejects.toThrowError();
-            expect(global.fetch).not.toHaveBeenCalled();
-        });
-        test(`Then if the ID is NOT VALID, we received a null`, async () => {
-            global.fetch = jest.fn().mockResolvedValue({
-                ok: false,
-            });
-            await expect(async () => {
-                await repo.delete('bad');
             }).rejects.toThrowError();
             expect(global.fetch).toHaveBeenCalled();
         });
