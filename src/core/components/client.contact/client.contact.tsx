@@ -1,9 +1,15 @@
-import { USER, USER2, USER3 } from '../../../features/data/usermock';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useContext, useEffect } from 'react';
 import { UsersClass } from '../../../features/models/user.model';
+import { ArtworkContext } from '../../context/artworks.context';
 import './client.contact.scss';
 export function ClientContact() {
-    const users = [USER, USER2, USER3];
-
+    const { users, handleLoadUsers } = useContext(ArtworkContext);
+    useEffect(() => {
+        handleLoadUsers();
+        console.log(users)
+    }, [handleLoadUsers]);
+    
     return (
         <>
             <h3>Manage who contacts you</h3>

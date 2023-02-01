@@ -1,3 +1,5 @@
+import { UsersClass } from '../../features/models/user.model';
+
 export type UserType = {
     name: string;
     email: string;
@@ -6,5 +8,5 @@ export type UserType = {
 };
 
 export type UserCollection = {
-    [key: string]: UserType
-}
+    [key: string]: UsersClass;
+};

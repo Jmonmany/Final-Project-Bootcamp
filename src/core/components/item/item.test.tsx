@@ -4,18 +4,19 @@ import { Item } from './item';
 import {
     ArtworkContext,
     ArtworkContextStructure,
+    UserContextStructure,
 } from '../../context/artworks.context';
 import { ARTWORK } from '../../../features/data/artmock';
 describe('Given "Item" component', () => {
     const handleLoad = jest.fn();
-    let mockContext: ArtworkContextStructure;
+    let mockContext: ArtworkContextStructure & UserContextStructure;
     const item = ARTWORK
     describe('When it is initially instantiated without data', () => {
         beforeEach(async () => {
             mockContext = {
                 artworks: [],
                 handleLoad,
-            } as unknown as ArtworkContextStructure;
+            } as unknown as ArtworkContextStructure & UserContextStructure;
             await act(async () => {
                 render(
                     <ArtworkContext.Provider value={mockContext}>

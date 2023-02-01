@@ -1,13 +1,16 @@
+import { useContext } from 'react';
 import { ArtistContact } from '../../../core/components/artist.contact/artist.contact';
 import { ClientContact } from '../../../core/components/client.contact/client.contact';
+import { ArtworkContext } from '../../../core/context/artworks.context';
 
 export default function Contact() {
-    const admin = false;
+    const { getAdmin } = useContext(ArtworkContext);
+
 
     return (
         <>
             <section className="contact" role="article">
-                {admin ? (
+                {getAdmin() ? (
                     <ClientContact></ClientContact>
                 ) : (
                     <ArtistContact></ArtistContact>

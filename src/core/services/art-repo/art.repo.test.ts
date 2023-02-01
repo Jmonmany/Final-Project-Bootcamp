@@ -1,13 +1,10 @@
-import { ARTWORK, ARTWORK2 } from '../../features/data/artmock';
-import { ArtworksClass } from '../../features/models/artwork.model';
-import { ArtworksRepo } from './repository';
+import { ARTWORK, ARTWORK2 } from '../../../features/data/artmock';
+import { ArtworksClass } from '../../../features/models/artwork.model';
+import { ArtworksRepo } from './art.repo';
 describe('Given a Artwork Repo', () => {
-    const mockData = [
-        ARTWORK,
-        ARTWORK2
-    ];
-    ARTWORK.id = '1'
-    ARTWORK2.id = '2';
+    const mockData = [ARTWORK, ARTWORK2];
+    ARTWORK.id = '0';
+    ARTWORK2.id = '1';
     const repo = new ArtworksRepo();
     beforeEach(() => {
         global.fetch = jest.fn().mockResolvedValue({
@@ -83,10 +80,7 @@ describe('Given a Artwork Repo', () => {
 
             const data = await repo.create(mockNewTaskPayload);
             expect(data).toHaveProperty('title', mockNewTaskPayload.title);
-            expect(data).toHaveProperty(
-                'url',
-                mockNewTaskPayload.url
-            );
+            expect(data).toHaveProperty('url', mockNewTaskPayload.url);
         });
         test(`Then if the data is NOT VALID, we received a rejected promise`, async () => {
             global.fetch = jest.fn().mockResolvedValue({

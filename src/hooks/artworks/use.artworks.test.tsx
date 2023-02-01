@@ -10,12 +10,12 @@ import {
     mockNoValidRepoResponse,
 } from './testing.mock';
 
-import { ArtworksRepo } from '../../core/services/repository';
+import { ArtworksRepo } from '../../core/services/art-repo/art.repo';
 import { useArtworks } from './use.artworks';
 import { ArtworksClass } from '../../features/models/artwork.model';
 import * as debug from '../../tools/debug';
 
-jest.mock('../../core/services/repository.ts');
+jest.mock('../../core/services/art-repo/art.repo.ts');
 
 ArtworksRepo.prototype.load = jest.fn();
 ArtworksRepo.prototype.create = jest.fn();
