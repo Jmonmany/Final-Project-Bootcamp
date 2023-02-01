@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useCallback, useMemo, useReducer, useState } from 'react';
-import { ArtworksRepo } from '../../core/services/repository';
+import { ArtworksRepo } from '../../core/services/art-repo/art.repo';
 import { artworksReducer } from '../../reducers/artworks/artworks.reducer';
 import * as ac from '../../reducers/artworks/artworks.action.creator';
 import { consoleDebug } from '../../tools/debug';

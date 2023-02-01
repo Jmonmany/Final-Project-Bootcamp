@@ -1,18 +1,20 @@
-import { Repository } from '../types/repo';
-import { ArtworksClass } from '../../features/models/artwork.model';
-
+import { Repository } from '../../types/repo';
+import { ArtworksClass } from '../../../features/models/artwork.model';
 const invalidIdError = new Error('Invalid ID');
-
+const firebaseCORS = '.json';
 export class ArtworksRepo implements Repository<ArtworksClass> {
     constructor(
-        private url = 'https://marina-labella-web-default-rtdb.europe-west1.firebasedatabase.app/artworks.json/'
+        private url = 'https://marina-labella-web-default-rtdb.europe-west1.firebasedatabase.app/artworks'
     ) {}
     async load(): Promise<ArtworksClass[]> {
-        const resp = await fetch(this.url);
+        const resp = await fetch(this.url + firebaseCORS);
         if (!resp.ok)
             throw new Error(`Error ${resp.status}: ${resp.statusText}`);
         const result = await resp.json();
-        return Object.values(result);
+        return Object.keys(result).map((key) => ({
+            ...result[key],
+            id: key,
+        }));
     }
     async queryId(id: string): Promise<ArtworksClass> {
         if (!id || typeof id !== 'string')

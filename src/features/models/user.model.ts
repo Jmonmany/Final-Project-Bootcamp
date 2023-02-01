@@ -2,10 +2,10 @@ import { UserType } from '../../core/types/users';
 
 export class UsersClass implements UserType {
     message: {
-        phone: string;
-        address: string;
-        subject: string;
-        description: string;
+        phone?: string;
+        address?: string;
+        subject?: string;
+        description?: string;
     };
     constructor(
         public name: string,

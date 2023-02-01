@@ -6,9 +6,10 @@ export function Header({ children }: { children: JSX.Element }) {
     const subtitle = 'ILLUSTRATION';
 
     const [login, setLogin] = useState(false);
-    const currentUser = false;
+    const [currentUser, setCurrentUser] = useState(false)
     const handleClick = () => {
-        setLogin(true);
+        currentUser ? setCurrentUser(false) : setCurrentUser(true);
+        currentUser ? setLogin(false) : setLogin(true);
     };
 
     return (
