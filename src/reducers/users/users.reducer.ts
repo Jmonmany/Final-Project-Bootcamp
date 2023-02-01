@@ -23,9 +23,6 @@ export function usersReducer(
         case userActionTypes.delete:
             const finalId = action.payload as UsersClass['uid'];
             return state.filter((item) => item.uid !== finalId);
-        case userActionTypes.setCurrent:
-            const currentUser = action.payload as UsersClass;
-            return { ...state, ...currentUser };
         default:
             return [...state];
     }

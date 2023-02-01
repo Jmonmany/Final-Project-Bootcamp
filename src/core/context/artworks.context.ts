@@ -33,6 +33,7 @@ export const initialContext: ArtworkContextStructure & UserContextStructure = {
     getAdmin: () => false,
     handleCurrentUser: () => {},
     handleUser: async (userCredentials: UserCredential) => {},
+    handleDeleteCard: async (uid: string) => {},
     artworks: [],
     handleFile: () => {},
     handleLoad: async () => {},

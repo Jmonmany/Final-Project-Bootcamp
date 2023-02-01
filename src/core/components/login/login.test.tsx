@@ -1,10 +1,25 @@
-import { render, screen } from '@testing-library/react';
+/* eslint-disable testing-library/no-unnecessary-act */
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { ArtworkContextStructure, UserContextStructure, ArtworkContext } from '../../context/artworks.context';
 import { Login } from './login';
 
 describe('Given "Login" component', () => {
-    beforeEach(() => {
-        render(<Login></Login>);
+    const handleUser = jest.fn();
+    const handleAdmin = jest.fn();
+    let mockContext: ArtworkContextStructure & UserContextStructure;
+    beforeEach(async () => {
+        mockContext = {
+            handleUser,
+            handleAdmin,
+        } as unknown as ArtworkContextStructure & UserContextStructure;
+        await act(async () => {
+            render(
+                <ArtworkContext.Provider value={mockContext}>
+                    <Login></Login>
+                </ArtworkContext.Provider>
+            );
+        });
     });
 
     describe('When component is call with a DOM implementation', () => {
@@ -39,6 +54,9 @@ describe('Given "Login" component', () => {
             });
             expect(submitButton).toBeInTheDocument();
             expect(googleButton).toBeInTheDocument();
+            userEvent.click(submitButton)
+            // expect(handleAdmin).toHaveBeenCalled()
+            // expect(handleUser).toHaveBeenCalled();
         });
     });
 });

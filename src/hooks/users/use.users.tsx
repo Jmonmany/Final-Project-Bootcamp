@@ -20,6 +20,7 @@ export type useUsersType = {
     handleLoadUsers: () => Promise<void>;
     handleAddUser: (user: UsersClass) => Promise<void>;
     handleUpdateUser: (userPayload: Partial<UsersClass>) => Promise<void>;
+    handleDeleteCard: (uid: UsersClass['uid']) => Promise<void>;
 };
 
 type Status = 'Starting' | 'Loading' | 'Loaded';
@@ -30,7 +31,7 @@ export function useUsers(): useUsersType {
     const initialUser: UsersClass | object = {};
     const initialStatus = 'Starting' as Status;
     const [users, dispatchUsers] = useReducer(usersReducer, initialState);
-    const [admin, setAdmin] = useState(false);
+    const [admin, setAdmin] = useState(true);
     const [status, setStatus] = useState(initialStatus);
     const [currentUser, dispatchCurrentUser] = useReducer(
         currentUserReducer,
@@ -50,7 +51,7 @@ export function useUsers(): useUsersType {
                 await (user.getIdToken() as Promise<string>),
                 user.uid
             );
-            set(ref(db, 'users/' + user.uid), fullUser);            
+            set(ref(db, 'users/' + user.uid), fullUser);
             handleCurrentUser(fullUser);
         } catch (error) {
             handleError(error as Error);
@@ -85,7 +86,7 @@ export function useUsers(): useUsersType {
     const handleAddUser = async function (user: UsersClass) {
         try {
             const fullUsers = await repo.create(user);
-            console.log(Object.keys(fullUsers))
+            console.log(Object.keys(fullUsers));
             dispatchUsers(ac.usersAddCreator(fullUsers));
         } catch (error) {
             handleError(error as Error);
@@ -96,6 +97,14 @@ export function useUsers(): useUsersType {
         try {
             const fullUsers = await repo.update(userPayload);
             dispatchUsers(ac.usersUpdateCreator(fullUsers));
+        } catch (error) {
+            handleError(error as Error);
+        }
+    };
+
+    const handleDeleteCard = async function (uid: UsersClass['uid']) {
+        try {
+            dispatchUsers(ac.usersDeleteCreator(uid));
         } catch (error) {
             handleError(error as Error);
         }
@@ -116,5 +125,6 @@ export function useUsers(): useUsersType {
         handleLoadUsers,
         handleAddUser,
         handleUpdateUser,
+        handleDeleteCard,
     };
 }

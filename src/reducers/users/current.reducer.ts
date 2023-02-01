@@ -4,12 +4,12 @@ import { userActionTypes } from './users.action.types';
 export function currentUserReducer(
     state: UsersClass | object,
     action: usersAction
-): UsersClass | object{
+): UsersClass | object {
     switch (action.type) {
         case userActionTypes.setCurrent:
             const currentUser = action.payload as UsersClass;
             return { ...state, ...currentUser };
         default:
-            return {...state};
+            return state;
     }
 }

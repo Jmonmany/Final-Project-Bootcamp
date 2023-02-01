@@ -1,8 +1,8 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {
-    // mockUser1,
-    // mockUser2,
+    mockUser1,
+    mockUser2,
     mockAddUser,
     mockUpdateUser,
     mockValidRepoResponse,
@@ -19,7 +19,6 @@ jest.mock('../../core/services/art-repo/art.repo.ts');
 UsersRepo.prototype.load = jest.fn();
 UsersRepo.prototype.create = jest.fn();
 UsersRepo.prototype.update = jest.fn();
-UsersRepo.prototype.delete = jest.fn();
 describe(`Given useUsers (custom hook)
             render with a virtual component`, () => {
     let TestComponent: () => JSX.Element;
@@ -38,6 +37,7 @@ describe(`Given useUsers (custom hook)
                 handleLoadUsers,
                 handleAddUser,
                 handleUpdateUser,
+                handleDeleteCard,
             } = useUsers();
             return (
                 <>
@@ -48,9 +48,9 @@ describe(`Given useUsers (custom hook)
                     <button onClick={() => handleUpdateUser(mockUpdateUser)}>
                         Update
                     </button>
-                    {/* <button onClick={() => handleDelete(mockUser2.id)}>
-                        Delete
-                    </button> */}
+                    <button onClick={() => handleDeleteCard(mockUser2.uid)}>
+                        DeleteCard
+                    </button>
                     {getStatus() !== 'Loaded' ? (
                         <p>Loading</p>
                     ) : (
@@ -73,17 +73,13 @@ describe(`Given useUsers (custom hook)
     describe(`When the repo is working OK`, () => {
         beforeEach(mockValidRepoResponse);
 
-        // test('Then its function handleLoadUsers should be add places to the state', async () => {
-        //     expect(await screen.findByText(/loading/i)).toBeInTheDocument();
-        //     userEvent.click(buttons[0]);
-        //     expect(UsersRepo.prototype.load).toHaveBeenCalled();
-        //     expect(
-        //         await screen.findByText(mockUser1.name)
-        //     ).toBeInTheDocument();
-        //     expect(
-        //         await screen.findByText(mockUser2.name)
-        //     ).toBeInTheDocument();
-        // });
+        test('Then its function handleLoadUsers should be add places to the state', async () => {
+            expect(await screen.findByText(/loading/i)).toBeInTheDocument();
+            userEvent.click(buttons[0]);
+            expect(UsersRepo.prototype.load).toHaveBeenCalled();
+            expect(await screen.findByText(mockUser1.name)).toBeInTheDocument();
+            expect(await screen.findByText(mockUser2.name)).toBeInTheDocument();
+        });
 
         test('Then its function handleAddUser should be used', async () => {
             userEvent.click(buttons[0]);
@@ -94,28 +90,21 @@ describe(`Given useUsers (custom hook)
             ).toBeInTheDocument();
         });
 
-        // test('Then its function handleUpdateUser should be used', async () => {
-        //     userEvent.click(buttons[0]);
-        //     userEvent.click(buttons[2]);
-        //     expect(UsersRepo.prototype.update).toHaveBeenCalled();
-        //     expect(
-        //         await screen.findByText(mockUpdateUser.name)
-        //     ).toBeInTheDocument();
-        // });
+        test('Then its function handleUpdateUser should be used', async () => {
+            userEvent.click(buttons[0]);
+            userEvent.click(buttons[2]);
+            expect(UsersRepo.prototype.update).toHaveBeenCalled();
+            expect(
+                await screen.findByText(mockUpdateUser.name)
+            ).toBeInTheDocument();
+        });
 
-        // test('Then its function handleDelete should be used', async () => {
-        //     userEvent.click(buttons[0]);
-        //     expect(UsersRepo.prototype.load).toHaveBeenCalled();
-        //     userEvent.click(buttons[3]);
-        //     expect(UsersRepo.prototype.delete).toHaveBeenCalled();
-        //     expect(
-        //         await screen.findByText(mockUser2.name)
-        //     ).toBeInTheDocument();
-
-        //     await expect(
-        //         async () => await screen.findByText(mockUser1.name)
-        //     ).rejects.toThrowError();
-        // });
+        test('Then its function handleDelete should be used', async () => {
+            userEvent.click(buttons[0]);
+            expect(UsersRepo.prototype.load).toHaveBeenCalled();
+            userEvent.click(buttons[3]);
+            expect(await screen.findByText(mockUser2.name)).toBeInTheDocument();
+        });
     });
     describe(`When the repo is NOT working OK`, () => {
         beforeEach(mockNoValidRepoResponse);
@@ -140,12 +129,5 @@ describe(`Given useUsers (custom hook)
                 expect(spyConsole).toHaveBeenLastCalledWith('Testing errors');
             });
         });
-        // test('Then its function handleDelete should be used', async () => {
-        //     userEvent.click(buttons[3]);
-        //     expect(UsersRepo.prototype.delete).toHaveBeenCalled();
-        //     await waitFor(() => {
-        //         expect(spyConsole).toHaveBeenLastCalledWith('Testing errors');
-        //     });
-        // });
     });
 });
