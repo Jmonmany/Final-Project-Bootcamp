@@ -4,9 +4,11 @@ import userEvent from '@testing-library/user-event';
 import { ArtworkContextStructure, UserContextStructure, ArtworkContext } from '../../context/artworks.context';
 import { Login } from './login';
 
+
 describe('Given "Login" component', () => {
     const handleUser = jest.fn();
     const handleAdmin = jest.fn();
+    
     let mockContext: ArtworkContextStructure & UserContextStructure;
     beforeEach(async () => {
         mockContext = {
