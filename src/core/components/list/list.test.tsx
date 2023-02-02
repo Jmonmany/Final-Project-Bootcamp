@@ -7,8 +7,10 @@ import {
     UserContextStructure,
 } from '../../context/artworks.context';
 import { ARTWORK, ARTWORK2, ARTWORK3 } from '../../../features/data/artmock';
+import userEvent from '@testing-library/user-event';
 describe('Given "List" component', () => {
     const handleLoad = jest.fn();
+    const handleAdd = jest.fn();
     const getAdmin = jest.fn();
     let mockContext: ArtworkContextStructure & UserContextStructure;
     describe('When it is initially instantiated without data', () => {
@@ -16,6 +18,7 @@ describe('Given "List" component', () => {
             mockContext = {
                 artworks: [ARTWORK, ARTWORK2, ARTWORK3],
                 getAdmin,
+                handleAdd,
                 handleLoad,
             } as unknown as ArtworkContextStructure & UserContextStructure;
             await act(async () => {
@@ -30,7 +33,13 @@ describe('Given "List" component', () => {
             const elementTitle = screen.getByRole('heading', {
                 name: 'Artwork List',
             });
+            const addBtn = screen.getByRole('button', {
+                name: 'ADD ARTWORK',
+            });
+            userEvent.click(addBtn)
+            expect(handleAdd).toHaveBeenCalled()
             expect(elementTitle).toBeInTheDocument();
+            expect(addBtn).toBeInTheDocument();
         });
         test(`Then component should be render the item`, () => {
             const altElements1 = screen.getByAltText('mock1');
