@@ -9,12 +9,14 @@ import {
 import { ARTWORK } from '../../../features/data/artmock';
 describe('Given "Item" component', () => {
     const handleLoad = jest.fn();
+    const getAdmin = jest.fn()
     let mockContext: ArtworkContextStructure & UserContextStructure;
     const item = ARTWORK
     describe('When it is initially instantiated without data', () => {
         beforeEach(async () => {
             mockContext = {
                 artworks: [],
+                getAdmin,
                 handleLoad,
             } as unknown as ArtworkContextStructure & UserContextStructure;
             await act(async () => {

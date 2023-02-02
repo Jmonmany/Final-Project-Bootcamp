@@ -1,5 +1,21 @@
+@import '../../../variables';
+@import '../../../mixins.scss';
+
 .item {
-    img {
+    min-height: 400px;
+    min-width: 400px;
+    &__artwork {
         max-width: 400px;
+    }
+    button {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+    }
+    &__delete {
+        width: 1rem;
+    }
+    &__replace {
+        width: 1rem;
     }
 }
