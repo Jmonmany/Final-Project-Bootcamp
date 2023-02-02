@@ -35,7 +35,6 @@ export const db = getDatabase(firebaseApp);
 //         token: '',
 //     },
 // };
-
 export const loginWithGoogle = async () => {
     return await signInWithPopup(auth, provider);
 };

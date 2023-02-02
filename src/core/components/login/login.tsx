@@ -1,10 +1,11 @@
-import { useState, SyntheticEvent, useContext } from 'react';
-import { loginWithGoogle, login } from '../../../config';
-import { ArtworkContext } from '../../context/artworks.context';
+import { useState, SyntheticEvent } from 'react';
+// import { useContext } from 'react';
+// import { loginWithGoogle, login } from '../../../config';
+// import { ArtworkContext } from '../../context/artworks.context';
 import './login.scss';
 export function Login() {
-    const { handleAdmin, handleUser } =
-        useContext(ArtworkContext);
+    // const { handleAdmin, handleUser } =
+    //     useContext(ArtworkContext);
     const initialFormData = {
         email: '',
         password: '',
@@ -18,13 +19,13 @@ export function Login() {
 
     const handleSubmit = async (ev: SyntheticEvent) => {
         ev.preventDefault();
-        const userCredentials = await login(formData.email, formData.password);
-        handleAdmin(userCredentials.user.uid);
+        // const userCredentials = await login(formData.email, formData.password);
+        // handleAdmin(userCredentials.user.uid);
     };
 
     const handleLogin = async () => {
-        const userCredentials = await loginWithGoogle();
-        handleUser(userCredentials);
+        // const userCredentials = await loginWithGoogle();
+        // handleUser(userCredentials);
     };
     return (
         <>

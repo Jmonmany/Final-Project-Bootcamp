@@ -31,7 +31,7 @@ export function useUsers(): useUsersType {
     const initialUser: UsersClass | object = {};
     const initialStatus = 'Starting' as Status;
     const [users, dispatchUsers] = useReducer(usersReducer, initialState);
-    const [admin, setAdmin] = useState(false);
+    const [admin, setAdmin] = useState(true);
     const [status, setStatus] = useState(initialStatus);
     const [currentUser, dispatchCurrentUser] = useReducer(
         currentUserReducer,

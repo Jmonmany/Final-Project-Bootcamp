@@ -26,7 +26,7 @@ export class ArtworksRepo implements Repository<ArtworksClass> {
     }
 
     async create(payload: Partial<ArtworksClass>): Promise<ArtworksClass> {
-        const resp = await fetch(this.url, {
+        const resp = await fetch(this.url + firebaseCORS, {
             method: 'POST',
             body: JSON.stringify(payload),
             headers: {

@@ -4,7 +4,7 @@ import { ArtworkContext } from '../../context/artworks.context';
 import './item.scss';
 
 export function Item({ item }: { item: ArtworksClass }) {
-    const { handleFile, handleLoad } = useContext(ArtworkContext);
+    const { getAdmin, handleFile, handleLoad } = useContext(ArtworkContext);
 
     useEffect(() => {
         handleLoad();
@@ -13,12 +13,32 @@ export function Item({ item }: { item: ArtworksClass }) {
     return (
         <>
             <li className="item">
-                <img src={item.url} alt={item.title} />
+                <img
+                    src={item.url}
+                    alt={item.title}
+                    className="item__artwork"
+                />
                 <input type="file" name="" id="getFile" onChange={handleFile} />
-                {/* {user.admin? <div>
-                    <button className="delete"></button>
-                    <button className="replace"></button>
-                </div> : ''} */}
+                {getAdmin() ? (
+                    <div>
+                        <button>
+                            <img
+                                className="item__delete"
+                                src={require('../../../assets/Trash.png')}
+                                alt="delete"
+                            />
+                        </button>
+                        <button>
+                            <img
+                                className="item__replace"
+                                src={require('../../../assets/Replace.png')}
+                                alt="replace"
+                            />
+                        </button>
+                    </div>
+                ) : (
+                    ''
+                )}
             </li>
         </>
     );
