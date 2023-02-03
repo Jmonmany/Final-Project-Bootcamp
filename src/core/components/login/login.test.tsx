@@ -1,15 +1,20 @@
 /* eslint-disable testing-library/no-unnecessary-act */
 import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { ArtworkContextStructure, UserContextStructure, ArtworkContext } from '../../context/artworks.context';
+import {
+    ArtworkContextStructure,
+    UserContextStructure,
+    ArtworkContext,
+} from '../../context/artworks.context';
 import { Login } from './login';
-
+import { login, loginWithGoogle } from '../../../config';
+jest.mock('../../../config');
 
 describe('Given "Login" component', () => {
     const handleUser = jest.fn();
     const handleAdmin = jest.fn();
-    
     let mockContext: ArtworkContextStructure & UserContextStructure;
+
     beforeEach(async () => {
         mockContext = {
             handleUser,
@@ -49,15 +54,33 @@ describe('Given "Login" component', () => {
             expect(inputElementsTxt[0]).toHaveValue(mockEmail);
             expect(inputElementsTxt[1]).toHaveValue(mockPassword);
         });
-        test('Then buttons should be in the screen', () => {
+        test('Then buttons should be in the screen', async () => {
+            (login as jest.Mock).mockResolvedValue({
+                user: {
+                    uid: '12345',
+                },
+            });
             const submitButton = screen.getByRole('button', { name: 'Submit' });
+            expect(submitButton).toBeInTheDocument();
+            userEvent.click(submitButton);
+            expect(login).toHaveBeenCalled();
+            // to be tested
+            // expect(handleAdmin).toHaveBeenCalled();
+        });
+        test('Then buttons google should be in the screen', async () => {
+            (loginWithGoogle as jest.Mock).mockResolvedValue({
+                name: 'sample',
+                email: 'sample@gmail.com',
+                getIdToken: '12345',
+                uid: '12345',
+            });
             const googleButton = screen.getByRole('button', {
                 name: 'Sign in with Google',
             });
-            expect(submitButton).toBeInTheDocument();
             expect(googleButton).toBeInTheDocument();
-            userEvent.click(submitButton)
-            // expect(handleAdmin).toHaveBeenCalled()
+            userEvent.click(googleButton);
+            expect(loginWithGoogle).toHaveBeenCalled();
+            // to be tested
             // expect(handleUser).toHaveBeenCalled();
         });
     });

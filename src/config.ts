@@ -27,22 +27,30 @@ export const auth = getAuth(firebaseApp);
 export const provider = new GoogleAuthProvider();
 export const storage = getStorage(firebaseApp);
 export const db = getDatabase(firebaseApp);
-// const state = {
-//     user: {
-//         userName: '',
-//         email: '',
-//         uid: '',
-//         token: '',
-//     },
-// };
+
+
 export const loginWithGoogle = async () => {
     return await signInWithPopup(auth, provider);
 };
+
 
 export const login = async (email: string, password: string) => {
     // state.user.token = await userCredentials.user.getIdToken()
     return await signInWithEmailAndPassword(auth, email, password);
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // export const logout = () => {
 //     signOut(auth);

@@ -31,29 +31,17 @@ export function List() {
                 <div className="row">
                     <ul className="artworks-list list-unstyled">
                         {column1.map((item: ArtworksClass) => {
-                            return (
-                                <>
-                                    <Item key={item.id} item={item}></Item>
-                                </>
-                            );
+                            return <Item key={item.id} item={item}></Item>;
                         })}
                     </ul>
                     <ul className="artworks-list list-unstyled">
                         {column2.map((item: ArtworksClass) => {
-                            return (
-                                <>
-                                    <Item key={item.id} item={item}></Item>
-                                </>
-                            );
+                            return <Item key={item.id} item={item}></Item>;
                         })}
                     </ul>
                     <ul className="artworks-list list-unstyled">
                         {column3.map((item: ArtworksClass) => {
-                            return (
-                                <>
-                                    <Item key={item.id} item={item}></Item>
-                                </>
-                            );
+                            return <Item key={item.id} item={item}></Item>;
                         })}
                     </ul>
                 </div>
