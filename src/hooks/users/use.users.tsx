@@ -55,7 +55,6 @@ export function useUsers(): useUsersType {
     };
 
     const handleAdmin = (uid: string) => {
-        console.log(uid)
         uid === process.env.REACT_APP_FIREBASE_MARINA_UID
             ? setAdmin(true)
             : setAdmin(false);

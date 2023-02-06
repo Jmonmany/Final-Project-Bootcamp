@@ -42,11 +42,9 @@ describe(`Given useUsers (custom hook)
         const userCredentialsMock = loginWithGoogle();
         TestComponent = () => {
             const {
-                // getCurrentUser,
                 getAdmin,
                 getStatus,
                 getUsers,
-                // handleAdmin,
                 handleUser,
                 handleLoadUsers,
                 handleAddUser,
