@@ -1,4 +1,5 @@
-import { render, screen, waitFor } from '@testing-library/react';
+/* eslint-disable testing-library/no-unnecessary-act */
+import { render, screen, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {
     mockUser1,
@@ -10,10 +11,12 @@ import {
 } from './testing.mock';
 
 import { UsersRepo } from '../../core/services/user-repo/user.repo';
-import { useUsers } from './use.users';
+import * as users from './use.users';
 import { UsersClass } from '../../features/models/user.model';
 import * as debug from '../../tools/debug';
-
+import { loginWithGoogle } from '../../config';
+jest.mock('@firebase/database');
+jest.mock('../../config');
 jest.mock('../../core/services/art-repo/art.repo.ts');
 
 UsersRepo.prototype.load = jest.fn();
@@ -24,21 +27,32 @@ describe(`Given useUsers (custom hook)
     let TestComponent: () => JSX.Element;
     let spyConsole: jest.SpyInstance;
     let buttons: Array<HTMLElement>;
-    beforeEach(() => {
+    beforeEach(async () => {
+        (loginWithGoogle as jest.Mock).mockResolvedValue({
+            name: 'sample',
+            email: 'sample@gmail.com',
+            getIdToken: '12345',
+            user: {
+                displayName: '',
+                email: '',
+                getIdToken: jest.fn(),
+                uid: process.env.REACT_APP_FIREBASE_MARINA_UID,
+            },
+        });
+        const userCredentialsMock = loginWithGoogle();
         TestComponent = () => {
             const {
                 // getCurrentUser,
-                // getAdmin,
+                getAdmin,
                 getStatus,
                 getUsers,
                 // handleAdmin,
-                // handleCurrentUser,
-                // handleUser,
+                handleUser,
                 handleLoadUsers,
                 handleAddUser,
                 handleUpdateUser,
                 handleDeleteCard,
-            } = useUsers();
+            } = users.useUsers();
             return (
                 <>
                     <button onClick={handleLoadUsers}>Load</button>
@@ -51,6 +65,14 @@ describe(`Given useUsers (custom hook)
                     <button onClick={() => handleDeleteCard(mockUser2.uid)}>
                         DeleteCard
                     </button>
+                    <button
+                        onClick={async () =>
+                            handleUser(await userCredentialsMock)
+                        }
+                    >
+                        handleUser
+                    </button>
+                    <h1>{getAdmin() ? 'true' : 'false'}</h1>
                     {getStatus() !== 'Loaded' ? (
                         <p>Loading</p>
                     ) : (
@@ -66,7 +88,9 @@ describe(`Given useUsers (custom hook)
                 </>
             );
         };
-        render(<TestComponent />);
+        await act(async () => {
+            render(<TestComponent />);
+        });
         buttons = screen.getAllByRole('button');
         spyConsole = jest.spyOn(debug, 'consoleDebug');
     });
@@ -105,6 +129,13 @@ describe(`Given useUsers (custom hook)
             userEvent.click(buttons[3]);
             expect(await screen.findByText(mockUser2.name)).toBeInTheDocument();
         });
+        test('Then its function handleUser ADMIN should be used', async () => {
+            userEvent.click(buttons[4]);
+            const admin = await screen.findByRole('heading', {
+                name: 'true',
+            });
+            expect(admin).toBeInTheDocument();
+        });
     });
     describe(`When the repo is NOT working OK`, () => {
         beforeEach(mockNoValidRepoResponse);
@@ -127,6 +158,52 @@ describe(`Given useUsers (custom hook)
             expect(UsersRepo.prototype.update).toHaveBeenCalled();
             await waitFor(() => {
                 expect(spyConsole).toHaveBeenLastCalledWith('Testing errors');
+            });
+        });
+    });
+});
+describe(`Given useUsers render with a virtual component for No ADMIN`, () => {
+    let TestComponent: () => JSX.Element;
+    let button: HTMLElement;
+    beforeEach(async () => {
+        (loginWithGoogle as jest.Mock).mockResolvedValue({
+            name: 'sample',
+            email: 'sample@gmail.com',
+            getIdToken: '12345',
+            user: {
+                displayName: '',
+                email: '',
+                getIdToken: jest.fn(),
+                uid: '',
+            },
+        });
+        const userCredentialsMock = loginWithGoogle();
+        TestComponent = () => {
+            const { getAdmin, handleUser } = users.useUsers();
+            return (
+                <>
+                    <button
+                        onClick={async () =>
+                            handleUser(await userCredentialsMock)
+                        }
+                    >
+                        handleUser
+                    </button>
+                    <h1>{getAdmin() ? 'true' : 'false'}</h1>
+                </>
+            );
+        };
+        await act(async () => {
+            render(<TestComponent />);
+        });
+        button = screen.getByRole('button');
+    });
+    describe(`When the repo is working OK`, () => {
+        test('Then its function handleUser should be used', async () => {
+            userEvent.click(button);
+            const admin = screen.getByText('false');
+            await act(async () => {
+                expect(admin).toBeInTheDocument();
             });
         });
     });

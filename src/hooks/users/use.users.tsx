@@ -31,7 +31,7 @@ export function useUsers(): useUsersType {
     const initialUser: UsersClass | object = {};
     const initialStatus = 'Starting' as Status;
     const [users, dispatchUsers] = useReducer(usersReducer, initialState);
-    const [admin, setAdmin] = useState(true);
+    const [admin, setAdmin] = useState(false);
     const [status, setStatus] = useState(initialStatus);
     const [currentUser, dispatchCurrentUser] = useReducer(
         currentUserReducer,
@@ -43,34 +43,27 @@ export function useUsers(): useUsersType {
     const getStatus = () => status;
     const getAdmin = () => admin;
     const handleUser = async function (userCredentials: UserCredential) {
-        try {
-            const user = userCredentials.user;
-            const fullUser = new UsersClass(
-                user.displayName as string,
-                user.email as string,
-                await (user.getIdToken() as Promise<string>),
-                user.uid
-            );
-            set(ref(db, 'users/' + user.uid), fullUser);
-            handleCurrentUser(fullUser);
-        } catch (error) {
-            handleError(error as Error);
-        }
+        const user = userCredentials.user;
+        const fullUser = new UsersClass(
+            user.displayName as string,
+            user.email as string,
+            await (user.getIdToken() as Promise<string>),
+            user.uid
+        );
+        set(ref(db, 'users/' + user.uid), fullUser);
+        handleCurrentUser(fullUser);
     };
 
     const handleAdmin = (uid: string) => {
+        console.log(uid)
         uid === process.env.REACT_APP_FIREBASE_MARINA_UID
             ? setAdmin(true)
             : setAdmin(false);
     };
 
     const handleCurrentUser = (user: UsersClass | object) => {
-        try {
-            dispatchCurrentUser(ac.setCurrentUser(user as UsersClass));
-            handleAdmin((user as UsersClass).uid);
-        } catch (error) {
-            handleError(error as Error);
-        }
+        dispatchCurrentUser(ac.setCurrentUser(user as UsersClass));
+        handleAdmin((user as UsersClass).uid);
     };
     const handleLoadUsers = useCallback(async () => {
         try {
@@ -86,7 +79,6 @@ export function useUsers(): useUsersType {
     const handleAddUser = async function (user: UsersClass) {
         try {
             const fullUsers = await repo.create(user);
-            console.log(Object.keys(fullUsers));
             dispatchUsers(ac.usersAddCreator(fullUsers));
         } catch (error) {
             handleError(error as Error);
@@ -103,11 +95,7 @@ export function useUsers(): useUsersType {
     };
 
     const handleDeleteCard = async function (uid: UsersClass['uid']) {
-        try {
-            dispatchUsers(ac.usersDeleteCreator(uid));
-        } catch (error) {
-            handleError(error as Error);
-        }
+        dispatchUsers(ac.usersDeleteCreator(uid));
     };
 
     const handleError = (error: Error) => {

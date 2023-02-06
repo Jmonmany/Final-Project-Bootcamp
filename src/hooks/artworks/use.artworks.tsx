@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useCallback, useMemo, useReducer, useState } from 'react';
+import { SyntheticEvent, useCallback, useMemo, useReducer, useState } from 'react';
 import { ArtworksRepo } from '../../core/services/art-repo/art.repo';
 import { artworksReducer } from '../../reducers/artworks/artworks.reducer';
 import * as ac from '../../reducers/artworks/artworks.action.creator';
@@ -31,13 +31,14 @@ export function useArtworks(): useArtworksType {
     const getArtworks = () => artworks;
     const getStatus = () => status;
 
-    const handleFile = async (ev: any) => {
+    const handleFile = async (ev: SyntheticEvent) => {
         ev.preventDefault();
-        const input: any = ev.target.files[0];
-        if (input === undefined) {
+        const element = ev.target as HTMLInputElement;
+        if (!element.files) {
             alert('Any file selected');
             return;
         }
+        const input = element.files[0];
         const artworkRef = ref(storage, input.name);
         await uploadBytes(artworkRef, input);
         const url = await getDownloadURL(artworkRef);
