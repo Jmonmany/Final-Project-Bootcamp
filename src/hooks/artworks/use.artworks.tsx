@@ -9,6 +9,7 @@ import { storage } from '../../config';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 export type useArtworksType = {
+    reShuffleArtworks: (list: Array<ArtworksClass>) => void
     handleFile: (ev: any) => void;
     getStatus: () => Status;
     getArtworks: () => Array<ArtworksClass>;
@@ -45,6 +46,11 @@ export function useArtworks(): useArtworksType {
         const artworkData = new ArtworksClass(input.name, url);
         handleAdd(artworkData);
     };
+
+    const reShuffleArtworks = (list: Array<ArtworksClass>) => {
+        
+        dispatch(ac.artworksReShuffleCreator(list))
+    }
 
     const handleLoad = useCallback(async () => {
         try {
@@ -91,6 +97,7 @@ export function useArtworks(): useArtworksType {
     };
 
     return {
+        reShuffleArtworks,
         handleFile,
         getStatus,
         getArtworks,

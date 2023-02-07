@@ -35,6 +35,7 @@ export const initialContext: ArtworkContextStructure & UserContextStructure = {
     handleUser: async (userCredentials: UserCredential) => {},
     handleDeleteCard: async (uid: string) => {},
     artworks: [],
+    reShuffleArtworks: (list: Array<ArtworksClass>) => {},
     handleFile: () => {},
     handleLoad: async () => {},
     handleAdd: async (artworks: ArtworkType) => {},

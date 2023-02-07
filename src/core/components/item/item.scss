@@ -2,6 +2,8 @@
 @import '../../../mixins.scss';
 
 .item {
+    padding: 0.5rem;
+    display: flex;
     min-height: 400px;
     min-width: 400px;
     &__artwork {
@@ -11,6 +13,9 @@
         background-color: transparent;
         border: none;
         cursor: pointer;
+    }
+    input {
+        position: absolute;
     }
     &__delete {
         width: 1rem;

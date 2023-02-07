@@ -9,9 +9,12 @@ import {
 import { ARTWORK } from '../../../features/data/artmock';
 describe('Given "Item" component', () => {
     const handleLoad = jest.fn();
-    const getAdmin = () => true
+    const onDragStart = jest.fn();
+    const onDragEnter = jest.fn();
+    const onDragEnd = jest.fn();
+    const getAdmin = () => true;
     let mockContext: ArtworkContextStructure & UserContextStructure;
-    const item = ARTWORK
+    const item = ARTWORK;
     describe('When it is initially instantiated without data', () => {
         beforeEach(async () => {
             mockContext = {
@@ -22,14 +25,19 @@ describe('Given "Item" component', () => {
             await act(async () => {
                 render(
                     <ArtworkContext.Provider value={mockContext}>
-                        <Item item={item}></Item>
+                        <Item
+                            item={item}
+                            dragStart={onDragStart}
+                            dragEnter={onDragEnter}
+                            dragEnd={onDragEnd}
+                        ></Item>
                     </ArtworkContext.Provider>
                 );
             });
         });
         test(`Then component should be render the buttons`, () => {
-            const buttons = screen.getAllByRole('button')
-            expect(buttons[0]).toBeInTheDocument()
+            const buttons = screen.getAllByRole('button');
+            expect(buttons[0]).toBeInTheDocument();
             expect(buttons[1]).toBeInTheDocument();
         });
     });
