@@ -1,9 +1,19 @@
-import { useContext, useEffect } from 'react';
+import { SyntheticEvent, useContext, useEffect } from 'react';
 import { ArtworksClass } from '../../../features/models/artwork.model';
 import { ArtworkContext } from '../../context/artworks.context';
 import './item.scss';
 
-export function Item({ item }: { item: ArtworksClass }) {
+export function Item({
+    item,
+    dragStart,
+    dragEnter,
+    dragEnd,
+}: {
+    item: ArtworksClass;
+    dragStart: (e: SyntheticEvent) => void;
+    dragEnter: (e: SyntheticEvent) => void;
+    dragEnd: (e: SyntheticEvent) => void;
+}) {
     const { getAdmin, handleFile, handleLoad } = useContext(ArtworkContext);
 
     useEffect(() => {
@@ -12,7 +22,13 @@ export function Item({ item }: { item: ArtworksClass }) {
 
     return (
         <>
-            <li className="item">
+            <li
+                className="item"
+                draggable
+                onDragStart={dragStart}
+                onDragEnter={dragEnter}
+                onDragEnd={dragEnd}
+            >
                 <img
                     src={item.url}
                     alt={item.title}

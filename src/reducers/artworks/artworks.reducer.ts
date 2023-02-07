@@ -21,6 +21,11 @@ export function artworksReducer(
         case artworkActionTypes.delete:
             const finalId = action.payload as ArtworksClass['id'];
             return state.filter((item) => item.id !== finalId);
+        case artworkActionTypes.reshuffle:
+            return [
+                ...(state as Array<ArtworksClass>),
+                ...(action.payload as Array<ArtworksClass>),
+            ];
         default:
             return [...state];
     }

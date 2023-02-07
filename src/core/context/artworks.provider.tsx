@@ -10,6 +10,7 @@ export function ArtworkContextProvider({
 }) {
     const {
         getArtworks,
+        reShuffleArtworks,
         handleLoad,
         handleAdd,
         handleDelete,
@@ -41,6 +42,7 @@ export function ArtworkContextProvider({
             handleUpdateUser,
             handleDeleteCard,
             artworks: getArtworks(),
+            reShuffleArtworks,
             handleFile,
             handleLoad,
             handleAdd,
@@ -59,6 +61,7 @@ export function ArtworkContextProvider({
             handleUpdateUser,
             handleDeleteCard,
             getArtworks,
+            reShuffleArtworks,
             handleAdd,
             handleDelete,
             handleLoad,

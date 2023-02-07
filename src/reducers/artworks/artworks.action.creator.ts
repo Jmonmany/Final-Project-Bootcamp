@@ -33,3 +33,10 @@ export const artworksDeleteCreator = (
     type: artworkActionTypes.delete,
     payload,
 });
+
+export const artworksReShuffleCreator = (
+    payload: Array<ArtworksClass>
+): artworksAction => ({
+    type: artworkActionTypes.reshuffle,
+    payload,
+});

@@ -1,10 +1,14 @@
-import { useContext, useEffect } from 'react';
+import { set, ref } from 'firebase/database';
+import { SyntheticEvent, useContext, useEffect, useRef } from 'react';
+import { db } from '../../../config';
 import { ArtworksClass } from '../../../features/models/artwork.model';
 import { ArtworkContext } from '../../context/artworks.context';
+import { ArtworCollection } from '../../types/artwork';
 import { Item } from '../item/item';
 import './list.scss';
 export function List() {
-    const { artworks, handleLoad, handleAdd } = useContext(ArtworkContext);
+    const { artworks, handleLoad, handleAdd, reShuffleArtworks } =
+        useContext(ArtworkContext);
     useEffect(() => {
         handleLoad();
     }, [handleLoad]);
@@ -17,12 +21,47 @@ export function List() {
         handleAdd(newSpace);
     };
 
-    const column1 = artworks.slice(0, artworks.length / 3);
-    const column2 = artworks.slice(
-        artworks.length / 3,
-        artworks.length - artworks.length / 3
-    );
-    const column3 = artworks.slice(artworks.length - artworks.length / 3);
+    const dragItem = useRef();
+    const dragOverItem = useRef();
+
+    const dragStart = (e: SyntheticEvent, position: number) => {
+        (dragItem.current as unknown) = position;
+        console.log('ON DRAG START');
+    };
+    const dragEnter = (e: SyntheticEvent, position: number) => {
+        e.preventDefault();
+        (dragOverItem.current as unknown) = position;
+        console.log('ON DRAG OVER');
+    };
+
+    const drop = (e: SyntheticEvent) => {
+        const copyListItems = [...artworks];
+        const dragItemContent =
+            copyListItems[dragItem.current as unknown as number];
+        copyListItems.splice(dragItem.current as unknown as number, 1);
+        copyListItems.splice(
+            dragOverItem.current as unknown as number,
+            0,
+            dragItemContent
+        );
+        (dragItem.current as unknown as null) = null;
+        (dragOverItem.current as unknown as null) = null;
+        // first atempt to preserv firebase key
+        // const artworkCollection = copyListItems.map((artwork) => {
+        //     return { [artwork.id]: { ...artwork } };
+        // });
+        // set(ref(db, 'artworks/'), Object.assign({}, ...artworkCollection));
+        set(ref(db, 'artworks/'), copyListItems);
+        reShuffleArtworks(copyListItems);
+    };
+
+    // code for 3 columns after drag&drop
+    // const column1 = artworks.slice(0, artworks.length / 3);
+    // const column2 = artworks.slice(
+    //     artworks.length / 3,
+    //     artworks.length - artworks.length / 3
+    // );
+    // const column3 = artworks.slice(artworks.length - artworks.length / 3);
     return (
         <>
             <section className="main">
@@ -30,6 +69,25 @@ export function List() {
                 <button onClick={handleAddSpace}>ADD ARTWORK</button>
                 <div className="row">
                     <ul className="artworks-list list-unstyled">
+                        {artworks.map((item: ArtworksClass, index) => {
+                            return (
+                                <Item
+                                    key={index}
+                                    item={item}
+                                    dragStart={(e: SyntheticEvent) =>
+                                        dragStart(e, index)
+                                    }
+                                    dragEnter={(e: SyntheticEvent) =>
+                                        dragEnter(e, index)
+                                    }
+                                    dragEnd={drop}
+                                ></Item>
+                            );
+                        })}
+                    </ul>
+
+                    {/* code for 3 columns after drag&drop */}
+                    {/* <ul className="artworks-list list-unstyled">
                         {column1.map((item: ArtworksClass) => {
                             return <Item key={item.id} item={item}></Item>;
                         })}
@@ -43,7 +101,7 @@ export function List() {
                         {column3.map((item: ArtworksClass) => {
                             return <Item key={item.id} item={item}></Item>;
                         })}
-                    </ul>
+                    </ul> */}
                 </div>
             </section>
         </>
