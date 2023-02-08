@@ -2,7 +2,6 @@ import { SyntheticEvent, useContext, useEffect } from 'react';
 import { ArtworksClass } from '../../../features/models/artwork.model';
 import { ArtworkContext } from '../../context/artworks.context';
 import './item.scss';
-
 export function Item({
     item,
     dragStart,
@@ -14,11 +13,16 @@ export function Item({
     dragEnter: (e: SyntheticEvent) => void;
     dragEnd: (e: SyntheticEvent) => void;
 }) {
-    const { getAdmin, handleFile, handleLoad } = useContext(ArtworkContext);
+    const { getAdmin, handleFile, handleLoad, handleDetailed } =
+        useContext(ArtworkContext);
 
     useEffect(() => {
         handleLoad();
     }, [handleLoad]);
+
+    const handleClick = () => {
+        handleDetailed({...item, state: true});
+    };
 
     return (
         <>
@@ -33,6 +37,7 @@ export function Item({
                     src={item.url}
                     alt={item.title}
                     className="item__artwork"
+                    onClick={handleClick}
                 />
                 <input type="file" name="" id="getFile" onChange={handleFile} />
                 {getAdmin() ? (

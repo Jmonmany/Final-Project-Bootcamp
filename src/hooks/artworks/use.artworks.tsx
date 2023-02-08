@@ -1,5 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { SyntheticEvent, useCallback, useMemo, useReducer, useState } from 'react';
+import {
+    SyntheticEvent,
+    useCallback,
+    useMemo,
+    useReducer,
+    useState,
+} from 'react';
 import { ArtworksRepo } from '../../core/services/art-repo/art.repo';
 import { artworksReducer } from '../../reducers/artworks/artworks.reducer';
 import * as ac from '../../reducers/artworks/artworks.action.creator';
@@ -7,9 +13,12 @@ import { consoleDebug } from '../../tools/debug';
 import { ArtworksClass } from '../../features/models/artwork.model';
 import { storage } from '../../config';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { detailedArtworkReducer } from '../../reducers/artworks/detailed.reducer';
 
 export type useArtworksType = {
-    reShuffleArtworks: (list: Array<ArtworksClass>) => void
+    artworkDetailed: ArtworksClass | object;
+    handleDetailed: (artwork: ArtworksClass) => void;
+    reShuffleArtworks: (list: Array<ArtworksClass>) => void;
     handleFile: (ev: any) => void;
     getStatus: () => Status;
     getArtworks: () => Array<ArtworksClass>;
@@ -23,15 +32,17 @@ type Status = 'Starting' | 'Loading' | 'Loaded';
 
 export function useArtworks(): useArtworksType {
     const repo = useMemo(() => new ArtworksRepo(), []);
-
+    const initialDetailed: ArtworksClass | object = {};
     const initialState: Array<ArtworksClass> = [];
     const initialStatus = 'Starting' as Status;
-    const [artworks, dispatch] = useReducer(artworksReducer, initialState);
-
+    const [artworks, artworksDispatcher] = useReducer(artworksReducer, initialState);
+    const [artworkDetailed, detailDispatcher] = useReducer(
+        detailedArtworkReducer,
+        initialDetailed
+    );
     const [status, setStatus] = useState(initialStatus);
     const getArtworks = () => artworks;
     const getStatus = () => status;
-
     const handleFile = async (ev: SyntheticEvent) => {
         ev.preventDefault();
         const element = ev.target as HTMLInputElement;
@@ -48,15 +59,18 @@ export function useArtworks(): useArtworksType {
     };
 
     const reShuffleArtworks = (list: Array<ArtworksClass>) => {
-        
-        dispatch(ac.artworksReShuffleCreator(list))
+        artworksDispatcher(ac.artworksReShuffleCreator(list));
+    };
+
+    const handleDetailed = (artwork: ArtworksClass) => {
+        detailDispatcher(ac.artworksDetailedCreator(artwork))
     }
 
     const handleLoad = useCallback(async () => {
         try {
             setStatus('Loading');
             const data = await repo.load();
-            dispatch(ac.artworksLoadCreator(data));
+            artworksDispatcher(ac.artworksLoadCreator(data));
             setStatus('Loaded');
         } catch (error) {
             handleError(error as Error);
@@ -66,7 +80,7 @@ export function useArtworks(): useArtworksType {
     const handleAdd = async function (artworks: ArtworksClass) {
         try {
             const fullArtworks = await repo.create(artworks);
-            dispatch(ac.artworksAddCreator(fullArtworks));
+            artworksDispatcher(ac.artworksAddCreator(fullArtworks));
         } catch (error) {
             handleError(error as Error);
         }
@@ -77,7 +91,7 @@ export function useArtworks(): useArtworksType {
     ) {
         try {
             const fullArtworks = await repo.update(artworksPayload);
-            dispatch(ac.artworksUpdateCreator(fullArtworks));
+            artworksDispatcher(ac.artworksUpdateCreator(fullArtworks));
         } catch (error) {
             handleError(error as Error);
         }
@@ -86,7 +100,7 @@ export function useArtworks(): useArtworksType {
     const handleDelete = async function (id: ArtworksClass['id']) {
         try {
             const finalId = await repo.delete(id);
-            dispatch(ac.artworksDeleteCreator(finalId));
+            artworksDispatcher(ac.artworksDeleteCreator(finalId));
         } catch (error) {
             handleError(error as Error);
         }
@@ -97,6 +111,8 @@ export function useArtworks(): useArtworksType {
     };
 
     return {
+        artworkDetailed,
+        handleDetailed,
         reShuffleArtworks,
         handleFile,
         getStatus,

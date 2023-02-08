@@ -40,3 +40,10 @@ export const artworksReShuffleCreator = (
     type: artworkActionTypes.reshuffle,
     payload,
 });
+
+export const artworksDetailedCreator = (
+    payload: ArtworksClass
+): artworksAction => ({
+    type: artworkActionTypes.detailed,
+    payload,
+});

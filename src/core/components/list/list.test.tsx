@@ -42,9 +42,9 @@ describe('Given "List" component', () => {
             expect(addBtn).toBeInTheDocument();
         });
         test(`Then component should be render the item`, () => {
-            const altElements1 = screen.getByAltText('mock1');
-            const altElements2 = screen.getByAltText('mock1');
-            const altElements3 = screen.getByAltText('mock1');
+            const altElements1 = screen.getByAltText('mockArt1');
+            const altElements2 = screen.getByAltText('mockArt2');
+            const altElements3 = screen.getByAltText('mockArt3');
             expect(altElements1).toBeInTheDocument();
             expect(altElements2).toBeInTheDocument();
             expect(altElements3).toBeInTheDocument();
