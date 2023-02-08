@@ -9,6 +9,8 @@ export function ArtworkContextProvider({
     children: JSX.Element;
 }) {
     const {
+        artworkDetailed,
+        handleDetailed,
         getArtworks,
         reShuffleArtworks,
         handleLoad,
@@ -42,6 +44,8 @@ export function ArtworkContextProvider({
             handleUpdateUser,
             handleDeleteCard,
             artworks: getArtworks(),
+            artworkDetailed,
+            handleDetailed,
             reShuffleArtworks,
             handleFile,
             handleLoad,
@@ -61,6 +65,8 @@ export function ArtworkContextProvider({
             handleUpdateUser,
             handleDeleteCard,
             getArtworks,
+            artworkDetailed,
+            handleDetailed,
             reShuffleArtworks,
             handleAdd,
             handleDelete,

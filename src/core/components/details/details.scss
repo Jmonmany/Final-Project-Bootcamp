@@ -1,0 +1,36 @@
+@import '../../../variables';
+@import '../../../mixins.scss';
+
+.details {
+    margin: 0;
+    padding-inline: 5rem;
+    display: flex;
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background-color: white;
+    justify-content: space-around;
+    bottom: 0;
+    img{
+        margin-block-start: 3rem;
+        max-width: 500px;
+        max-height: 500px;
+    }
+    section {
+        margin-block-start: 5rem;
+        display: flex;
+        flex-direction: column;
+    }
+    button {
+        @include btnTheme();
+        position: absolute;
+        left: 95%;
+        top: 0%;
+    }
+    a {
+        text-decoration: none;
+    }
+    // button:hover{
+    //     @include btnHover();
+    // }
+}

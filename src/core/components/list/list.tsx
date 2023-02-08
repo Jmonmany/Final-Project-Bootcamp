@@ -3,7 +3,6 @@ import { SyntheticEvent, useContext, useEffect, useRef } from 'react';
 import { db } from '../../../config';
 import { ArtworksClass } from '../../../features/models/artwork.model';
 import { ArtworkContext } from '../../context/artworks.context';
-import { ArtworCollection } from '../../types/artwork';
 import { Item } from '../item/item';
 import './list.scss';
 export function List() {

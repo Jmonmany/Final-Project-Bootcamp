@@ -7,8 +7,10 @@ import {
     UserContextStructure,
 } from '../../context/artworks.context';
 import { ARTWORK } from '../../../features/data/artmock';
+import userEvent from '@testing-library/user-event';
 describe('Given "Item" component', () => {
     const handleLoad = jest.fn();
+    const handleDetailed = jest.fn();
     const onDragStart = jest.fn();
     const onDragEnter = jest.fn();
     const onDragEnd = jest.fn();
@@ -21,6 +23,7 @@ describe('Given "Item" component', () => {
                 artworks: [],
                 getAdmin,
                 handleLoad,
+                handleDetailed,
             } as unknown as ArtworkContextStructure & UserContextStructure;
             await act(async () => {
                 render(
@@ -37,8 +40,19 @@ describe('Given "Item" component', () => {
         });
         test(`Then component should be render the buttons`, () => {
             const buttons = screen.getAllByRole('button');
+            const img = screen.getByRole('img', {
+                name: item.title
+            })
             expect(buttons[0]).toBeInTheDocument();
             expect(buttons[1]).toBeInTheDocument();
+            expect(img).toBeInTheDocument();
+        });
+        test(`Then component should be use the click`, () => {
+            const img = screen.getByRole('img', {
+                name: item.title,
+            });
+            userEvent.click(img)
+            expect(handleDetailed).toHaveBeenCalled()
         });
     });
 });

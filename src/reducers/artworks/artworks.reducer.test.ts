@@ -56,6 +56,15 @@ describe('Given the reducer', () => {
         });
     });
 
+    describe('When the action type is "artworks@reshuffle"', () => {
+        test('Then it should return as state the loaded data', () => {
+            state = [];
+            action = ac.artworksReShuffleCreator(mockArtworks);
+            const result = artworksReducer(state, action);
+            expect(result).toEqual(mockArtworks);
+        });
+    });
+
     describe('When the action type is not valid', () => {
         test('Then it should return the state', () => {
             state = [];
