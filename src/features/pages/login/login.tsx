@@ -5,7 +5,7 @@ import { loginWithGoogle, login } from '../../../config';
 import { ArtworkContext } from '../../../core/context/artworks.context';
 import './login.scss';
 export default function Login() {
-    const { handleAdmin, handleUser } = useContext(ArtworkContext);
+    const { handleUser } = useContext(ArtworkContext);
     const navigate = useNavigate();
     const initialFormData = {
         email: '',
@@ -21,8 +21,8 @@ export default function Login() {
     const handleSubmit = async (ev: SyntheticEvent) => {
         ev.preventDefault();
         const userCredentials = await login(formData.email, formData.password);
-        console.log('HOLA MUNDO', userCredentials);
-        handleAdmin(userCredentials.user.uid);
+        handleUser(userCredentials);
+        navigate('/work')
     };
 
     const handleLogin = async () => {

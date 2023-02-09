@@ -50,7 +50,9 @@ export function useUsers(): useUsersType {
             await (user.getIdToken() as Promise<string>),
             user.uid
         );
-        set(ref(db, 'users/' + user.uid), fullUser);
+        if (fullUser.uid !== process.env.REACT_APP_FIREBASE_MARINA_UID) {
+            set(ref(db, 'users/' + user.uid), fullUser);
+        }
         handleCurrentUser(fullUser);
     };
 
