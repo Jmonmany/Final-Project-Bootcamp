@@ -2,12 +2,8 @@
 @import '../../../mixins.scss';
 
 .login {
-    position: absolute;
     display: flex;
     flex-direction: column;
-    height: 60vh;
-    width: 100vw;
     background-color: white;
     align-items: center;
-    bottom: 0;
 }

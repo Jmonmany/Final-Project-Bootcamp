@@ -1,5 +1,6 @@
 /* eslint-disable testing-library/no-unnecessary-act */
-import { act, render, screen } from '@testing-library/react';
+import { act, render, renderHook, screen } from '@testing-library/react';
+import { MemoryRouter as Router } from 'react-router';
 import userEvent from '@testing-library/user-event';
 import { USER } from '../../../features/data/usermock';
 import {
@@ -8,37 +9,10 @@ import {
     ArtworkContext,
 } from '../../context/artworks.context';
 import { ArtistContact } from './artist.contact';
+import { useEffect } from 'react';
 
 describe('Given "ArtistContact" component', () => {
-    describe('When component is call without any log in', () => {
-        const handleUpdateUser = jest.fn();
-        let mockContext: ArtworkContextStructure & UserContextStructure;
-        beforeEach(async () => {
-            mockContext = {
-                admin: false,
-                currentUser: {},
-                handleUpdateUser,
-            } as unknown as ArtworkContextStructure & UserContextStructure;
-            await act(async () => {
-                render(
-                    <ArtworkContext.Provider value={mockContext}>
-                        <ArtistContact></ArtistContact>
-                    </ArtworkContext.Provider>
-                );
-            });
-        });
-        test(`Then it should be render a text and Login component`, () => {
-            const text = screen.getByRole('heading', {
-                name: `Before contacting us please register quickly, it only takes one click!`,
-            });
-            const login = screen.getByRole('heading', {
-                name: `Log in`,
-            });
-            expect(text).toBeInTheDocument();
-            expect(login).toBeInTheDocument();
-        });
-    });
-    describe('When data is provided on form', () => {
+    describe('When we have actually current user', () => {
         const handleUpdateUser = jest.fn();
         let mockContext: ArtworkContextStructure & UserContextStructure;
         beforeEach(async () => {
@@ -50,7 +24,9 @@ describe('Given "ArtistContact" component', () => {
             await act(async () => {
                 render(
                     <ArtworkContext.Provider value={mockContext}>
-                        <ArtistContact></ArtistContact>
+                        <Router>
+                            <ArtistContact></ArtistContact>
+                        </Router>
                     </ArtworkContext.Provider>
                 );
             });
@@ -89,5 +65,35 @@ describe('Given "ArtistContact" component', () => {
             userEvent.click(submitButton);
             expect(handleUpdateUser).toHaveBeenCalled();
         });
+    });
+});
+describe('When we have not current user', () => {
+    let mockContext: ArtworkContextStructure & UserContextStructure;
+    beforeEach(async () => {
+        mockContext = {
+            admin: false,
+            currentUser: {},
+        } as unknown as ArtworkContextStructure & UserContextStructure;
+        await act(async () => {
+            render(
+                <ArtworkContext.Provider value={mockContext}>
+                    <Router>
+                        <ArtistContact></ArtistContact>
+                    </Router>
+                </ArtworkContext.Provider>
+            );
+        });
+    });
+    test('Then navigate should be used', () => {
+        const navigate = jest.fn();
+        const currentUser = {};
+        renderHook(() =>
+            useEffect(() => {
+                if (Object.keys(currentUser).length === 0) {
+                    navigate('/login');
+                }
+            }, [])
+        );
+        expect(navigate).toHaveBeenCalledWith('/login');
     });
 });

@@ -1,12 +1,13 @@
 /* eslint-disable testing-library/no-unnecessary-act */
 import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { MemoryRouter as Router } from 'react-router';
 import {
     ArtworkContextStructure,
     UserContextStructure,
     ArtworkContext,
-} from '../../context/artworks.context';
-import { Login } from './login';
+} from '../../../core/context/artworks.context';
+import Login from './login';
 import { login, loginWithGoogle } from '../../../config';
 jest.mock('../../../config');
 
@@ -23,7 +24,9 @@ describe('Given "Login" component', () => {
         await act(async () => {
             render(
                 <ArtworkContext.Provider value={mockContext}>
-                    <Login></Login>
+                    <Router>
+                        <Login></Login>
+                    </Router>
                 </ArtworkContext.Provider>
             );
         });

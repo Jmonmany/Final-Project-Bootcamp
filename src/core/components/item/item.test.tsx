@@ -1,5 +1,6 @@
 /* eslint-disable testing-library/no-unnecessary-act */
 import { render, act, screen } from '@testing-library/react';
+import { MemoryRouter as Router } from 'react-router';
 import { Item } from './item';
 import {
     ArtworkContext,
@@ -28,12 +29,14 @@ describe('Given "Item" component', () => {
             await act(async () => {
                 render(
                     <ArtworkContext.Provider value={mockContext}>
-                        <Item
-                            item={item}
-                            dragStart={onDragStart}
-                            dragEnter={onDragEnter}
-                            dragEnd={onDragEnd}
-                        ></Item>
+                        <Router>
+                            <Item
+                                item={item}
+                                dragStart={onDragStart}
+                                dragEnter={onDragEnter}
+                                dragEnd={onDragEnd}
+                            ></Item>
+                        </Router>
                     </ArtworkContext.Provider>
                 );
             });
