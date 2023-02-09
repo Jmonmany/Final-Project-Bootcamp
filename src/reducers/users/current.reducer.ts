@@ -7,8 +7,7 @@ export function currentUserReducer(
 ): UsersClass | object {
     switch (action.type) {
         case userActionTypes.setCurrent:
-            const currentUser = action.payload as UsersClass;
-            return { ...state, ...currentUser };
+            return action.payload as UsersClass;
         default:
             return state;
     }
