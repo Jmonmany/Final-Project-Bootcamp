@@ -25,12 +25,10 @@ export function List() {
 
     const dragStart = (e: SyntheticEvent, position: number) => {
         (dragItem.current as unknown) = position;
-        console.log('ON DRAG START');
     };
     const dragEnter = (e: SyntheticEvent, position: number) => {
         e.preventDefault();
         (dragOverItem.current as unknown) = position;
-        console.log('ON DRAG OVER');
     };
 
     const drop = (e: SyntheticEvent) => {
@@ -53,14 +51,6 @@ export function List() {
         set(ref(db, 'artworks/'), copyListItems);
         reShuffleArtworks(copyListItems);
     };
-
-    // code for 3 columns after drag&drop
-    // const column1 = artworks.slice(0, artworks.length / 3);
-    // const column2 = artworks.slice(
-    //     artworks.length / 3,
-    //     artworks.length - artworks.length / 3
-    // );
-    // const column3 = artworks.slice(artworks.length - artworks.length / 3);
     return (
         <>
             <section className="main">
@@ -84,23 +74,6 @@ export function List() {
                             );
                         })}
                     </ul>
-
-                    {/* code for 3 columns after drag&drop */}
-                    {/* <ul className="artworks-list list-unstyled">
-                        {column1.map((item: ArtworksClass) => {
-                            return <Item key={item.id} item={item}></Item>;
-                        })}
-                    </ul>
-                    <ul className="artworks-list list-unstyled">
-                        {column2.map((item: ArtworksClass) => {
-                            return <Item key={item.id} item={item}></Item>;
-                        })}
-                    </ul>
-                    <ul className="artworks-list list-unstyled">
-                        {column3.map((item: ArtworksClass) => {
-                            return <Item key={item.id} item={item}></Item>;
-                        })}
-                    </ul> */}
                 </div>
             </section>
         </>
