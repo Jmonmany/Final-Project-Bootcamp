@@ -1,5 +1,5 @@
 /* eslint-disable testing-library/no-unnecessary-act */
-import { render, screen, act } from '@testing-library/react';
+import { render, screen, act, fireEvent } from '@testing-library/react';
 import { MemoryRouter as Router } from 'react-router';
 import { List } from './list';
 import {
@@ -13,6 +13,7 @@ describe('Given "List" component', () => {
     const handleLoad = jest.fn();
     const handleAdd = jest.fn();
     const getAdmin = jest.fn();
+    const reShuffleArtworks = jest.fn();
     let mockContext: ArtworkContextStructure & UserContextStructure;
     describe('When it is initially instantiated without data', () => {
         beforeEach(async () => {
@@ -21,6 +22,7 @@ describe('Given "List" component', () => {
                 getAdmin,
                 handleAdd,
                 handleLoad,
+                reShuffleArtworks,
             } as unknown as ArtworkContextStructure & UserContextStructure;
             await act(async () => {
                 render(
@@ -39,8 +41,8 @@ describe('Given "List" component', () => {
             const addBtn = screen.getByRole('button', {
                 name: 'ADD ARTWORK',
             });
-            userEvent.click(addBtn)
-            expect(handleAdd).toHaveBeenCalled()
+            userEvent.click(addBtn);
+            expect(handleAdd).toHaveBeenCalled();
             expect(elementTitle).toBeInTheDocument();
             expect(addBtn).toBeInTheDocument();
         });
@@ -51,6 +53,34 @@ describe('Given "List" component', () => {
             expect(altElements1).toBeInTheDocument();
             expect(altElements2).toBeInTheDocument();
             expect(altElements3).toBeInTheDocument();
+        });
+        test('should allow dragging and dropping artworks', async () => {
+            const altElements1 = screen.getByAltText('mockArt1');
+            const altElements2 = screen.getByAltText('mockArt2');
+            act(() => {
+                fireEvent.dragStart(altElements1, {
+                    clientX: 0,
+                    clientY: 0,
+                });
+            });
+            act(() => {
+                fireEvent.dragEnter(altElements2, {
+                    clientX: 0,
+                    clientY: 0,
+                });
+            });
+            act(() => {
+                fireEvent.dragEnd(altElements2, {
+                    clientX: 0,
+                    clientY: 0,
+                });
+            });
+
+            expect(reShuffleArtworks).toHaveBeenCalledWith([
+                ARTWORK2,
+                ARTWORK,
+                ARTWORK3,
+            ]);
         });
     });
 });
