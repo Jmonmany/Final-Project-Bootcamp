@@ -1,7 +1,9 @@
 import { SyntheticEvent, useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ArtworksClass } from '../../../features/models/artwork.model';
 import { ArtworkContext } from '../../context/artworks.context';
 import './item.scss';
+
 export function Item({
     item,
     dragStart,
@@ -15,13 +17,14 @@ export function Item({
 }) {
     const { getAdmin, handleFile, handleLoad, handleDetailed } =
         useContext(ArtworkContext);
-
+    const navigate = useNavigate();
     useEffect(() => {
         handleLoad();
     }, [handleLoad]);
 
     const handleClick = () => {
-        handleDetailed({...item, state: true});
+        handleDetailed({ ...item, state: true });
+        navigate('/details');
     };
 
     return (

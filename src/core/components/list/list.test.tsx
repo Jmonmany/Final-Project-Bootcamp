@@ -1,5 +1,6 @@
 /* eslint-disable testing-library/no-unnecessary-act */
 import { render, screen, act } from '@testing-library/react';
+import { MemoryRouter as Router } from 'react-router';
 import { List } from './list';
 import {
     ArtworkContext,
@@ -24,7 +25,9 @@ describe('Given "List" component', () => {
             await act(async () => {
                 render(
                     <ArtworkContext.Provider value={mockContext}>
-                        <List></List>
+                        <Router>
+                            <List></List>
+                        </Router>
                     </ArtworkContext.Provider>
                 );
             });

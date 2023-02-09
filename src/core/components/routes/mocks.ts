@@ -1,18 +1,16 @@
 import { MenuItems } from '../../types/menu';
 
 export const mockPageTitles = [
-    'Test Home',
-    'Test Todo',
-    'Test Notes',
-    'Test Lugares',
-    'Test User',
+    'Test Work',
     'Test About',
+    'Test Contact',
+    'Test Details',
+    'Test Login',
 ];
 export const items: MenuItems = [
-    { path: '/home', label: 'Inicio' },
-    { path: '/todo', label: 'Tareas' },
-    { path: '/notes', label: 'Notas' },
-    { path: '/places', label: 'Lugares' },
-    { path: '/users', label: 'Login' },
-    { path: '/about', label: 'Nosotros' },
+    { path: '/work', label: 'Work' },
+    { path: '/about', label: 'About' },
+    { path: '/contact', label: 'Contact' },
+    { path: '/details', label: 'Details' },
+    { path: '/login', label: 'Login' },
 ];

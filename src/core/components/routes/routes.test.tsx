@@ -5,7 +5,7 @@ import { AppLazyRoutes } from './routes';
 import { mockPageTitles, items } from './mocks';
 
 const testLazyRoute = (index: number) => {
-    const title = new RegExp(mockPageTitles[index], 'i'); // Antes /Test Home/i;
+    const title = new RegExp(mockPageTitles[index], 'i');
     const lazyElement = screen.getByText(title);
     expect(lazyElement).toBeInTheDocument();
 };
@@ -21,10 +21,15 @@ jest.mock('../../../features/pages/about/about', () => {
 jest.mock('../../../features/pages/contact/contact', () => {
     return () => <p>{mockPageTitles[2]}</p>;
 });
+jest.mock('../../../features/pages/details/details', () => {
+    return () => <p>{mockPageTitles[3]}</p>;
+});
+jest.mock('../../../features/pages/login/login', () => {
+    return () => <p>{mockPageTitles[4]}</p>;
+});
 
-describe('Given AppRoutes Lazy component, if the user is NOT logged', () => {
+describe('Given AppRoutes Lazy component', () => {
     let lazyPaths: Array<string>;
-
     beforeEach(() => {
         lazyPaths = items.map((item) => item.path);
     });
@@ -63,14 +68,44 @@ describe('Given AppRoutes Lazy component, if the user is NOT logged', () => {
         beforeEach(async () => {
             await act(async () => {
                 render(
-                    <Router initialEntries={lazyPaths} initialIndex={0}>
+                    <Router initialEntries={lazyPaths} initialIndex={2}>
                         <AppLazyRoutes items={items} />
                     </Router>
                 );
             });
         });
         test('Then it should display the ContactPage', () => {
-            testLazyRoute(0);
+            testLazyRoute(2);
+        });
+    });
+    describe(`When we render the component 
+                And the lazy route is Detail`, () => {
+        beforeEach(async () => {
+            await act(async () => {
+                render(
+                    <Router initialEntries={lazyPaths} initialIndex={3}>
+                        <AppLazyRoutes items={items} />
+                    </Router>
+                );
+            });
+        });
+        test('Then it should display the DetailPage', () => {
+            testLazyRoute(3);
+        });
+    });
+    describe(`When we render the component 
+                And the lazy route is Login`, () => {
+        beforeEach(async () => {
+            await act(async () => {
+                render(
+                    <Router initialEntries={lazyPaths} initialIndex={4}>
+                        <AppLazyRoutes items={items} />
+                    </Router>
+                );
+            });
+        });
+        test('Then it should display the Login', () => {
+            testLazyRoute(4);
         });
     });
 });

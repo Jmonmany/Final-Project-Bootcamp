@@ -5,8 +5,6 @@ import { ArtworkContext } from '../../../core/context/artworks.context';
 
 export default function Contact() {
     const { getAdmin } = useContext(ArtworkContext);
-
-
     return (
         <>
             <section className="contact" role="article">

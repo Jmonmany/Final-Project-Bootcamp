@@ -16,11 +16,7 @@ export function ClientContact() {
             <div className="client-contact">
                 <ul>
                     {users.map((item: UsersClass) => {
-                        return (
-                            <>
-                                <Card key={item.uid} item={item}></Card>
-                            </>
-                        );
+                        return <Card key={item.uid} item={item}></Card>;
                     })}
                 </ul>
             </div>

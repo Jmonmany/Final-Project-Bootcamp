@@ -1,10 +1,12 @@
 import { useState, SyntheticEvent } from 'react';
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { loginWithGoogle, login } from '../../../config';
-import { ArtworkContext } from '../../context/artworks.context';
+import { ArtworkContext } from '../../../core/context/artworks.context';
 import './login.scss';
-export function Login() {
+export default function Login() {
     const { handleAdmin, handleUser } = useContext(ArtworkContext);
+    const navigate = useNavigate();
     const initialFormData = {
         email: '',
         password: '',
@@ -19,18 +21,23 @@ export function Login() {
     const handleSubmit = async (ev: SyntheticEvent) => {
         ev.preventDefault();
         const userCredentials = await login(formData.email, formData.password);
-        console.log('HOLA MUNDO',userCredentials);
+        console.log('HOLA MUNDO', userCredentials);
         handleAdmin(userCredentials.user.uid);
     };
 
     const handleLogin = async () => {
         const userCredentials = await loginWithGoogle();
         handleUser(userCredentials);
+        navigate('/contact');
     };
 
     return (
         <>
             <section className="login">
+                <p>
+                    Before proceeding, please register quickly, it only takes
+                    one click!
+                </p>
                 <h2>Log in</h2>
                 <form onSubmit={handleSubmit}>
                     <div>
