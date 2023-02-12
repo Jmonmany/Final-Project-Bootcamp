@@ -1,7 +1,9 @@
+/* eslint-disable no-empty-pattern */
 /* eslint-disable testing-library/no-unnecessary-act */
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {
+    mockArtworks,
     mockArtwork1,
     mockArtwork2,
     mockAddArtwork,
@@ -15,8 +17,9 @@ import { useArtworks } from './use.artworks';
 import { ArtworksClass } from '../../features/models/artwork.model';
 import * as debug from '../../tools/debug';
 
+jest.mock('firebase/storage');
+jest.mock('../../config');
 jest.mock('../../core/services/art-repo/art.repo.ts');
-
 ArtworksRepo.prototype.load = jest.fn();
 ArtworksRepo.prototype.create = jest.fn();
 ArtworksRepo.prototype.update = jest.fn();
@@ -26,10 +29,22 @@ describe(`Given useArtworkss (custom hook)
     let TestComponent: () => JSX.Element;
     let spyConsole: jest.SpyInstance;
     let buttons: Array<HTMLElement>;
-    beforeEach(() => {
+    beforeEach(async () => {
+        const event = {
+            preventDefault: jest.fn(),
+            target: {
+                files: [
+                    {
+                        name: 'test-file',
+                    },
+                ],
+            },
+        };
         TestComponent = () => {
             const {
-                // handleFile,
+                reShuffleArtworks,
+                handleFile,
+                handleDetailed,
                 handleAdd,
                 getStatus,
                 getArtworks,
@@ -49,6 +64,15 @@ describe(`Given useArtworkss (custom hook)
                     <button onClick={() => handleDelete(mockArtwork2.id)}>
                         Delete
                     </button>
+                    <button onClick={() => reShuffleArtworks(mockArtworks)}>
+                        reShuffle
+                    </button>
+                    <button onClick={() => handleDetailed(mockArtwork1)}>
+                        Detail
+                    </button>
+                    <button onClick={() => handleFile(event, mockArtwork2.id)}>
+                        File
+                    </button>
                     {getStatus() !== 'Loaded' ? (
                         <p>Loading</p>
                     ) : (
@@ -64,7 +88,9 @@ describe(`Given useArtworkss (custom hook)
                 </>
             );
         };
-        render(<TestComponent />);
+        await act(async () => {
+            render(<TestComponent />);
+        });
         buttons = screen.getAllByRole('button');
         spyConsole = jest.spyOn(debug, 'consoleDebug');
     });
@@ -114,6 +140,30 @@ describe(`Given useArtworkss (custom hook)
                 async () => await screen.findByText(mockArtwork1.title)
             ).rejects.toThrowError();
         });
+        test('Then its function reShuffle should be used', async () => {
+            userEvent.click(buttons[0]);
+            userEvent.click(buttons[4]);
+            expect(
+                await screen.findByText(mockArtwork1.title)
+            ).toBeInTheDocument();
+            expect(
+                await screen.findByText(mockArtwork2.title)
+            ).toBeInTheDocument();
+        });
+        test('Then its function Details should be used', async () => {
+            userEvent.click(buttons[0]);
+            userEvent.click(buttons[5]);
+            expect(
+                await screen.findByText(mockArtwork1.title)
+            ).toBeInTheDocument();
+        });
+        test('Then its function handleFile should be used', async () => {
+            userEvent.click(buttons[0]);
+            userEvent.click(buttons[6]);
+            await waitFor(() => {
+                expect(ArtworksRepo.prototype.update).toHaveBeenCalled();
+            });
+        });
     });
     describe(`When the repo is NOT working OK`, () => {
         beforeEach(mockNoValidRepoResponse);
@@ -143,6 +193,56 @@ describe(`Given useArtworkss (custom hook)
             expect(ArtworksRepo.prototype.delete).toHaveBeenCalled();
             await waitFor(() => {
                 expect(spyConsole).toHaveBeenLastCalledWith('Testing errors');
+            });
+        });
+        // test.only('Then its function handleFile should be used', async () => {
+        //     userEvent.click(buttons[0]);
+        //     userEvent.click(buttons[6]);
+        //     await waitFor(() => {
+        //         expect(spyConsole).toHaveBeenLastCalledWith(
+        //             'Any file selected'
+        //         );
+        //     });
+        // });
+    });
+});
+describe(`Given useArtworkss`, () => {
+    let TestComponent: () => JSX.Element;
+    let spyConsole: jest.SpyInstance;
+    let buttons: Array<HTMLElement>;
+    beforeEach(async () => {
+        const event = {
+            preventDefault: jest.fn(),
+            target: {},
+        };
+        TestComponent = () => {
+            const {
+                handleFile,
+                handleLoad,
+            } = useArtworks();
+            return (
+                <>
+                    <button onClick={handleLoad}>Load</button>
+                    <button onClick={() => handleFile(event, mockArtwork2.id)}>
+                        File
+                    </button>
+                </>
+            );
+        };
+        await act(async () => {
+            render(<TestComponent />);
+        });
+        buttons = screen.getAllByRole('button');
+        spyConsole = jest.spyOn(debug, 'consoleDebug');
+    });
+    describe(`When there is NO file`, () => {
+        test('Then its function handleFile should be used', async () => {
+            userEvent.click(buttons[0]);
+            userEvent.click(buttons[1]);
+            await waitFor(() => {
+                expect(spyConsole).toHaveBeenLastCalledWith(
+                    'Any file selected'
+                );
             });
         });
     });

@@ -33,6 +33,16 @@ describe('Given the context AppContext', () => {
                 },
             });
             const userCredentialsMock = await loginWithGoogle();
+            const event = {
+                preventDefault: jest.fn(),
+                target: {
+                    files: [
+                        {
+                            name: 'test-file',
+                        },
+                    ],
+                },
+            };
             TestComponent = () => {
                 const {
                     users,
@@ -49,7 +59,7 @@ describe('Given the context AppContext', () => {
                     artworkDetailed,
                     handleDetailed,
                     reShuffleArtworks,
-                    // handleFile,
+                    handleFile,
                     handleLoad,
                     handleAdd,
                     handleDelete,
@@ -65,7 +75,7 @@ describe('Given the context AppContext', () => {
                 handleDeleteCard(mockUser.uid);
                 handleDetailed(mockArtwork);
                 reShuffleArtworks([mockArtwork]);
-                // handleFile();
+                handleFile(event, ARTWORK.id);
                 handleLoad();
                 handleAdd(mockArtwork);
                 handleDelete(mockArtwork.id);

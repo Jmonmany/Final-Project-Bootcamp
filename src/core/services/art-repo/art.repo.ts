@@ -39,7 +39,6 @@ export class ArtworksRepo implements Repository<ArtworksClass> {
         return await resp.json();
     }
     async update(payload: Partial<ArtworksClass>): Promise<ArtworksClass> {
-        console.log(payload);
         if (!payload.id) return Promise.reject(invalidIdError);
         const resp = await fetch(this.url + payload.id + firebaseCORS, {
             method: 'PATCH',
