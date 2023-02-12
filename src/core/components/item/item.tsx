@@ -1,4 +1,4 @@
-import { SyntheticEvent, useContext, useEffect } from 'react';
+import { SyntheticEvent, useContext, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArtworksClass } from '../../../features/models/artwork.model';
 import { ArtworkContext } from '../../context/artworks.context';
@@ -15,16 +15,29 @@ export function Item({
     dragEnter: (e: SyntheticEvent) => void;
     dragEnd: (e: SyntheticEvent) => void;
 }) {
-    const { getAdmin, handleFile, handleLoad, handleDetailed } =
+    const { getAdmin, handleFile, handleLoad, handleDetailed, handleDelete } =
         useContext(ArtworkContext);
     const navigate = useNavigate();
     useEffect(() => {
         handleLoad();
     }, [handleLoad]);
 
-    const handleClick = () => {
+    const handleClickDetails = () => {
         handleDetailed({ ...item, state: true });
         navigate('/details');
+    };
+
+    const handleClickDelete = () => {
+        handleDelete(item.id);
+    };
+
+    const handleClickFile = (ev: SyntheticEvent) => {
+        handleFile(ev, item.id);
+    };
+
+    const inputRef = useRef<HTMLInputElement>(null);
+    const handleFileButton = () => {
+        inputRef.current?.click();
     };
 
     return (
@@ -40,23 +53,29 @@ export function Item({
                     src={item.url}
                     alt={item.title}
                     className="item__artwork"
-                    onClick={handleClick}
+                    onClick={handleClickDetails}
                 />
-                <input type="file" name="" id="getFile" onChange={handleFile} />
                 {getAdmin() ? (
                     <div>
-                        <button>
+                        <button onClick={handleFileButton}>
+                            <img
+                                src={require('../../../assets/Replace.png')}
+                                alt="replace"
+                            />
+                        </button>
+                        <input
+                            type="file"
+                            name=""
+                            data-testid="getFile"
+                            ref={inputRef}
+                            id="getFile"
+                            onChange={handleClickFile}
+                        />
+                        <button onClick={handleClickDelete}>
                             <img
                                 className="item__delete"
                                 src={require('../../../assets/Trash.png')}
                                 alt="delete"
-                            />
-                        </button>
-                        <button>
-                            <img
-                                className="item__replace"
-                                src={require('../../../assets/Replace.png')}
-                                alt="replace"
                             />
                         </button>
                     </div>

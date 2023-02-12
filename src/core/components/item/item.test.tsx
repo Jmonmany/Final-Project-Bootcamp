@@ -1,5 +1,11 @@
 /* eslint-disable testing-library/no-unnecessary-act */
-import { render, act, screen } from '@testing-library/react';
+import {
+    render,
+    act,
+    screen,
+    fireEvent,
+    getByTestId,
+} from '@testing-library/react';
 import { MemoryRouter as Router } from 'react-router';
 import { Item } from './item';
 import {
@@ -12,6 +18,8 @@ import userEvent from '@testing-library/user-event';
 describe('Given "Item" component', () => {
     const handleLoad = jest.fn();
     const handleDetailed = jest.fn();
+    const handleDelete = jest.fn();
+    const handleFile = jest.fn();
     const onDragStart = jest.fn();
     const onDragEnter = jest.fn();
     const onDragEnd = jest.fn();
@@ -22,6 +30,8 @@ describe('Given "Item" component', () => {
         beforeEach(async () => {
             mockContext = {
                 artworks: [],
+                handleFile,
+                handleDelete,
                 getAdmin,
                 handleLoad,
                 handleDetailed,
@@ -44,8 +54,8 @@ describe('Given "Item" component', () => {
         test(`Then component should be render the buttons`, () => {
             const buttons = screen.getAllByRole('button');
             const img = screen.getByRole('img', {
-                name: item.title
-            })
+                name: item.title,
+            });
             expect(buttons[0]).toBeInTheDocument();
             expect(buttons[1]).toBeInTheDocument();
             expect(img).toBeInTheDocument();
@@ -54,8 +64,23 @@ describe('Given "Item" component', () => {
             const img = screen.getByRole('img', {
                 name: item.title,
             });
-            userEvent.click(img)
-            expect(handleDetailed).toHaveBeenCalled()
+            userEvent.click(img);
+            expect(handleDetailed).toHaveBeenCalled();
+        });
+        test(`Then component should be use the buttons to call Filefunction`, async () => {
+            const input = screen.getByTestId('getFile');
+            fireEvent.change(input, { target: { files: ['test-file.jpg'] } });
+            expect(handleFile).toHaveBeenCalledWith(
+                expect.any(Object),
+                item.id
+            );
+        });
+        test(`Then component should be use the buttons to call function Delete`, () => {
+            const buttonDelete = screen.getByRole('button', {
+                name: 'delete',
+            });
+            userEvent.click(buttonDelete);
+            expect(handleDelete).toHaveBeenCalled();
         });
     });
 });

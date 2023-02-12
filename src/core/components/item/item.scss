@@ -9,18 +9,25 @@
     &__artwork {
         max-width: 400px;
     }
-    button {
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
-    }
-    input {
-        position: absolute;
-    }
+
     &__delete {
         width: 1rem;
     }
     &__replace {
+        background-image: url('../../../assets/Replace.png');
         width: 1rem;
+    }
+    div {
+        display: flex;
+        justify-content: space-evenly;
+        position: absolute;
+        button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+        input {
+            display: none;
+        }
     }
 }
