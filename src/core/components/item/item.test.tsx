@@ -3,8 +3,7 @@ import {
     render,
     act,
     screen,
-    fireEvent,
-    getByTestId,
+    fireEvent
 } from '@testing-library/react';
 import { MemoryRouter as Router } from 'react-router';
 import { Item } from './item';

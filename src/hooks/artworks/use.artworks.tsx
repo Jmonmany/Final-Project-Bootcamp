@@ -50,7 +50,7 @@ export function useArtworks(): useArtworksType {
         ev.preventDefault();
         const element = ev.target as HTMLInputElement;
         if (!element.files) {
-            alert('Any file selected');
+            consoleDebug('Any file selected');
             return;
         }
         const input = element.files[0];

@@ -2,6 +2,7 @@ import { ARTWORK, ARTWORK2, ARTWORK3 } from '../../features/data/artmock';
 import { ArtworksRepo } from '../../core/services/art-repo/art.repo';
 export const mockArtwork1 = ARTWORK;
 mockArtwork1.id = '000001';
+mockArtwork1.description = 'test description';
 export const mockArtwork2 = ARTWORK2;
 mockArtwork2.id = '000002';
 export const mockArtworks = [mockArtwork1, mockArtwork2];
