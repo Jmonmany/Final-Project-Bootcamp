@@ -6,17 +6,17 @@ import { ArtworkContext } from '../../context/artworks.context';
 import { Item } from '../item/item';
 import './list.scss';
 export function List() {
-    const { artworks, handleLoad, handleAdd, reShuffleArtworks } =
+    const { artworks, handleLoad, handleAdd, reShuffleArtworks, getAdmin } =
         useContext(ArtworkContext);
     useEffect(() => {
         handleLoad();
     }, [handleLoad]);
-
     const handleAddSpace = () => {
         const newSpace = new ArtworksClass(
             'untitled',
             'https://firebasestorage.googleapis.com/v0/b/marina-labella-web.appspot.com/o/No%20image.jpg?alt=media&token=c879166a-b9c3-49c3-8f78-1554abf2d817'
         );
+        console.log(newSpace)
         handleAdd(newSpace);
     };
 
@@ -43,11 +43,6 @@ export function List() {
         );
         (dragItem.current as unknown as null) = null;
         (dragOverItem.current as unknown as null) = null;
-        // first atempt to preserv firebase key
-        // const artworkCollection = copyListItems.map((artwork) => {
-        //     return { [artwork.id]: { ...artwork } };
-        // });
-        // set(ref(db, 'artworks/'), Object.assign({}, ...artworkCollection));
         set(ref(db, 'artworks/'), copyListItems);
         reShuffleArtworks(copyListItems);
     };
@@ -55,7 +50,11 @@ export function List() {
         <>
             <section className="main">
                 <h3>Artwork List</h3>
-                <button onClick={handleAddSpace}>ADD ARTWORK</button>
+                {getAdmin() ? (
+                    <button onClick={handleAddSpace}>ADD ARTWORK</button>
+                ) : (
+                    ''
+                )}
                 <div className="row">
                     <ul className="artworks-list list-unstyled">
                         {artworks.map((item: ArtworksClass, index) => {

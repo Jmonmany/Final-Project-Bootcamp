@@ -19,7 +19,7 @@ export type useArtworksType = {
     artworkDetailed: ArtworksClass | object;
     handleDetailed: (artwork: ArtworksClass) => void;
     reShuffleArtworks: (list: Array<ArtworksClass>) => void;
-    handleFile: (ev: any) => void;
+    handleFile: (ev: any, id: string) => void;
     getStatus: () => Status;
     getArtworks: () => Array<ArtworksClass>;
     handleLoad: () => Promise<void>;
@@ -35,7 +35,10 @@ export function useArtworks(): useArtworksType {
     const initialDetailed: ArtworksClass | object = {};
     const initialState: Array<ArtworksClass> = [];
     const initialStatus = 'Starting' as Status;
-    const [artworks, artworksDispatcher] = useReducer(artworksReducer, initialState);
+    const [artworks, artworksDispatcher] = useReducer(
+        artworksReducer,
+        initialState
+    );
     const [artworkDetailed, detailDispatcher] = useReducer(
         detailedArtworkReducer,
         initialDetailed
@@ -43,7 +46,7 @@ export function useArtworks(): useArtworksType {
     const [status, setStatus] = useState(initialStatus);
     const getArtworks = () => artworks;
     const getStatus = () => status;
-    const handleFile = async (ev: SyntheticEvent) => {
+    const handleFile = async (ev: SyntheticEvent, id: string) => {
         ev.preventDefault();
         const element = ev.target as HTMLInputElement;
         if (!element.files) {
@@ -55,7 +58,8 @@ export function useArtworks(): useArtworksType {
         await uploadBytes(artworkRef, input);
         const url = await getDownloadURL(artworkRef);
         const artworkData = new ArtworksClass(input.name, url);
-        handleAdd(artworkData);
+        artworkData.id = id;
+        handleUpdate(artworkData);
     };
 
     const reShuffleArtworks = (list: Array<ArtworksClass>) => {
@@ -63,8 +67,8 @@ export function useArtworks(): useArtworksType {
     };
 
     const handleDetailed = (artwork: ArtworksClass) => {
-        detailDispatcher(ac.artworksDetailedCreator(artwork))
-    }
+        detailDispatcher(ac.artworksDetailedCreator(artwork));
+    };
 
     const handleLoad = useCallback(async () => {
         try {

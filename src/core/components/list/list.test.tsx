@@ -12,14 +12,13 @@ import userEvent from '@testing-library/user-event';
 describe('Given "List" component', () => {
     const handleLoad = jest.fn();
     const handleAdd = jest.fn();
-    const getAdmin = jest.fn();
     const reShuffleArtworks = jest.fn();
     let mockContext: ArtworkContextStructure & UserContextStructure;
-    describe('When it is initially instantiated without data', () => {
+    describe('When it is initially instantiated with data and no admin', () => {
         beforeEach(async () => {
             mockContext = {
                 artworks: [ARTWORK, ARTWORK2, ARTWORK3],
-                getAdmin,
+                getAdmin: () => true,
                 handleAdd,
                 handleLoad,
                 reShuffleArtworks,
