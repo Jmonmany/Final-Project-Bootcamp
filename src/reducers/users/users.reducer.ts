@@ -11,13 +11,10 @@ export function usersReducer(
                 (user: UsersClass) => user.message.description !== ''
             );
         case userActionTypes.add:
-            return [
-                ...(state as Array<UsersClass>),
-                action.payload as UsersClass,
-            ];
+            return [...state, action.payload as UsersClass];
         case userActionTypes.update:
             const updateArtwork = action.payload as UsersClass;
-            return (state as Array<UsersClass>).map((item) =>
+            return state.map((item) =>
                 item.uid === updateArtwork.uid ? updateArtwork : item
             );
         case userActionTypes.delete:

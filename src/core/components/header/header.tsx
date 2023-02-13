@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import { ArtworkContext } from '../../context/artworks.context';
 import './header.scss';
 export function Header({ children }: { children: JSX.Element }) {
@@ -12,6 +13,12 @@ export function Header({ children }: { children: JSX.Element }) {
             navigate('/login');
             return;
         }
+        Swal.fire({
+            title: 'Successfully logged out',
+            icon: 'success',
+            timer: 1200,
+            showConfirmButton: false,
+        });
         handleCurrentUser({});
     };
     return (

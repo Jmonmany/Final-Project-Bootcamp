@@ -23,7 +23,7 @@ export function artworksReducer(
             return state.filter((item) => item.id !== finalId);
         case artworkActionTypes.reshuffle:
             return [
-                ...(state as Array<ArtworksClass>),
+                ...state,
                 ...(action.payload as Array<ArtworksClass>),
             ];
         default:

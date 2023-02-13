@@ -1,6 +1,6 @@
-import { useState, SyntheticEvent } from 'react';
-import { useContext } from 'react';
+import { useState, SyntheticEvent, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import { loginWithGoogle, login } from '../../../config';
 import { ArtworkContext } from '../../../core/context/artworks.context';
 import './login.scss';
@@ -23,12 +23,24 @@ export default function Login() {
         const userCredentials = await login(formData.email, formData.password);
         handleUser(userCredentials);
         navigate('/work')
+        Swal.fire({
+            title: 'Successfully logged in',
+            icon: 'success',
+            timer: 1200,
+            showConfirmButton: false,
+        });
     };
 
     const handleLogin = async () => {
         const userCredentials = await loginWithGoogle();
         handleUser(userCredentials);
         navigate('/contact');
+        Swal.fire({
+            title: 'Successfully logged in',
+            icon: 'success',
+            timer: 1200,
+            showConfirmButton: false,
+        });
     };
 
     return (

@@ -195,15 +195,6 @@ describe(`Given useArtworkss (custom hook)
                 expect(spyConsole).toHaveBeenLastCalledWith('Testing errors');
             });
         });
-        // test.only('Then its function handleFile should be used', async () => {
-        //     userEvent.click(buttons[0]);
-        //     userEvent.click(buttons[6]);
-        //     await waitFor(() => {
-        //         expect(spyConsole).toHaveBeenLastCalledWith(
-        //             'Any file selected'
-        //         );
-        //     });
-        // });
     });
 });
 describe(`Given useArtworkss`, () => {
