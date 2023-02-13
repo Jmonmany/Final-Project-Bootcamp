@@ -1,5 +1,6 @@
 import { SyntheticEvent, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import { ArtworkContext } from '../../../core/context/artworks.context';
 import { ArtworksClass } from '../../models/artwork.model';
 import './details.scss';
@@ -27,6 +28,12 @@ export default function Details() {
         ev.preventDefault();
         handleUpdate({ ...artworkDetailed, ...formData });
         navigate('/work');
+        Swal.fire({
+            title: 'Successfully edited',
+            icon: 'success',
+            timer: 1200,
+            showConfirmButton: false,
+        });
     };
 
     return (

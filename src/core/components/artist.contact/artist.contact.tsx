@@ -3,8 +3,8 @@ import { useState, SyntheticEvent, useContext, useEffect } from 'react';
 import { UsersClass } from '../../../features/models/user.model';
 import { ArtworkContext } from '../../context/artworks.context';
 import { useNavigate } from 'react-router-dom';
-// import { UsersClass } from '../../../features/models/user.model';
 import './artist.contact.scss';
+import Swal from 'sweetalert2';
 export function ArtistContact() {
     const { currentUser, handleUpdateUser } = useContext(ArtworkContext);
     const navigate = useNavigate();
@@ -37,6 +37,12 @@ export function ArtistContact() {
     const handleSubmit = (ev: SyntheticEvent) => {
         ev.preventDefault();
         handleUpdateUser({ ...currentUser, ...formData });
+        navigate('/work');
+        Swal.fire({
+            icon: 'success',
+            timer: 1000,
+            showConfirmButton: false
+        });
     };
 
     return (

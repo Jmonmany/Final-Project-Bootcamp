@@ -47,7 +47,7 @@ export function useUsers(): useUsersType {
         const fullUser = new UsersClass(
             user.displayName as string,
             user.email as string,
-            await (user.getIdToken() as Promise<string>),
+            await user.getIdToken(),
             user.uid
         );
         if (fullUser.uid !== process.env.REACT_APP_FIREBASE_MARINA_UID) {

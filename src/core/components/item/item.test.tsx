@@ -1,11 +1,7 @@
 /* eslint-disable testing-library/no-unnecessary-act */
-import {
-    render,
-    act,
-    screen,
-    fireEvent
-} from '@testing-library/react';
+import { render, act, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter as Router } from 'react-router';
+import Swal from 'sweetalert2';
 import { Item } from './item';
 import {
     ArtworkContext,
@@ -22,16 +18,16 @@ describe('Given "Item" component', () => {
     const onDragStart = jest.fn();
     const onDragEnter = jest.fn();
     const onDragEnd = jest.fn();
-    const getAdmin = () => true;
     let mockContext: ArtworkContextStructure & UserContextStructure;
     const item = ARTWORK;
-    describe('When it is initially instantiated without data', () => {
+    Swal.fire = jest.fn();
+    describe('When it is initially instantiated with admin', () => {
         beforeEach(async () => {
             mockContext = {
                 artworks: [],
                 handleFile,
                 handleDelete,
-                getAdmin,
+                getAdmin: () => true,
                 handleLoad,
                 handleDetailed,
             } as unknown as ArtworkContextStructure & UserContextStructure;
@@ -80,6 +76,45 @@ describe('Given "Item" component', () => {
             });
             userEvent.click(buttonDelete);
             expect(handleDelete).toHaveBeenCalled();
+        });
+        test(`Then component should be use button to call function Swal`, () => {
+            const buttonReplace = screen.getByRole('button', {
+                name: 'replace',
+            });
+            userEvent.click(buttonReplace);
+            expect(Swal.fire).toHaveBeenCalled();
+        });
+    });
+    describe('When it is initially instantiated without admin', () => {
+        beforeEach(async () => {
+            mockContext = {
+                artworks: [],
+                handleFile,
+                handleDelete,
+                getAdmin: () => false,
+                handleLoad,
+                handleDetailed,
+            } as unknown as ArtworkContextStructure & UserContextStructure;
+            await act(async () => {
+                render(
+                    <ArtworkContext.Provider value={mockContext}>
+                        <Router>
+                            <Item
+                                item={item}
+                                dragStart={onDragStart}
+                                dragEnter={onDragEnter}
+                                dragEnd={onDragEnd}
+                            ></Item>
+                        </Router>
+                    </ArtworkContext.Provider>
+                );
+            });
+        });
+        test(`Then component should be render the buttons`, () => {
+            const img = screen.getByRole('img', {
+                name: item.title,
+            });
+            expect(img).toBeInTheDocument();
         });
     });
 });

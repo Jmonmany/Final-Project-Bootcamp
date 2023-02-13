@@ -1,5 +1,6 @@
 import { SyntheticEvent, useContext, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import { ArtworksClass } from '../../../features/models/artwork.model';
 import { ArtworkContext } from '../../context/artworks.context';
 import './item.scss';
@@ -38,6 +39,12 @@ export function Item({
     const inputRef = useRef<HTMLInputElement>(null);
     const handleFileButton = () => {
         inputRef.current?.click();
+        Swal.fire({
+            icon: 'question',
+            timer: 3000,
+            timerProgressBar: true,
+            showConfirmButton: false,
+        });
     };
 
     return (
