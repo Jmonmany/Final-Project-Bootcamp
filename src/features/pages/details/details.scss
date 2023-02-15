@@ -2,26 +2,47 @@
 @import '../../../mixins.scss';
 
 .details {
-    margin: 0;
-    padding-inline: 5rem;
+    margin-block-start: 2rem;
     display: flex;
-    background-color: white;
-    justify-content: space-around;
-    bottom: 0;
-    img{
-        margin-block-start: 3rem;
-        max-width: 500px;
-        max-height: 500px;
+    justify-content: space-evenly;
+    img {
+        max-width: 600px;
+        max-height: 700px;
     }
     section {
         margin-block-start: 5rem;
         display: flex;
         flex-direction: column;
+        * {
+            margin-block: 1rem;
+        }
     }
     a {
         text-decoration: none;
     }
-    // button:hover{
-    //     @include btnHover();
-    // }
+    form {
+        input {
+            margin-block: 1rem;
+            width: 20rem;
+        }
+        margin-block-start: 5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .description {
+            height: 5rem;
+            width: 20rem;
+        }
+        button {
+            @include btnTheme();
+            width: 15rem;
+        }
+    }
+}
+@media (max-width: 1250px) {
+    .details {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 }

@@ -9,10 +9,8 @@ describe('Given WorkPage component', () => {
                     <WorkPage></WorkPage>
                 </Router>
             );
-            const elementHeader = screen.getByRole('heading', {
-                name: 'Artwork List',
-            });
-            expect(elementHeader).toBeInTheDocument();
+            const elementList = screen.getByRole('list');
+            expect(elementList).toBeInTheDocument();
         });
     });
 });

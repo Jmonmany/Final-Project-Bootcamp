@@ -39,6 +39,7 @@ export function ArtistContact() {
         handleUpdateUser({ ...currentUser, ...formData });
         navigate('/work');
         Swal.fire({
+            title: 'Thanks for submitting!',
             icon: 'success',
             timer: 1000,
             showConfirmButton: false
@@ -57,6 +58,8 @@ export function ArtistContact() {
                             marinaf.labella@gmail.com
                         </a>
                     </span>{' '}
+                    <br />
+                    <br />
                     or just use the form and I will get back to you.
                 </p>
                 <form onSubmit={handleSubmit}>

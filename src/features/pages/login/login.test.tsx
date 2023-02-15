@@ -41,7 +41,7 @@ describe('Given "Login" component', () => {
         });
     });
 
-    describe('When data is provided on form', () => {
+    describe('When data is provided', () => {
         const mockEmail = 'Test email';
         const mockPassword = '12345';
         let inputElementsTxt: Array<HTMLElement>;
@@ -63,12 +63,12 @@ describe('Given "Login" component', () => {
                     uid: '12345',
                 },
             });
-            const submitButton = screen.getByRole('button', { name: 'Submit' });
+            const submitButton = screen.getByRole('button', {
+                name: 'Sign in',
+            });
             expect(submitButton).toBeInTheDocument();
             userEvent.click(submitButton);
             expect(login).toHaveBeenCalled();
-            // to be tested
-            // expect(handleAdmin).toHaveBeenCalled();
         });
         test('Then buttons google should be in the screen', async () => {
             (loginWithGoogle as jest.Mock).mockResolvedValue({
@@ -78,13 +78,11 @@ describe('Given "Login" component', () => {
                 uid: '12345',
             });
             const googleButton = screen.getByRole('button', {
-                name: 'Sign in with Google',
+                name: 'google Sign in with Google',
             });
             expect(googleButton).toBeInTheDocument();
             userEvent.click(googleButton);
             expect(loginWithGoogle).toHaveBeenCalled();
-            // to be tested
-            // expect(handleUser).toHaveBeenCalled();
         });
     });
 });

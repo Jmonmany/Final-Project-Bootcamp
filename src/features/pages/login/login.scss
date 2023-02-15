@@ -6,4 +6,64 @@
     flex-direction: column;
     background-color: white;
     align-items: center;
+    h2 {
+        @include btnTheme();
+        cursor: default;
+        font-weight: 400;
+    }
+    form {
+        div {
+            width: 20rem;
+            display: flex;
+            flex-direction: column;
+        }
+        span {
+            background-color: white;
+            color: grey;
+            text-align: center;
+            width: 2rem;
+            align-self: center;
+            margin-block: 1rem;
+            translate: 0 25px;
+        }
+        button {
+            cursor: pointer;
+            align-self: center;
+            width: 6rem;
+            color: white;
+            padding: 0.4rem;
+            background-color: grey;
+            border-radius: 5rem;
+            border: none;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+    }
+    input {
+        margin-block: 2rem;
+        border: none;
+        border-bottom: solid 1px grey;
+        padding-block: 1rem;
+    }
+    &__googleBtn  {
+        width: 15rem;
+        padding-block: 1.5rem;
+        color: grey;
+        cursor: pointer;
+        background-color: transparent;
+        border: none;
+        border-top: solid 1px grey;
+        img {
+            height: 1.5rem;
+            translate: 0 5px;
+            margin-inline: 0.5rem;
+        }
+    }
+}
+@media (max-width: 650px) {
+    .login {
+        h2 {
+            display: none;
+        }
+    }
 }

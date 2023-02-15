@@ -5,7 +5,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    a {
+        text-decoration: none;
+    }
     p {
+        text-align: center;
         max-width: 400px;
     }
     form {
@@ -18,9 +22,14 @@
             margin: 1rem;
             border: none;
             border-bottom: solid 1px;
+            padding-block: 0.5rem;
         }
         button {
+            @include btnTheme();
+            padding-block: 0.5rem;
+            width: 15rem;
             align-self: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
         }
         .subject {
             width: 25rem;

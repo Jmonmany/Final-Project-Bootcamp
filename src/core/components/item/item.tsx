@@ -24,7 +24,7 @@ export function Item({
     }, [handleLoad]);
 
     const handleClickDetails = () => {
-        handleDetailed({ ...item, state: true });
+        handleDetailed(item);
         navigate('/details');
     };
 

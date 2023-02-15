@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { UsersClass } from '../../../features/models/user.model';
 import { ArtworkContext } from '../../context/artworks.context';
-
+import './card.scss';
 export function Card({ item }: { item: UsersClass }) {
     const { handleUpdateUser, handleDeleteCard } = useContext(ArtworkContext);
 
@@ -16,26 +16,22 @@ export function Card({ item }: { item: UsersClass }) {
 
     const handleClick = () => {
         handleUpdateUser({ ...item, ...data });
-        handleDeleteCard(item.uid)
+        handleDeleteCard(item.uid);
     };
 
     return (
         <>
             <li key={item.uid} className="card">
                 <address>
-                    <label>Name: </label>
                     <span>{item.name}</span>
-                    <label>Email: </label>
                     <a href={`mailto: ${item.email}`}>{item.email}</a>
-                    <label>Address: </label>
-                    <span>{item.message.address}</span>
-                    <label>Phone: </label>
-                    <span>{item.message.phone}</span>
+                    <span>Address: {item.message.address}</span>
+                    <span>Phone: {item.message.phone}</span>
                 </address>
-                <label>Subject: </label>
-                <span>{item.message.subject}</span>
-                <label>Description:</label>
-                <span>{item.message.description}</span>
+                <div>
+                    <label>Subject: {item.message.subject}</label>
+                    <p>{item.message.description}</p>
+                </div>
                 <button onClick={handleClick}>
                     <img
                         src={require('../../../assets/Trash.png')}

@@ -15,9 +15,13 @@ describe('Given App component', () => {
                 );
             });
             const elementHeader = screen.getByRole('heading', {
-                name: 'Artwork List',
+                name: 'Marina Labella',
+            });
+            const elementSubHeader = screen.getByRole('heading', {
+                name: 'ILLUSTRATION',
             });
             expect(elementHeader).toBeInTheDocument();
+            expect(elementSubHeader).toBeInTheDocument();
         });
     });
 });

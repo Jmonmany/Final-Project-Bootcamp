@@ -4,12 +4,10 @@ export class ArtworksClass implements ArtworkType {
     description: string;
     linkTag: string;
     link: string;
-    state: boolean;
     constructor(public title: string, public url: string) {
         this.id = '';
         this.description = '';
         this.linkTag = '';
         this.link = '';
-        this.state = false;
     }
 }
