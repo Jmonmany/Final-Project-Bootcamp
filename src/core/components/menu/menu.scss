@@ -1,10 +1,13 @@
 @import '../../../variables.scss';
 @import '../../../mixins.scss';
 
-nav {
+.menu {
+    margin-block: 0.5rem;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
+    border-top: 1px solid black;
+    width: 100%;
     a {
         @include linkDeco();
     }
@@ -12,6 +15,45 @@ nav {
         @include unstyledList();
         li {
             margin: 1rem;
+        }
+    }
+}
+.ham {
+    display: none;
+}
+@media (max-width: 650px) {
+    .menu {
+        display: none;
+    }
+    .ham {
+        display: block;
+        height: 1rem;
+        img {
+            height: 2rem;
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+        }
+        &__list {
+            padding: 0;
+            margin: 0;
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: white;
+            list-style: none;
+            width: 100vw;
+            height: 100vh;
+            left: 0;
+            top: 0;
+            li {
+                margin: 3rem;
+                a {
+                    @include linkDeco();
+                    font-size: 2.5rem;
+                }
+            }
         }
     }
 }

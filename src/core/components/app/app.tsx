@@ -7,7 +7,6 @@ export function App() {
         { path: '/about', label: 'About' },
         { path: '/contact', label: 'Contact' }
     ];
-    // console.log(process.env)
     return (
         <>
             <Layout items={items}>

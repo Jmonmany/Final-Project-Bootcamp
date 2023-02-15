@@ -24,7 +24,7 @@ export function Header({ children }: { children: JSX.Element }) {
     return (
         <header>
             <h1>{title}</h1>
-            <h2>{subtitle}</h2>
+            <h3>{subtitle}</h3>
             <button onClick={handleClick}>
                 {Object.keys(currentUser).length === 0 ? 'Log in' : 'Log out'}
             </button>

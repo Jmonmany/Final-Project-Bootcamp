@@ -46,46 +46,42 @@ export default function Details() {
                         className="item__artwork"
                     />
                     <form onSubmit={handleSubmit}>
-                        <div>
-                            <input
-                                type="text"
-                                name="title"
-                                id="title"
-                                placeholder="Title"
-                                value={formData.title}
-                                onInput={handleInput}
-                                required
-                            />
-                            <input
-                                type="text"
-                                name="description"
-                                id="description"
-                                placeholder="Description"
-                                value={formData.description}
-                                onInput={handleInput}
-                                required
-                            />
-                        </div>
-                        <div>
-                            <input
-                                type="text"
-                                name="linkTag"
-                                id="linkTag"
-                                placeholder="Link Tag"
-                                value={formData.linkTag}
-                                onInput={handleInput}
-                                required
-                            />
-                            <input
-                                type="text"
-                                name="link"
-                                id="link"
-                                placeholder="Link"
-                                value={formData.link}
-                                onInput={handleInput}
-                                required
-                            />
-                        </div>
+                        <input
+                            type="text"
+                            name="title"
+                            id="title"
+                            placeholder="Title"
+                            value={formData.title}
+                            onInput={handleInput}
+                            required
+                        />
+                        <input
+                            className="description"
+                            type="text"
+                            name="description"
+                            id="description"
+                            placeholder="Description"
+                            value={formData.description}
+                            onInput={handleInput}
+                        />
+
+                        <input
+                            type="text"
+                            name="linkTag"
+                            id="linkTag"
+                            placeholder="Link Tag"
+                            value={formData.linkTag}
+                            onInput={handleInput}
+                        />
+                        <input
+                            type="text"
+                            name="link"
+                            id="link"
+                            placeholder="Link"
+                            value={formData.link}
+                            onInput={handleInput}
+                        />
+
                         <div className="div__btn">
                             <button type="submit">Submit</button>
                         </div>

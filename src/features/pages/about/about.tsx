@@ -75,7 +75,7 @@ export default function About() {
                             Cuerpos indomables, December 2021- Barcelona, Spain
                         </li>
                     </ul>
-                    <p>Work inquiries and commissions:</p>
+                    <h4>Work inquiries and commissions:</h4>
                     <span>
                         <a href="mailto:marinaf.labella@gmail.com">
                             marinaf.labella@gmail.com

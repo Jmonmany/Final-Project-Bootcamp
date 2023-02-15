@@ -1,23 +1,39 @@
 @import '../../../variables.scss';
 @import '../../../mixins.scss';
 
-
 .about {
+    margin-block: 2rem;
     display: flex;
-    div {
-        width: 40%;
+    justify-content: space-around;
+    a {
+        color: blue;
+        text-decoration: none;
     }
     article {
+        h3 {
+            margin: 0;
+        }
         width: 40%;
     }
     img {
-        max-width: 450px
+        max-width: 450px;
     }
     ul {
         @include unstyledList();
         flex-direction: column;
     }
     li {
-        margin-block: 0.5rem;
+        margin-block: 0.2rem;
+    }
+}
+@media (max-width: 1100px) {
+    .about {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        article {
+            margin-block-start: 2rem;
+            width: 80%;
+        }
     }
 }

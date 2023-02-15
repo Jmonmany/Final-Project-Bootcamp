@@ -16,7 +16,6 @@ export function List() {
             'untitled',
             'https://firebasestorage.googleapis.com/v0/b/marina-labella-web.appspot.com/o/No%20image.jpg?alt=media&token=c879166a-b9c3-49c3-8f78-1554abf2d817'
         );
-        console.log(newSpace)
         handleAdd(newSpace);
     };
 
@@ -48,10 +47,14 @@ export function List() {
     };
     return (
         <>
-            <section className="main">
-                <h3>Artwork List</h3>
+            <section className="list">
                 {getAdmin() ? (
-                    <button onClick={handleAddSpace}>ADD ARTWORK</button>
+                    <button onClick={handleAddSpace}>
+                        <img
+                            src={require('../../../assets/Plus.png')}
+                            alt="plus"
+                        />
+                    </button>
                 ) : (
                     ''
                 )}

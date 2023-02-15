@@ -22,7 +22,7 @@ export default function Login() {
         ev.preventDefault();
         const userCredentials = await login(formData.email, formData.password);
         handleUser(userCredentials);
-        navigate('/work')
+        navigate('/work');
         Swal.fire({
             title: 'Successfully logged in',
             icon: 'success',
@@ -73,11 +73,17 @@ export default function Login() {
                         />
                     </div>
                     <div className="div__btn">
-                        <button type="submit">Submit</button>
+                        <button type="submit">Sign in</button>
                         <span>or</span>
                     </div>
                 </form>
-                <button onClick={handleLogin}>Sign in with Google</button>
+                <button className="login__googleBtn" onClick={handleLogin}>
+                    <img
+                        src={require('../../../assets/google.png')}
+                        alt="google"
+                    />
+                    Sign in with Google
+                </button>
             </section>
         </>
     );

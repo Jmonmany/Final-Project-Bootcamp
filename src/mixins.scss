@@ -1,25 +1,23 @@
 @import 'variables';
 @mixin btnTheme() {
-    background-color: white;
+    background-color: black;
+    color: white;
     cursor: pointer;
     border: none;
+    padding-block: 0.3rem;
+    padding-inline: 1.5rem;
 }
 
-// @mixin btnHover() {
-//     background-color: red;
-// }
 @mixin unstyledList() {
     list-style: none;
     display: flex;
     margin: 0;
     padding: 0;
 }
-@mixin menuLinkHover() {
-    background-color: $color-dark-blue;
-    border-radius: 0.6rem;
-    color: $color-lazy-white;
-}
 @mixin linkDeco() {
     text-decoration: none;
     color: black;
+}
+@mixin btnHover() {
+    border: 1px grey solid;
 }

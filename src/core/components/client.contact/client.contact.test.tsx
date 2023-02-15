@@ -29,8 +29,8 @@ describe('Given "ClientContact" component', () => {
             const addTitle = screen.getByRole('heading', {
                 name: 'Manage who contacts you',
             });
-            const nameLabel = screen.getByText('Name:');
-            const emailLabel = screen.getByText('Email:');
+            const nameLabel = screen.getByText(USER.name);
+            const emailLabel = screen.getByText(USER.email);
             expect(addTitle).toBeInTheDocument();
             expect(nameLabel).toBeInTheDocument();
             expect(emailLabel).toBeInTheDocument();

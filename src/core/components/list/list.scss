@@ -1,20 +1,51 @@
 @import '../../../variables';
 @import '../../../mixins.scss';
-.main {
-    border: 1px solid black;
-    margin-inline: 7rem;
+.list {
+    margin-inline: 3rem;
     display: flex;
     flex-direction: column;
-    align-items: center;
     .row {
-        border: 1px solid red;
         display: flex;
         flex-direction: row;
     }
     ul {
-        margin-inline: 1rem;
+        justify-content: center;
+        padding: 0;
+        margin-inline: 1.5rem;
         display: flex;
         flex-wrap: wrap;
         list-style: none;
+    }
+    button {
+        @include btnTheme();
+        background-color: transparent;
+        padding: 0;
+        img {
+            height: 2rem;
+        }
+    }
+}
+@media (max-width: 1500px) {
+    .list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .row {
+            display: flex;
+            flex-direction: row;
+        }
+        ul {
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+        }
+        button {
+            @include btnTheme();
+            background-color: transparent;
+            padding: 0;
+            img {
+                height: 2rem;
+            }
+        }
     }
 }

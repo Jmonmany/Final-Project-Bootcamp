@@ -14,7 +14,7 @@ describe('Given "List" component', () => {
     const handleAdd = jest.fn();
     const reShuffleArtworks = jest.fn();
     let mockContext: ArtworkContextStructure & UserContextStructure;
-    describe('When it is initially instantiated with data and no admin', () => {
+    describe('When it is initially instantiated with admin', () => {
         beforeEach(async () => {
             mockContext = {
                 artworks: [ARTWORK, ARTWORK2, ARTWORK3],
@@ -34,15 +34,11 @@ describe('Given "List" component', () => {
             });
         });
         test(`Then component should be render the loading`, () => {
-            const elementTitle = screen.getByRole('heading', {
-                name: 'Artwork List',
-            });
             const addBtn = screen.getByRole('button', {
-                name: 'ADD ARTWORK',
+                name: 'plus',
             });
             userEvent.click(addBtn);
             expect(handleAdd).toHaveBeenCalled();
-            expect(elementTitle).toBeInTheDocument();
             expect(addBtn).toBeInTheDocument();
         });
         test(`Then component should be render the item`, () => {
