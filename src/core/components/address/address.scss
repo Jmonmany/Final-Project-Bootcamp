@@ -5,16 +5,7 @@
     @include unstyledList();
     img {
         height: 2rem;
+        width: 2rem;
         margin: 0.25rem;
     }
 }
-// @media (max-width: 650px) {
-//     .address-list {
-//         @include unstyledList();
-//         position: absolute;
-//         img {
-//             height: 2rem;
-//             margin: 0.25rem;
-//         }
-//     }
-// }

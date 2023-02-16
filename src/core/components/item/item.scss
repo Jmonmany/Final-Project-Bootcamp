@@ -6,7 +6,8 @@
     display: flex;
     min-width: 400px;
     &__artwork {
-        max-width: 400px;
+        width: 400px;
+        height: 500px;
     }
     div {
         margin-block: 0.5rem;
