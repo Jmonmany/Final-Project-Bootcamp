@@ -40,6 +40,8 @@ describe(`Given useUsers (custom hook)
             },
         });
         const userCredentialsMock = loginWithGoogle();
+        spyConsole = jest.spyOn(debug, 'consoleDebug');
+        
         TestComponent = () => {
             const {
                 getAdmin,
@@ -90,7 +92,6 @@ describe(`Given useUsers (custom hook)
             render(<TestComponent />);
         });
         buttons = screen.getAllByRole('button');
-        spyConsole = jest.spyOn(debug, 'consoleDebug');
     });
     describe(`When the repo is working OK`, () => {
         beforeEach(mockValidRepoResponse);

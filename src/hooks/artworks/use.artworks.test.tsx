@@ -96,6 +96,14 @@ describe(`Given useArtworkss (custom hook)
     });
     describe(`When the repo is working OK`, () => {
         beforeEach(mockValidRepoResponse);
+        test('Then its function handleAdd should be used', async () => {
+            userEvent.click(buttons[0]);
+            userEvent.click(buttons[1]);
+            expect(ArtworksRepo.prototype.create).toHaveBeenCalled();
+            expect(
+                await screen.findByText(mockAddArtwork.title)
+            ).toBeInTheDocument();
+        });
 
         test('Then its function handleLoad should be add places to the state', async () => {
             expect(await screen.findByText(/loading/i)).toBeInTheDocument();
@@ -109,14 +117,6 @@ describe(`Given useArtworkss (custom hook)
             ).toBeInTheDocument();
         });
 
-        test('Then its function handleAdd should be used', async () => {
-            userEvent.click(buttons[0]);
-            userEvent.click(buttons[1]);
-            expect(ArtworksRepo.prototype.create).toHaveBeenCalled();
-            expect(
-                await screen.findByText(mockAddArtwork.title)
-            ).toBeInTheDocument();
-        });
 
         test('Then its function handleUpdate should be used', async () => {
             userEvent.click(buttons[0]);

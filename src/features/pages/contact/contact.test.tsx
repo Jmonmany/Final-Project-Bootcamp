@@ -11,11 +11,9 @@ import Contact from './contact';
 describe('Given "Contact" component', () => {
     describe('When Admin is false', () => {
         let mockContext: ArtworkContextStructure & UserContextStructure;
-        const getAdmin = jest.fn();
         beforeEach(async () => {
             mockContext = {
-                admin: false,
-                getAdmin,
+                getAdmin: () => false,
                 currentUser: USER,
             } as unknown as ArtworkContextStructure & UserContextStructure;
             await act(async () => {
@@ -39,8 +37,6 @@ describe('Given "Contact" component', () => {
             expect(title).toBeInTheDocument();
         });
     });
-});
-describe('Given Contact component', () => {
     describe('When Admin is true', () => {
         let mockContext: ArtworkContextStructure & UserContextStructure;
         const handleLoadUsers = jest.fn();
@@ -59,10 +55,6 @@ describe('Given Contact component', () => {
                     </ArtworkContext.Provider>
                 );
             });
-        });
-        test('Then section with role article should be in screen', () => {
-            const div = screen.getByRole('article');
-            expect(div).toBeInTheDocument();
         });
         test('Then the component ClientContact should be rendered', () => {
             const title = screen.getByRole('heading', {

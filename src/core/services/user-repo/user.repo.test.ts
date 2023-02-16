@@ -15,13 +15,13 @@ describe('Given a User Repo', () => {
         expect(repo).toBeInstanceOf(UsersRepo);
     });
 
-    describe('When we use load method', () => {
-        test('Then we received the Users content in the repo', async () => {
+    describe('When we use Users load method', () => {
+        test('Then we received the Users content', async () => {
             const data = await repo.load();
             expect(global.fetch).toHaveBeenCalled();
             expect(data).toEqual(mockData);
         });
-        test('Then if there is NO DATA, we received a rejected promise', async () => {
+        test('If there is NO DATA, we received a rejected promise', async () => {
             global.fetch = jest.fn().mockResolvedValue({
                 ok: false,
             });

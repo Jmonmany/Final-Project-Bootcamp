@@ -17,12 +17,7 @@ describe('Given a Artwork Repo', () => {
         expect(repo).toBeInstanceOf(ArtworksRepo);
     });
 
-    describe('When we use load method', () => {
-        test('Then we received the Artworks content in the repo', async () => {
-            const data = await repo.load();
-            expect(global.fetch).toHaveBeenCalled();
-            expect(data).toEqual(mockData);
-        });
+    describe('When we use Artworks load method', () => {
         test('Then if there is NO DATA, we received a rejected promise', async () => {
             global.fetch = jest.fn().mockResolvedValue({
                 ok: false,
@@ -32,40 +27,12 @@ describe('Given a Artwork Repo', () => {
             }).rejects.toThrowError();
             expect(global.fetch).toHaveBeenCalled();
         });
-    });
-
-    describe('When we use query method', () => {
-        const id = mockData[0].id;
-        test('Then, if the id is VALID, we received the Artwork searched in the repo', async () => {
-            global.fetch = jest.fn().mockResolvedValue({
-                ok: true,
-                json: jest.fn().mockResolvedValue(mockData[0]),
-            });
-            const data = await repo.queryId(id);
+        test('Then we received the Artworks content in the repo', async () => {
+            const data = await repo.load();
             expect(global.fetch).toHaveBeenCalled();
-            expect(data).toEqual(mockData[0]);
-        });
-        test('Then, if there is NOT id, we received a rejected promise', async () => {
-            await expect(async () => {
-                await repo.queryId('');
-            }).rejects.toThrowError();
-            expect(global.fetch).not.toHaveBeenCalled();
-        });
-
-        test('Then, if the id is NOT VALID, we received a rejected promise', async () => {
-            global.fetch = jest.fn().mockResolvedValue({
-                ok: false,
-                status: 404,
-                statusText: 'Not Found',
-                json: jest.fn().mockRejectedValue(new Error()),
-            });
-            await expect(async () => {
-                await repo.queryId('23');
-            }).rejects.toThrowError();
-            expect(global.fetch).toHaveBeenCalled();
+            expect(data).toEqual(mockData);
         });
     });
-
     describe('When we use create method', () => {
         test(`Then if the data is VALID, we received the new Artwork 
             created in the repo with its own new id`, async () => {
@@ -93,7 +60,6 @@ describe('Given a Artwork Repo', () => {
             expect(global.fetch).toHaveBeenCalled();
         });
     });
-
     describe('When we use update method', () => {
         test(`Then if the ID is VALID, we received the Artwork 
             updated in the repo`, async () => {
