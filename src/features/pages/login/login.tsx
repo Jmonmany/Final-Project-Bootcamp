@@ -63,7 +63,7 @@ export default function Login() {
                             required
                         />
                         <input
-                            type="text"
+                            type="password"
                             name="password"
                             id="password"
                             placeholder="Password"

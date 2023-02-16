@@ -43,19 +43,14 @@ describe('Given "Login" component', () => {
 
     describe('When data is provided', () => {
         const mockEmail = 'Test email';
-        const mockPassword = '12345';
-        let inputElementsTxt: Array<HTMLElement>;
-
+        let inputElementTxt: HTMLElement;
         beforeEach(() => {
-            inputElementsTxt = screen.getAllByRole('textbox');
+            inputElementTxt = screen.getByRole('textbox');
         });
         test('Then form could be used for type content', () => {
-            expect(inputElementsTxt[0]).toBeInTheDocument();
-            expect(inputElementsTxt[1]).toBeInTheDocument();
-            userEvent.type(inputElementsTxt[0], mockEmail);
-            userEvent.type(inputElementsTxt[1], mockPassword);
-            expect(inputElementsTxt[0]).toHaveValue(mockEmail);
-            expect(inputElementsTxt[1]).toHaveValue(mockPassword);
+            expect(inputElementTxt).toBeInTheDocument();
+            userEvent.type(inputElementTxt, mockEmail);
+            expect(inputElementTxt).toHaveValue(mockEmail);
         });
         test('Then buttons should be in the screen', async () => {
             (login as jest.Mock).mockResolvedValue({

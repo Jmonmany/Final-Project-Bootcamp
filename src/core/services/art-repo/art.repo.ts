@@ -17,15 +17,6 @@ export class ArtworksRepo implements Repository<ArtworksClass> {
         }));
         return realResult.filter((item: ArtworksClass) => item.url !== undefined);
     }
-    async queryId(id: string): Promise<ArtworksClass> {
-        if (!id || typeof id !== 'string')
-            return Promise.reject(invalidIdError);
-        const resp = await fetch(this.url + id);
-        if (!resp.ok)
-            throw new Error(`Error ${resp.status}: ${resp.statusText}`);
-        return await resp.json();
-    }
-
     async create(payload: Partial<ArtworksClass>): Promise<ArtworksClass> {
         const resp = await fetch(this.url + firebaseCORS, {
             method: 'POST',
