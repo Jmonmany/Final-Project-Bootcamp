@@ -43,7 +43,6 @@ Administrator part:
 -   Display of contact cards written by users:
     -   Card management
 
-Translated with www.DeepL.com/Translator (free version)
 
 ### Links
 
