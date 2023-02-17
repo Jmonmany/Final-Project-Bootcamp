@@ -1,7 +1,7 @@
 import { SyntheticEvent, useContext, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { ArtworksClass } from '../../../features/models/artwork.model';
+import { Artwork } from '../../../features/models/artwork.model';
 import { ArtworkContext } from '../../context/artworks.context';
 import './item.scss';
 
@@ -11,7 +11,7 @@ export function Item({
     dragEnter,
     dragEnd,
 }: {
-    item: ArtworksClass;
+    item: Artwork;
     dragStart: (e: SyntheticEvent) => void;
     dragEnter: (e: SyntheticEvent) => void;
     dragEnd: (e: SyntheticEvent) => void;
@@ -48,48 +48,46 @@ export function Item({
     };
 
     return (
-        <>
-            <li
-                className="item"
-                draggable
-                onDragStart={dragStart}
-                onDragEnter={dragEnter}
-                onDragEnd={dragEnd}
-            >
-                <img
-                    src={item.url}
-                    alt={item.title}
-                    className="item__artwork"
-                    onClick={handleClickDetails}
-                />
-                {getAdmin() ? (
-                    <div>
-                        <button onClick={handleFileButton}>
-                            <img
-                                src={require('../../../assets/Replace.png')}
-                                alt="replace"
-                            />
-                        </button>
-                        <input
-                            type="file"
-                            name=""
-                            data-testid="getFile"
-                            ref={inputRef}
-                            id="getFile"
-                            onChange={handleClickFile}
+        <li
+            className="item"
+            draggable
+            onDragStart={dragStart}
+            onDragEnter={dragEnter}
+            onDragEnd={dragEnd}
+        >
+            <img
+                src={item.url}
+                alt={item.title}
+                className="item__artwork"
+                onClick={handleClickDetails}
+            />
+            {getAdmin() ? (
+                <div>
+                    <button onClick={handleFileButton}>
+                        <img
+                            src={require('../../../assets/Replace.png')}
+                            alt="replace"
                         />
-                        <button onClick={handleClickDelete}>
-                            <img
-                                className="item__delete"
-                                src={require('../../../assets/Trash.png')}
-                                alt="delete"
-                            />
-                        </button>
-                    </div>
-                ) : (
-                    ''
-                )}
-            </li>
-        </>
+                    </button>
+                    <input
+                        type="file"
+                        name=""
+                        data-testid="getFile"
+                        ref={inputRef}
+                        id="getFile"
+                        onChange={handleClickFile}
+                    />
+                    <button onClick={handleClickDelete}>
+                        <img
+                            className="item__delete"
+                            src={require('../../../assets/Trash.png')}
+                            alt="delete"
+                        />
+                    </button>
+                </div>
+            ) : (
+                ''
+            )}
+        </li>
     );
 }

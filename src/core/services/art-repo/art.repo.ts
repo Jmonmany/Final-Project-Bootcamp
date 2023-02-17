@@ -1,12 +1,12 @@
 import { Repository } from '../../types/repo';
-import { ArtworksClass } from '../../../features/models/artwork.model';
+import { Artwork } from '../../../features/models/artwork.model';
 const invalidIdError = new Error('Invalid ID');
 const firebaseCORS = '.json';
-export class ArtworksRepo implements Repository<ArtworksClass> {
+export class ArtworksRepo implements Repository<Artwork> {
     constructor(
         private url = 'https://marina-labella-web-default-rtdb.europe-west1.firebasedatabase.app/artworks/'
     ) {}
-    async load(): Promise<ArtworksClass[]> {
+    async load(): Promise<Artwork[]> {
         const resp = await fetch(this.url + firebaseCORS);
         if (!resp.ok)
             throw new Error(`Error ${resp.status}: ${resp.statusText}`);
@@ -15,9 +15,9 @@ export class ArtworksRepo implements Repository<ArtworksClass> {
             ...result[key],
             id: key,
         }));
-        return realResult.filter((item: ArtworksClass) => item.url !== undefined);
+        return realResult.filter((item: Artwork) => item.url !== undefined);
     }
-    async create(payload: Partial<ArtworksClass>): Promise<ArtworksClass> {
+    async create(payload: Partial<Artwork>): Promise<Artwork> {
         const resp = await fetch(this.url + firebaseCORS, {
             method: 'POST',
             body: JSON.stringify(payload),
@@ -29,7 +29,7 @@ export class ArtworksRepo implements Repository<ArtworksClass> {
             throw new Error(`Error ${resp.status}: ${resp.statusText}`);
         return await resp.json();
     }
-    async update(payload: Partial<ArtworksClass>): Promise<ArtworksClass> {
+    async update(payload: Partial<Artwork>): Promise<Artwork> {
         if (!payload.id) return Promise.reject(invalidIdError);
         const resp = await fetch(this.url + payload.id + firebaseCORS, {
             method: 'PATCH',
@@ -42,7 +42,7 @@ export class ArtworksRepo implements Repository<ArtworksClass> {
             throw new Error(`Error ${resp.status}: ${resp.statusText}`);
         return await resp.json();
     }
-    async delete(id: ArtworksClass['id']): Promise<ArtworksClass['id']> {
+    async delete(id: Artwork['id']): Promise<Artwork['id']> {
         if (!id) return Promise.reject(invalidIdError);
         const resp = await fetch(this.url + id + firebaseCORS, {
             method: 'DELETE',

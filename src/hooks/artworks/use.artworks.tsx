@@ -10,30 +10,30 @@ import { ArtworksRepo } from '../../core/services/art-repo/art.repo';
 import { artworksReducer } from '../../reducers/artworks/artworks.reducer';
 import * as ac from '../../reducers/artworks/artworks.action.creator';
 import { consoleDebug } from '../../tools/debug';
-import { ArtworksClass } from '../../features/models/artwork.model';
+import { Artwork } from '../../features/models/artwork.model';
 import { storage } from '../../config';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { detailedArtworkReducer } from '../../reducers/artworks/detailed.reducer';
 
 export type useArtworksType = {
-    artworkDetailed: ArtworksClass | object;
-    handleDetailed: (artwork: ArtworksClass) => void;
-    reShuffleArtworks: (list: Array<ArtworksClass>) => void;
+    artworkDetailed: Artwork | object;
+    handleDetailed: (artwork: Artwork) => void;
+    reShuffleArtworks: (list: Array<Artwork>) => void;
     handleFile: (ev: any, id: string) => void;
     getStatus: () => Status;
-    getArtworks: () => Array<ArtworksClass>;
+    getArtworks: () => Array<Artwork>;
     handleLoad: () => Promise<void>;
-    handleAdd: (artworks: ArtworksClass) => Promise<void>;
-    handleUpdate: (artworksPayload: Partial<ArtworksClass>) => Promise<void>;
-    handleDelete: (id: ArtworksClass['id']) => Promise<void>;
+    handleAdd: (artworks: Artwork) => Promise<void>;
+    handleUpdate: (artworksPayload: Partial<Artwork>) => Promise<void>;
+    handleDelete: (id: Artwork['id']) => Promise<void>;
 };
 
 type Status = 'Starting' | 'Loading' | 'Loaded';
 
 export function useArtworks(): useArtworksType {
     const repo = useMemo(() => new ArtworksRepo(), []);
-    const initialDetailed: ArtworksClass | object = {};
-    const initialState: Array<ArtworksClass> = [];
+    const initialDetailed: Artwork | object = {};
+    const initialState: Array<Artwork> = [];
     const initialStatus = 'Starting' as Status;
     const [artworks, artworksDispatcher] = useReducer(
         artworksReducer,
@@ -57,16 +57,16 @@ export function useArtworks(): useArtworksType {
         const artworkRef = ref(storage, input.name);
         await uploadBytes(artworkRef, input);
         const url = await getDownloadURL(artworkRef);
-        const artworkData = new ArtworksClass(input.name, url);
+        const artworkData = new Artwork(input.name, url);
         artworkData.id = id;
         handleUpdate(artworkData);
     };
 
-    const reShuffleArtworks = (list: Array<ArtworksClass>) => {
+    const reShuffleArtworks = (list: Array<Artwork>) => {
         artworksDispatcher(ac.artworksReShuffleCreator(list));
     };
 
-    const handleDetailed = (artwork: ArtworksClass) => {
+    const handleDetailed = (artwork: Artwork) => {
         detailDispatcher(ac.artworksDetailedCreator(artwork));
     };
 
@@ -81,7 +81,7 @@ export function useArtworks(): useArtworksType {
         }
     }, [repo]);
 
-    const handleAdd = async function (artworks: ArtworksClass) {
+    const handleAdd = async function (artworks: Artwork) {
         try {
             const fullArtworks = await repo.create(artworks);
             artworksDispatcher(ac.artworksAddCreator(fullArtworks));
@@ -91,7 +91,7 @@ export function useArtworks(): useArtworksType {
     };
 
     const handleUpdate = async function (
-        artworksPayload: Partial<ArtworksClass>
+        artworksPayload: Partial<Artwork>
     ) {
         try {
             const fullArtworks = await repo.update(artworksPayload);
@@ -101,7 +101,7 @@ export function useArtworks(): useArtworksType {
         }
     };
 
-    const handleDelete = async function (id: ArtworksClass['id']) {
+    const handleDelete = async function (id: Artwork['id']) {
         try {
             const finalId = await repo.delete(id);
             artworksDispatcher(ac.artworksDeleteCreator(finalId));

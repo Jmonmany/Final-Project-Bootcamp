@@ -12,7 +12,7 @@ import {
 
 import { UsersRepo } from '../../core/services/user-repo/user.repo';
 import * as users from './use.users';
-import { UsersClass } from '../../features/models/user.model';
+import { User } from '../../features/models/user.model';
 import * as debug from '../../tools/debug';
 import { loginWithGoogle } from '../../config';
 jest.mock('@firebase/database');
@@ -79,7 +79,7 @@ describe(`Given useUsers (custom hook)
                         <div>
                             <p>Loaded</p>
                             <ul>
-                                {getUsers().map((User: UsersClass) => (
+                                {getUsers().map((User: User) => (
                                     <li key={User.uid}>{User.name}</li>
                                 ))}
                             </ul>

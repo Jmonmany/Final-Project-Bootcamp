@@ -1,13 +1,13 @@
-import { UsersClass } from '../../features/models/user.model';
+import { User } from '../../features/models/user.model';
 import { usersAction } from './users.action.creator';
 import { userActionTypes } from './users.action.types';
 export function currentUserReducer(
-    state: UsersClass | object,
+    state: User | object,
     action: usersAction
-): UsersClass | object {
+): User | object {
     switch (action.type) {
         case userActionTypes.setCurrent:
-            return action.payload as UsersClass;
+            return action.payload as User;
         default:
             return state;
     }

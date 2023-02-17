@@ -1,33 +1,33 @@
-import { UsersClass } from '../../features/models/user.model';
+import { User } from '../../features/models/user.model';
 import { userActionTypes } from '../users/users.action.types';
 
 export type usersAction = {
     type: string;
-    payload: Array<UsersClass> | UsersClass | UsersClass['uid'];
+    payload: Array<User> | User | User['uid'];
 };
 
-export const usersLoadCreator = (payload: Array<UsersClass>): usersAction => ({
+export const usersLoadCreator = (payload: Array<User>): usersAction => ({
     type: userActionTypes.load,
     payload,
 });
 
-export const usersAddCreator = (payload: UsersClass): usersAction => ({
+export const usersAddCreator = (payload: User): usersAction => ({
     type: userActionTypes.add,
     payload,
 });
 
-export const usersUpdateCreator = (payload: UsersClass): usersAction => ({
+export const usersUpdateCreator = (payload: User): usersAction => ({
     type: userActionTypes.update,
     payload,
 });
 
-export const setCurrentUser = (payload: UsersClass): usersAction => ({
+export const setCurrentUser = (payload: User): usersAction => ({
     type: userActionTypes.setCurrent,
     payload,
 });
 
 export const usersDeleteCreator = (
-    payload: UsersClass['uid']
+    payload: User['uid']
 ): usersAction => ({
     type: userActionTypes.delete,
     payload,

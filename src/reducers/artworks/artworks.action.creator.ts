@@ -1,48 +1,48 @@
-import { ArtworksClass } from '../../features/models/artwork.model';
+import { Artwork } from '../../features/models/artwork.model';
 import { artworkActionTypes } from '../../reducers/artworks/artworks.action.types';
 
 export type artworksAction = {
     type: string;
-    payload: Array<ArtworksClass> | ArtworksClass | ArtworksClass['id'];
+    payload: Array<Artwork> | Artwork | Artwork['id'];
 };
 
 export const artworksLoadCreator = (
-    payload: Array<ArtworksClass>
+    payload: Array<Artwork>
 ): artworksAction => ({
     type: artworkActionTypes.load,
     payload,
 });
 
 export const artworksAddCreator = (
-    payload: ArtworksClass
+    payload: Artwork
 ): artworksAction => ({
     type: artworkActionTypes.add,
     payload,
 });
 
 export const artworksUpdateCreator = (
-    payload: ArtworksClass
+    payload: Artwork
 ): artworksAction => ({
     type: artworkActionTypes.update,
     payload,
 });
 
 export const artworksDeleteCreator = (
-    payload: ArtworksClass['id']
+    payload: Artwork['id']
 ): artworksAction => ({
     type: artworkActionTypes.delete,
     payload,
 });
 
 export const artworksReShuffleCreator = (
-    payload: Array<ArtworksClass>
+    payload: Array<Artwork>
 ): artworksAction => ({
     type: artworkActionTypes.reshuffle,
     payload,
 });
 
 export const artworksDetailedCreator = (
-    payload: ArtworksClass
+    payload: Artwork
 ): artworksAction => ({
     type: artworkActionTypes.detailed,
     payload,

@@ -1,4 +1,4 @@
-import { UsersClass } from '../../features/models/user.model';
+import { User } from '../../features/models/user.model';
 import { usersAction } from './users.action.creator';
 import * as ac from './users.action.creator';
 import { usersReducer } from './users.reducer';
@@ -10,7 +10,7 @@ import {
 } from '../../hooks/users/testing.mock';
 
 describe('Given the reducer', () => {
-    let state: Array<UsersClass>;
+    let state: Array<User>;
     let action: usersAction;
 
     describe('When the action type is "users@load"', () => {

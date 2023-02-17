@@ -1,5 +1,5 @@
-import { ArtworkType } from '../../core/types/artwork';
-export class ArtworksClass implements ArtworkType {
+import { Artworks } from '../../core/types/artwork';
+export class Artwork implements Artworks {
     id: string;
     description: string;
     linkTag: string;

@@ -1,5 +1,5 @@
 import { USER, USER2 } from '../../../features/data/usermock';
-import { UsersClass } from '../../../features/models/user.model';
+import { User } from '../../../features/models/user.model';
 import { UsersRepo } from './user.repo';
 describe('Given a User Repo', () => {
     const mockData = [USER, USER2];
@@ -34,7 +34,7 @@ describe('Given a User Repo', () => {
     describe('When we use create method', () => {
         test(`Then if the data is VALID, we received the new User 
             created in the repo with its own new id`, async () => {
-            const mockNewTaskPayload: Partial<UsersClass> = {
+            const mockNewTaskPayload: Partial<User> = {
                 name: 'New User',
                 email: 'Test email',
             };
@@ -61,7 +61,7 @@ describe('Given a User Repo', () => {
     describe('When we use update method', () => {
         test(`Then if the ID is VALID, we received the USER 
             updated in the repo`, async () => {
-            const updatePayload: Partial<UsersClass> = {
+            const updatePayload: Partial<User> = {
                 uid: mockData[0].uid,
                 name: 'Lisa',
             };
@@ -79,7 +79,7 @@ describe('Given a User Repo', () => {
             expect(global.fetch).not.toHaveBeenCalled();
         });
         test(`Then if the ID is NOT VALID, we received a null`, async () => {
-            const updatePayload: Partial<UsersClass> = {
+            const updatePayload: Partial<User> = {
                 uid: 'bad',
                 name: 'Lisa',
             };

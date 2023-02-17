@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, SyntheticEvent, useContext, useEffect } from 'react';
-import { UsersClass } from '../../../features/models/user.model';
+import { User } from '../../../features/models/user.model';
 import { ArtworkContext } from '../../context/artworks.context';
 import { useNavigate } from 'react-router-dom';
 import './artist.contact.scss';
@@ -15,7 +15,7 @@ export function ArtistContact() {
         }
     }, [navigate, currentUser]);
 
-    const initialFormData: Partial<UsersClass> = {
+    const initialFormData: Partial<User> = {
         message: {
             address: '',
             phone: '',
@@ -42,96 +42,94 @@ export function ArtistContact() {
             title: 'Thanks for submitting!',
             icon: 'success',
             timer: 1000,
-            showConfirmButton: false
+            showConfirmButton: false,
         });
     };
 
     return (
-        <>
-            <div className="artist-contact">
-                <h3>Let's talk</h3>
-                <p>
-                    For work inquiries, commissions or just to say hi, please
-                    contact me at:{' '}
-                    <span>
-                        <a href="mailto:marinaf.labella@gmail.com">
-                            marinaf.labella@gmail.com
-                        </a>
-                    </span>{' '}
-                    <br />
-                    <br />
-                    or just use the form and I will get back to you.
-                </p>
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <input
-                            type="text"
-                            name="name"
-                            id="name"
-                            placeholder="Name"
-                            value={(currentUser as UsersClass).name}
-                            onInput={handleInput}
-                            required
-                        />
-                        <input
-                            type="text"
-                            name="email"
-                            id="email"
-                            placeholder="Email"
-                            value={(currentUser as UsersClass).email}
-                            onInput={handleInput}
-                            required
-                        />
-                    </div>
-                    <div>
-                        <input
-                            type="text"
-                            name="phone"
-                            id="phone"
-                            placeholder="Phone"
-                            value={formData.message?.phone}
-                            onInput={handleInput}
-                            required
-                        />
-                        <input
-                            type="text"
-                            name="address"
-                            id="address"
-                            placeholder="Address"
-                            value={formData.message?.address}
-                            onInput={handleInput}
-                            required
-                        />
-                    </div>
-                    <div>
-                        <input
-                            className="subject"
-                            type="text"
-                            name="subject"
-                            id="subject"
-                            placeholder="Subject"
-                            value={formData.message?.subject}
-                            onInput={handleInput}
-                            required
-                        />
-                    </div>
-                    <div>
-                        <input
-                            className="description"
-                            type="text"
-                            name="description"
-                            id="description"
-                            placeholder="Type your message here..."
-                            value={formData.message?.description}
-                            onInput={handleInput}
-                            required
-                        />
-                    </div>
-                    <div className="div__btn">
-                        <button type="submit">Submit</button>
-                    </div>
-                </form>
-            </div>
-        </>
+        <div className="artist-contact">
+            <h3>Let's talk</h3>
+            <p>
+                For work inquiries, commissions or just to say hi, please
+                contact me at:{' '}
+                <span>
+                    <a href="mailto:marinaf.labella@gmail.com">
+                        marinaf.labella@gmail.com
+                    </a>
+                </span>{' '}
+                <br />
+                <br />
+                or just use the form and I will get back to you.
+            </p>
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <input
+                        type="text"
+                        name="name"
+                        id="name"
+                        placeholder="Name"
+                        value={(currentUser as User).name}
+                        onInput={handleInput}
+                        required
+                    />
+                    <input
+                        type="text"
+                        name="email"
+                        id="email"
+                        placeholder="Email"
+                        value={(currentUser as User).email}
+                        onInput={handleInput}
+                        required
+                    />
+                </div>
+                <div>
+                    <input
+                        type="text"
+                        name="phone"
+                        id="phone"
+                        placeholder="Phone"
+                        value={formData.message?.phone}
+                        onInput={handleInput}
+                        required
+                    />
+                    <input
+                        type="text"
+                        name="address"
+                        id="address"
+                        placeholder="Address"
+                        value={formData.message?.address}
+                        onInput={handleInput}
+                        required
+                    />
+                </div>
+                <div>
+                    <input
+                        className="subject"
+                        type="text"
+                        name="subject"
+                        id="subject"
+                        placeholder="Subject"
+                        value={formData.message?.subject}
+                        onInput={handleInput}
+                        required
+                    />
+                </div>
+                <div>
+                    <input
+                        className="description"
+                        type="text"
+                        name="description"
+                        id="description"
+                        placeholder="Type your message here..."
+                        value={formData.message?.description}
+                        onInput={handleInput}
+                        required
+                    />
+                </div>
+                <div className="div__btn">
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
     );
 }

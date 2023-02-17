@@ -1,11 +1,11 @@
-import { ArtworksClass } from "../../features/models/artwork.model";
+import { Artwork } from "../../features/models/artwork.model";
 import { mockArtwork1 } from "../../hooks/artworks/testing.mock";
 import * as ac from './artworks.action.creator';
 import { artworksAction } from "./artworks.action.creator";
 import { detailedArtworkReducer } from "./detailed.reducer";
 
 describe('Given the reducer', () => {
-    let state: ArtworksClass | object;
+    let state: Artwork | object;
     let action: artworksAction;
     describe('When the action type is "users@setCurrent"', () => {
         test('Then it should return the state with the data added', () => {
