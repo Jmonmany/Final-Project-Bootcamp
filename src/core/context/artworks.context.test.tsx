@@ -3,15 +3,15 @@ import { useContext } from 'react';
 import { loginWithGoogle } from '../../config';
 import { ARTWORK, ARTWORK2 } from '../../features/data/artmock';
 import { USER, USER2 } from '../../features/data/usermock';
-import { ArtworksClass } from '../../features/models/artwork.model';
-import { UsersClass } from '../../features/models/user.model';
+import { Artwork } from '../../features/models/artwork.model';
+import { User } from '../../features/models/user.model';
 import { initialContext, ArtworkContext } from './artworks.context';
 jest.mock('@firebase/database');
 jest.mock('../../config');
-const mockArtwork: ArtworksClass = ARTWORK;
-const mockUser: UsersClass = USER;
-const mockDetailedArtwork: ArtworksClass = ARTWORK2;
-const mockCurrentUser: UsersClass = USER2;
+const mockArtwork: Artwork = ARTWORK;
+const mockUser: User = USER;
+const mockDetailedArtwork: Artwork = ARTWORK2;
+const mockCurrentUser: User = USER2;
 initialContext.artworks = [mockArtwork];
 initialContext.users = [mockUser];
 initialContext.artworkDetailed = mockDetailedArtwork;
@@ -85,8 +85,8 @@ describe('Given the context AppContext', () => {
                         <ul>
                             <li>{artworks[0].title}</li>
                             <li>{users[0].name}</li>
-                            <li>{(currentUser as UsersClass).name}</li>
-                            <li>{(artworkDetailed as ArtworksClass).title}</li>
+                            <li>{(currentUser as User).name}</li>
+                            <li>{(artworkDetailed as Artwork).title}</li>
                         </ul>
                     </>
                 );
@@ -103,10 +103,10 @@ describe('Given the context AppContext', () => {
             );
             const elementUser = screen.getByText(initialContext.users[0].name);
             const elementDetailedArt = screen.getByText(
-                (initialContext.artworkDetailed as ArtworksClass).title
+                (initialContext.artworkDetailed as Artwork).title
             );
             const elementCurrentUser = screen.getByText(
-                (initialContext.currentUser as UsersClass).name
+                (initialContext.currentUser as User).name
             );
             expect(elementArt).toBeInTheDocument();
             expect(elementUser).toBeInTheDocument();

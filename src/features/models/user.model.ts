@@ -1,6 +1,6 @@
-import { UserType } from '../../core/types/users';
+import { Users } from '../../core/types/users';
 
-export class UsersClass implements UserType {
+export class User implements Users {
     message: {
         phone?: string;
         address?: string;

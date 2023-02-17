@@ -47,6 +47,6 @@ Translated with www.DeepL.com/Translator (free version)
 
 ### Links
 
-#### Deploy : https://teachers-marketplace.netlify.app/
+#### Deploy : https://jmonmany-bootcamp-final-project.netlify.app/
 
 #### Sonarcloud : https://sonarcloud.io/summary/overall?id=Jmonmany_Final-Project-Bootcamp

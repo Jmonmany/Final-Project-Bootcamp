@@ -3,14 +3,14 @@ import {
     mockArtwork2,
     mockArtworks,
 } from '../../hooks/artworks/testing.mock';
-import { ArtworksClass } from '../../features/models/artwork.model';
+import { Artwork } from '../../features/models/artwork.model';
 import { artworksAction } from './artworks.action.creator';
 import * as ac from './artworks.action.creator';
 import { artworksReducer } from './artworks.reducer';
 import { ARTWORK } from '../../features/data/artmock';
 
 describe('Given the reducer', () => {
-    let state: Array<ArtworksClass>;
+    let state: Array<Artwork>;
     let action: artworksAction;
 
     describe('When the action type is "artworks@load"', () => {

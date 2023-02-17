@@ -1,7 +1,7 @@
 import { set, ref } from 'firebase/database';
 import { SyntheticEvent, useContext, useEffect, useRef } from 'react';
 import { db } from '../../../config';
-import { ArtworksClass } from '../../../features/models/artwork.model';
+import { Artwork } from '../../../features/models/artwork.model';
 import { ArtworkContext } from '../../context/artworks.context';
 import { Item } from '../item/item';
 import './list.scss';
@@ -12,7 +12,7 @@ export function List() {
         handleLoad();
     }, [handleLoad]);
     const handleAddSpace = () => {
-        const newSpace = new ArtworksClass(
+        const newSpace = new Artwork(
             'untitled',
             'https://firebasestorage.googleapis.com/v0/b/marina-labella-web.appspot.com/o/No%20image.jpg?alt=media&token=c879166a-b9c3-49c3-8f78-1554abf2d817'
         );
@@ -46,38 +46,33 @@ export function List() {
         reShuffleArtworks(copyListItems);
     };
     return (
-        <>
-            <section className="list">
-                {getAdmin() ? (
-                    <button onClick={handleAddSpace}>
-                        <img
-                            src={require('../../../assets/Plus.png')}
-                            alt="plus"
-                        />
-                    </button>
-                ) : (
-                    ''
-                )}
-                <div className="row">
-                    <ul className="artworks-list list-unstyled">
-                        {artworks.map((item: ArtworksClass, index) => {
-                            return (
-                                <Item
-                                    key={index}
-                                    item={item}
-                                    dragStart={(e: SyntheticEvent) =>
-                                        dragStart(e, index)
-                                    }
-                                    dragEnter={(e: SyntheticEvent) =>
-                                        dragEnter(e, index)
-                                    }
-                                    dragEnd={drop}
-                                ></Item>
-                            );
-                        })}
-                    </ul>
-                </div>
-            </section>
-        </>
+        <section className="list">
+            {getAdmin() ? (
+                <button onClick={handleAddSpace}>
+                    <img src={require('../../../assets/Plus.png')} alt="plus" />
+                </button>
+            ) : (
+                ''
+            )}
+            <div className="row">
+                <ul className="artworks-list list-unstyled">
+                    {artworks.map((item: Artwork, index) => {
+                        return (
+                            <Item
+                                key={index}
+                                item={item}
+                                dragStart={(e: SyntheticEvent) =>
+                                    dragStart(e, index)
+                                }
+                                dragEnter={(e: SyntheticEvent) =>
+                                    dragEnter(e, index)
+                                }
+                                dragEnd={drop}
+                            ></Item>
+                        );
+                    })}
+                </ul>
+            </div>
+        </section>
     );
 }

@@ -1,5 +1,5 @@
 import { ARTWORK, ARTWORK2 } from '../../../features/data/artmock';
-import { ArtworksClass } from '../../../features/models/artwork.model';
+import { Artwork } from '../../../features/models/artwork.model';
 import { ArtworksRepo } from './art.repo';
 describe('Given a Artwork Repo', () => {
     const mockData = [ARTWORK, ARTWORK2];
@@ -36,7 +36,7 @@ describe('Given a Artwork Repo', () => {
     describe('When we use create method', () => {
         test(`Then if the data is VALID, we received the new Artwork 
             created in the repo with its own new id`, async () => {
-            const mockNewTaskPayload: Partial<ArtworksClass> = {
+            const mockNewTaskPayload: Partial<Artwork> = {
                 title: 'New Artwork',
                 url: 'Test url',
             };
@@ -63,7 +63,7 @@ describe('Given a Artwork Repo', () => {
     describe('When we use update method', () => {
         test(`Then if the ID is VALID, we received the Artwork 
             updated in the repo`, async () => {
-            const updatePayload: Partial<ArtworksClass> = {
+            const updatePayload: Partial<Artwork> = {
                 id: mockData[0].id,
                 title: 'Lisa',
             };
@@ -81,7 +81,7 @@ describe('Given a Artwork Repo', () => {
             expect(global.fetch).not.toHaveBeenCalled();
         });
         test(`Then if the ID is NOT VALID, we received a null`, async () => {
-            const updatePayload: Partial<ArtworksClass> = {
+            const updatePayload: Partial<Artwork> = {
                 id: 'bad',
                 title: 'Lisa',
             };

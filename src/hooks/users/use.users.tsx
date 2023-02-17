@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useReducer, useState } from 'react';
 import { UsersRepo } from '../../core/services/user-repo/user.repo';
-import { UsersClass } from '../../features/models/user.model';
+import { User } from '../../features/models/user.model';
 import { usersReducer } from '../../reducers/users/users.reducer';
 import { consoleDebug } from '../../tools/debug';
 import * as ac from '../../reducers/users/users.action.creator';
@@ -12,23 +12,23 @@ import { ref, set } from '@firebase/database';
 export type useUsersType = {
     getAdmin: () => boolean;
     getStatus: () => Status;
-    getUsers: () => Array<UsersClass>;
-    getCurrentUser: () => UsersClass | object;
+    getUsers: () => Array<User>;
+    getCurrentUser: () => User | object;
     handleAdmin: (uid: string) => void;
-    handleCurrentUser: (user: UsersClass | object) => void;
+    handleCurrentUser: (user: User | object) => void;
     handleUser: (userCredentials: UserCredential) => void;
     handleLoadUsers: () => Promise<void>;
-    handleAddUser: (user: UsersClass) => Promise<void>;
-    handleUpdateUser: (userPayload: Partial<UsersClass>) => Promise<void>;
-    handleDeleteCard: (uid: UsersClass['uid']) => Promise<void>;
+    handleAddUser: (user: User) => Promise<void>;
+    handleUpdateUser: (userPayload: Partial<User>) => Promise<void>;
+    handleDeleteCard: (uid: User['uid']) => Promise<void>;
 };
 
 type Status = 'Starting' | 'Loading' | 'Loaded';
 
 export function useUsers(): useUsersType {
     const repo = useMemo(() => new UsersRepo(), []);
-    const initialState: Array<UsersClass> = [];
-    const initialUser: UsersClass | object = {};
+    const initialState: Array<User> = [];
+    const initialUser: User | object = {};
     const initialStatus = 'Starting' as Status;
     const [users, dispatchUsers] = useReducer(usersReducer, initialState);
     const [admin, setAdmin] = useState(false);
@@ -44,7 +44,7 @@ export function useUsers(): useUsersType {
     const getAdmin = () => admin;
     const handleUser = async function (userCredentials: UserCredential) {
         const user = userCredentials.user;
-        const fullUser = new UsersClass(
+        const fullUser = new User(
             user.displayName as string,
             user.email as string,
             await user.getIdToken(),
@@ -62,9 +62,9 @@ export function useUsers(): useUsersType {
             : setAdmin(false);
     };
 
-    const handleCurrentUser = (user: UsersClass | object) => {
-        dispatchCurrentUser(ac.setCurrentUser(user as UsersClass));
-        handleAdmin((user as UsersClass).uid);
+    const handleCurrentUser = (user: User | object) => {
+        dispatchCurrentUser(ac.setCurrentUser(user as User));
+        handleAdmin((user as User).uid);
     };
     const handleLoadUsers = useCallback(async () => {
         try {
@@ -77,7 +77,7 @@ export function useUsers(): useUsersType {
         }
     }, [repo]);
 
-    const handleAddUser = async function (user: UsersClass) {
+    const handleAddUser = async function (user: User) {
         try {
             const fullUsers = await repo.create(user);
             dispatchUsers(ac.usersAddCreator(fullUsers));
@@ -86,7 +86,7 @@ export function useUsers(): useUsersType {
         }
     };
 
-    const handleUpdateUser = async function (userPayload: Partial<UsersClass>) {
+    const handleUpdateUser = async function (userPayload: Partial<User>) {
         try {
             const fullUsers = await repo.update(userPayload);
             dispatchUsers(ac.usersUpdateCreator(fullUsers));
@@ -95,7 +95,7 @@ export function useUsers(): useUsersType {
         }
     };
 
-    const handleDeleteCard = async function (uid: UsersClass['uid']) {
+    const handleDeleteCard = async function (uid: User['uid']) {
         dispatchUsers(ac.usersDeleteCreator(uid));
     };
 

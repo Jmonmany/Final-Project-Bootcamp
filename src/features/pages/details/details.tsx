@@ -2,7 +2,7 @@ import { SyntheticEvent, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { ArtworkContext } from '../../../core/context/artworks.context';
-import { ArtworksClass } from '../../models/artwork.model';
+import { Artwork } from '../../models/artwork.model';
 import './details.scss';
 export default function Details() {
     const { artworkDetailed, getAdmin, handleUpdate } =
@@ -10,11 +10,11 @@ export default function Details() {
 
     const navigate = useNavigate();
 
-    const initialFormData: Partial<ArtworksClass> = {
-        title: (artworkDetailed as ArtworksClass).title,
-        description: (artworkDetailed as ArtworksClass).description,
-        linkTag: (artworkDetailed as ArtworksClass).linkTag,
-        link: (artworkDetailed as ArtworksClass).link,
+    const initialFormData: Partial<Artwork> = {
+        title: (artworkDetailed as Artwork).title,
+        description: (artworkDetailed as Artwork).description,
+        linkTag: (artworkDetailed as Artwork).linkTag,
+        link: (artworkDetailed as Artwork).link,
     };
 
     const [formData, setFormData] = useState(initialFormData);
@@ -41,8 +41,8 @@ export default function Details() {
             {getAdmin() ? (
                 <div className="details">
                     <img
-                        src={(artworkDetailed as ArtworksClass).url}
-                        alt={(artworkDetailed as ArtworksClass).title}
+                        src={(artworkDetailed as Artwork).url}
+                        alt={(artworkDetailed as Artwork).title}
                         className="item__artwork"
                     />
                     <form onSubmit={handleSubmit}>
@@ -90,18 +90,18 @@ export default function Details() {
             ) : (
                 <div className="details">
                     <img
-                        src={(artworkDetailed as ArtworksClass).url}
-                        alt={(artworkDetailed as ArtworksClass).title}
+                        src={(artworkDetailed as Artwork).url}
+                        alt={(artworkDetailed as Artwork).title}
                         className="item__artwork"
                     />
                     <section>
-                        <h3>{(artworkDetailed as ArtworksClass).title}</h3>
-                        <p>{(artworkDetailed as ArtworksClass).description}</p>
+                        <h3>{(artworkDetailed as Artwork).title}</h3>
+                        <p>{(artworkDetailed as Artwork).description}</p>
                         <label>
-                            {(artworkDetailed as ArtworksClass).linkTag}
+                            {(artworkDetailed as Artwork).linkTag}
                         </label>
-                        <a href={(artworkDetailed as ArtworksClass).link}>
-                            {(artworkDetailed as ArtworksClass).link}
+                        <a href={(artworkDetailed as Artwork).link}>
+                            {(artworkDetailed as Artwork).link}
                         </a>
                     </section>
                 </div>

@@ -1,11 +1,10 @@
-import { ArtworksClass } from "../../features/models/artwork.model";
+import { Artwork } from '../../features/models/artwork.model';
 
-export type ArtworkType = {
+export type Artworks = {
     title: string;
     url: string;
 };
 
-export type ArtworCollection = {
-    [key: string]: ArtworksClass;
+export type ArtworkCollection = {
+    [key: string]: Artwork;
 };
-

@@ -14,7 +14,7 @@ import {
 
 import { ArtworksRepo } from '../../core/services/art-repo/art.repo';
 import { useArtworks } from './use.artworks';
-import { ArtworksClass } from '../../features/models/artwork.model';
+import { Artwork } from '../../features/models/artwork.model';
 import * as debug from '../../tools/debug';
 
 jest.mock('firebase/storage');
@@ -79,7 +79,7 @@ describe(`Given useArtworkss (custom hook)
                         <div>
                             <p>Loaded</p>
                             <ul>
-                                {getArtworks().map((artwork: ArtworksClass) => (
+                                {getArtworks().map((artwork: Artwork) => (
                                     <li key={artwork.id}>{artwork.title}</li>
                                 ))}
                             </ul>
